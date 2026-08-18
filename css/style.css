@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+.first {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
