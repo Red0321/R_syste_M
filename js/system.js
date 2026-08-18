@@ -44,6 +44,32 @@ function generateCode() {
 
     binaryBackground.innerHTML = output;
 }
-generateCode();
+function generateCode() {
 
-window.addEventListener("resize", generateCode);
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const fontSize = 15;
+    const lineHeight = 18;
+
+    const columns = Math.ceil(width / (fontSize * 0.6));
+    const rows = Math.ceil(height / lineHeight);
+
+    let output = "";
+
+    for (let row = 0; row < rows; row++) {
+
+        for (let column = 0; column < columns; column++) {
+
+            const randomIndex = Math.floor(
+                Math.random() * characters.length
+            );
+
+            output += characters[randomIndex];
+        }
+
+        output += "\n";
+    }
+
+    binaryBackground.textContent = output;
+}

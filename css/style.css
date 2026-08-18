@@ -22,7 +22,6 @@
 
     user-select: none;
 
+    white-space: pre-wrap;
     word-break: break-all;
-
-    white-space: normal;
 }
