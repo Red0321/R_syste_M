@@ -1,8 +1,20 @@
 const binaryBackground = document.getElementById("binary-background");
 
-const characters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const characters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+const hiddenWords = [
+    "R_syste_M",
+    "FIRST",
+    "WORLD",
+    "WIND",
+    "DIVE",
+    "SOON",
+    "GAME",
+    "SPOT"
+];
 
 function generateCode() {
+
     const width = window.innerWidth;
     const height = window.innerHeight;
 
@@ -16,21 +28,22 @@ function generateCode() {
 
     for (let row = 0; row < rows; row++) {
 
+        let line = "";
+
         for (let column = 0; column < columns; column++) {
 
             const randomIndex = Math.floor(
                 Math.random() * characters.length
             );
 
-            output += characters[randomIndex];
+            line += characters[randomIndex];
         }
 
-        output += "<br>";
+        output += line + "<br>";
     }
 
     binaryBackground.innerHTML = output;
 }
-
 generateCode();
 
 window.addEventListener("resize", generateCode);
