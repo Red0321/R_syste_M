@@ -111,3 +111,6 @@ body {
 .first-text p {
     margin-bottom: 30px;
 }
+#binary-background {
+    color: red !important;
+}
