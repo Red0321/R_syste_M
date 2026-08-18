@@ -12,61 +12,73 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* ========================================
-   CODE BACKGROUND
-======================================== */
 
-.code-layer {
+/* BACKGROUND CODE */
+
+#binary-background {
     position: fixed;
+
     top: 0;
     left: 0;
 
     width: 100vw;
     height: 100vh;
 
-    overflow: hidden;
+    background: black;
+
+    color: #666666;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 15px;
+    line-height: 18px;
+
     white-space: pre;
+
+    overflow: hidden;
+
+    z-index: 0;
 
     pointer-events: none;
 }
 
-.code-back {
-    z-index: 0;
-    color: #242424;
-    font-family: "Courier New", monospace;
-    font-size: 12px;
-    line-height: 15px;
-}
 
-.code-middle {
-    z-index: 0;
-    color: #444444;
-    font-family: "Courier New", monospace;
-    font-size: 14px;
-    line-height: 17px;
-}
-
-.code-front {
-    z-index: 0;
-    color: #666666;
-    font-family: "Courier New", monospace;
-    font-size: 16px;
-    line-height: 19px;
-}
+/* MAIN CONTENT */
 
 .first-content {
     position: relative;
 
     z-index: 1;
+
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-top: 80px;
+
+    text-align: center;
 }
+
+
+/* R_syste_M */
 
 .system-title {
     font-family: "Courier New", monospace;
 
     font-size: 48px;
 
+    font-weight: normal;
+
+    letter-spacing: 3px;
+
     color: white;
 }
+
+
+/* FIRST */
 
 .section-title {
     margin-top: 35px;
@@ -78,20 +90,20 @@ body {
     color: white;
 }
 
+
+/* TEXT */
+
 .first-text {
     width: 750px;
-
     max-width: 90%;
-
-    margin-top: 60px;
+    margin: 60px auto 0;
 
     font-family: "Courier New", monospace;
 
     font-size: 16px;
-
     line-height: 1.8;
 
-    text-align: left;
+    text-align: center;
 
     color: white;
 }
