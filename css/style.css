@@ -18,7 +18,6 @@ body {
 
 .code-layer {
     position: fixed;
-
     top: 0;
     left: 0;
 
@@ -26,88 +25,39 @@ body {
     height: 100vh;
 
     overflow: hidden;
-
     white-space: pre;
-
-    word-break: normal;
-
-    user-select: none;
 
     pointer-events: none;
 }
 
-
-/* ========================================
-   BACK LAYER
-======================================== */
-
 .code-back {
     z-index: 0;
-
     color: #242424;
-
     font-family: "Courier New", monospace;
-
     font-size: 12px;
-
     line-height: 15px;
-
-    letter-spacing: 0;
 }
-
-
-/* ========================================
-   MIDDLE LAYER
-======================================== */
 
 .code-middle {
     z-index: 0;
-
     color: #444444;
-
     font-family: "Courier New", monospace;
-
     font-size: 14px;
-
     line-height: 17px;
-
-    letter-spacing: 0;
 }
-
-
-/* ========================================
-   FRONT LAYER
-======================================== */
 
 .code-front {
     z-index: 0;
-
     color: #666666;
-
     font-family: "Courier New", monospace;
-
     font-size: 16px;
-
     line-height: 19px;
-
-    letter-spacing: 0;
 }
 
 .first-content {
     position: relative;
 
     z-index: 1;
-
-    width: 100%;
-    min-height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    padding-top: 80px;
-
-    text-align: center;
 }
 
 .system-title {
