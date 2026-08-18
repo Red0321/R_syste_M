@@ -1,27 +1,146 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+
+/* ========================================
+   FIRST PAGE
+======================================== */
+
+.first {
+    position: relative;
+
+    width: 100%;
+    min-height: 100vh;
+
+    overflow: hidden;
+}
+
+
+/* ========================================
+   BACKGROUND CODE
+======================================== */
+
 .binary-background {
     position: fixed;
-    inset: 0;
+
+    top: 0;
+    left: 0;
 
     width: 100vw;
     height: 100vh;
 
     padding: 15px;
 
-    color: #777;
+    background-color: #000000;
+
+    color: #777777;
 
     font-family: "Courier New", monospace;
-    font-size: 15px;
-    line-height: 1.25;
-    letter-spacing: 0;
 
-    opacity: 1;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0;
 
     overflow: hidden;
 
-    z-index: 0;
+    white-space: pre;
+
+    word-break: normal;
 
     user-select: none;
 
-    white-space: pre-wrap;
-    word-break: break-all;
+    z-index: 0;
+}
+
+
+/* ========================================
+   MAIN CONTENT
+======================================== */
+
+.first-content {
+    position: relative;
+
+    z-index: 1;
+
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 80px 30px 120px;
+
+    text-align: center;
+}
+
+
+/* ========================================
+   R_syste_M
+======================================== */
+
+.system-title {
+    font-family: "Courier New", monospace;
+
+    font-size: 48px;
+    font-weight: normal;
+
+    letter-spacing: 3px;
+
+    color: #ffffff;
+}
+
+
+/* ========================================
+   FIRST
+======================================== */
+
+.section-title {
+    margin-top: 35px;
+
+    font-size: 18px;
+
+    letter-spacing: 8px;
+
+    color: #ffffff;
+}
+
+
+/* ========================================
+   TEXT
+======================================== */
+
+.first-text {
+    width: min(750px, 90%);
+
+    margin-top: 60px;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    text-align: left;
+
+    color: #ffffff;
+}
+
+.first-text p {
+    margin: 0 0 30px;
 }

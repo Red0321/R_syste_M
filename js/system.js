@@ -1,6 +1,18 @@
 const binaryBackground = document.getElementById("binary-background");
 
-const characters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+/* ========================================
+   CHARACTERS USED BY THE SYSTEM
+======================================== */
+
+const characters =
+    "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+
+/* ========================================
+   HIDDEN WORDS
+   We will use these later.
+======================================== */
 
 const hiddenWords = [
     "R_syste_M",
@@ -13,49 +25,29 @@ const hiddenWords = [
     "SPOT"
 ];
 
+
+/* ========================================
+   GENERATE BACKGROUND CODE
+======================================== */
+
 function generateCode() {
 
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    const fontSize = 15;
+    /*
+       Courier New is approximately 0.6 times
+       the font size in character width.
+    */
+
+    const characterWidth = 15 * 0.6;
     const lineHeight = 18;
 
-    const columns = Math.ceil(width / fontSize);
-    const rows = Math.ceil(height / lineHeight);
+    const columns = Math.ceil(width / characterWidth) + 10;
+    const rows = Math.ceil(height / lineHeight) + 5;
 
     let output = "";
 
-    for (let row = 0; row < rows; row++) {
-
-        let line = "";
-
-        for (let column = 0; column < columns; column++) {
-
-            const randomIndex = Math.floor(
-                Math.random() * characters.length
-            );
-
-            line += characters[randomIndex];
-        }
-
-        output += line + "<br>";
-    }
-
-    binaryBackground.innerHTML = output;
-}
-function generateCode() {
-
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    const fontSize = 15;
-    const lineHeight = 18;
-
-    const columns = Math.ceil(width / (fontSize * 0.6));
-    const rows = Math.ceil(height / lineHeight);
-
-    let output = "";
 
     for (let row = 0; row < rows; row++) {
 
@@ -71,5 +63,20 @@ function generateCode() {
         output += "\n";
     }
 
+
     binaryBackground.textContent = output;
 }
+
+
+/* ========================================
+   INITIAL GENERATION
+======================================== */
+
+generateCode();
+
+
+/* ========================================
+   REGENERATE WHEN WINDOW SIZE CHANGES
+======================================== */
+
+window.addEventListener("resize", generateCode);
