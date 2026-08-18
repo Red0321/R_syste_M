@@ -1,19 +1,35 @@
-const background = document.getElementById("binary-background");
+const backLayer = document.getElementById("code-back");
+const middleLayer = document.getElementById("code-middle");
+const frontLayer = document.getElementById("code-front");
 
-const characters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-function generateCode() {
+/* ========================================
+   CHARACTERS
+======================================== */
+
+const characters =
+    "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+
+/* ========================================
+   GENERATE RANDOM CODE
+======================================== */
+
+function createCode(fontSize, lineHeight) {
 
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    const characterWidth = 9;
-    const lineHeight = 18;
+    const characterWidth = fontSize * 0.6;
 
-    const columns = Math.ceil(width / characterWidth);
-    const rows = Math.ceil(height / lineHeight);
+    const columns =
+        Math.ceil(width / characterWidth) + 10;
 
-    let text = "";
+    const rows =
+        Math.ceil(height / lineHeight) + 5;
+
+    let output = "";
+
 
     for (let row = 0; row < rows; row++) {
 
@@ -22,15 +38,46 @@ function generateCode() {
             const random =
                 Math.floor(Math.random() * characters.length);
 
-            text += characters[random];
+            output += characters[random];
         }
 
-        text += "\n";
+        output += "\n";
     }
 
-    background.textContent = text;
+
+    return output;
 }
 
-generateCode();
 
-window.addEventListener("resize", generateCode);
+/* ========================================
+   GENERATE ALL THREE LAYERS
+======================================== */
+
+function generateSystem() {
+
+    backLayer.textContent =
+        createCode(12, 15);
+
+    middleLayer.textContent =
+        createCode(14, 17);
+
+    frontLayer.textContent =
+        createCode(16, 19);
+}
+
+
+/* ========================================
+   START
+======================================== */
+
+generateSystem();
+
+
+/* ========================================
+   WINDOW RESIZE
+======================================== */
+
+window.addEventListener(
+    "resize",
+    generateSystem
+);
