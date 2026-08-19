@@ -400,13 +400,12 @@ body {
 
 .map-message {
     bottom: 35px;
-
-    left: 50%;
-    transform: translateX(-50%);
+    left: 345px;
 }
 
-.map-message:hover {
-    transform: translateX(-50%) scale(1.08);
+.map-message span {
+    width: 100%;
+    text-align: center;
 }
 
 
@@ -545,12 +544,32 @@ body {
 }
 
 
+/* ========================================
+   WORLD LIST
+======================================== */
+
 .world-list {
-    margin-top: 90px;
+    width: 850px;
+
+    max-width: 90%;
+
+    margin: 90px auto 0;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    column-gap: 50px;
+
+    row-gap: 35px;
 
     text-align: center;
 }
 
+
+/* ========================================
+   WORLD ITEMS
+======================================== */
 
 .world-item {
     opacity: 0;
@@ -561,8 +580,6 @@ body {
 
     letter-spacing: 4px;
 
-    margin: 35px 0;
-
     animation:
         worldItemFade
         2s
@@ -571,20 +588,62 @@ body {
 }
 
 
+/* ========================================
+   WORLD ITEM DELAYS
+======================================== */
+
 .world-item:nth-child(1) {
     animation-delay: 8s;
 }
-
 
 .world-item:nth-child(2) {
     animation-delay: 9.5s;
 }
 
-
 .world-item:nth-child(3) {
     animation-delay: 11s;
 }
 
+.world-item:nth-child(4) {
+    animation-delay: 12.5s;
+}
+
+.world-item:nth-child(5) {
+    animation-delay: 14s;
+}
+
+.world-item:nth-child(6) {
+    animation-delay: 15.5s;
+}
+
+.world-item:nth-child(7) {
+    animation-delay: 17s;
+}
+
+.world-item:nth-child(8) {
+    animation-delay: 18.5s;
+}
+
+.world-item:nth-child(9) {
+    animation-delay: 20s;
+}
+
+.world-item:nth-child(10) {
+    animation-delay: 21.5s;
+}
+
+.world-item:nth-child(11) {
+    animation-delay: 23s;
+}
+
+.world-item:nth-child(12) {
+    animation-delay: 24.5s;
+}
+
+
+/* ========================================
+   WORLD ITEM ANIMATION
+======================================== */
 
 @keyframes worldItemFade {
 
@@ -597,8 +656,6 @@ body {
     }
 
 }
-
-
 /* ========================================
    THE WIND
 ======================================== */
