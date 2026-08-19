@@ -111,3 +111,18 @@ body {
 .first-text p {
     margin-bottom: 30px;
 }
+.world-intro {
+    opacity: 0;
+    animation: worldFadeIn 2.5s ease forwards;
+    animation-delay: 1.5s;
+}
+
+@keyframes worldFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
