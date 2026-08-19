@@ -220,15 +220,15 @@ body {
 .system-map {
     position: relative;
 
-    width: 700px;
-    height: 600px;
+    width: 800px;
+    height: 800px;
 
     max-width: 90vw;
-    max-height: 80vh;
+    max-height: 90vh;
 
     margin: 0 auto;
 
-    top: 50%;
+    top: 50vh;
 
     transform: translateY(-50%);
 }
@@ -253,10 +253,6 @@ body {
     letter-spacing: 3px;
 
     color: white;
-
-    text-decoration: none;
-
-    cursor: default;
 }
 
 
@@ -291,57 +287,48 @@ body {
 
 
 /* ========================================
-   MAP POSITIONS
+   CIRCULAR POSITIONS
 ======================================== */
 
 .map-first {
     top: 5%;
     left: 50%;
-
     transform: translateX(-50%);
 }
 
-
 .map-world {
-    top: 17%;
-    left: 18%;
+    top: 20%;
+    left: 20%;
 }
-
-
-.map-wind {
-    top: 17%;
-    right: 18%;
-}
-
-
-.map-dive {
-    top: 48%;
-    left: 5%;
-}
-
 
 .map-soon {
-    top: 48%;
-    right: 5%;
+    top: 20%;
+    right: 20%;
 }
 
+.map-wind {
+    top: 38%;
+    left: 17%;
+}
+
+.map-dive {
+    top: 38%;
+    right: 17%;
+}
 
 .map-game {
-    bottom: 15%;
-    left: 18%;
+    bottom: 22%;
+    left: 17%;
 }
-
 
 .map-spot {
-    bottom: 15%;
-    right: 18%;
+    bottom: 22%;
+    right: 17%;
 }
 
-
 .map-message {
-    bottom: 3%;
+    bottom: 5%;
     left: 50%;
-
     transform: translateX(-50%);
 }
 
