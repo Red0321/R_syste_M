@@ -608,3 +608,41 @@ body {
     }
 
 }
+#password-container {
+    opacity: 0;
+
+    margin-top: 45px;
+
+    transition: opacity 1.5s ease;
+
+    pointer-events: none;
+}
+
+
+#password-container.active {
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+
+#password-input {
+    width: 250px;
+
+    background: transparent;
+
+    border: none;
+    border-bottom: 1px solid #555555;
+
+    outline: none;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 16px;
+
+    text-align: center;
+
+    padding: 8px 5px;
+}

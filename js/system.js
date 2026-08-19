@@ -166,3 +166,24 @@ window.addEventListener(
     "resize",
     generateCode
 );
+const spotX =
+    document.getElementById("spot-x");
+
+const passwordContainer =
+    document.getElementById("password-container");
+
+const passwordInput =
+    document.getElementById("password-input");
+
+
+if (spotX) {
+
+    spotX.addEventListener("click", function () {
+
+        passwordContainer.classList.add("active");
+
+        passwordInput.focus();
+
+    });
+
+}
