@@ -401,12 +401,12 @@ body {
 .map-message {
     bottom: 35px;
 
-    left: 345px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-
 .map-message:hover {
-    transform: scale(1.08);
+    transform: translateX(-50%) scale(1.08);
 }
 
 
