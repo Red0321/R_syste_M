@@ -89,6 +89,8 @@ body {
     letter-spacing: 3px;
 
     color: white;
+
+    text-decoration: none;
 }
 
 
@@ -101,7 +103,8 @@ body {
 
     cursor: pointer;
 
-    transition: opacity 0.4s ease;
+    transition:
+        opacity 0.4s ease;
 }
 
 
@@ -181,7 +184,8 @@ body {
 
     opacity: 0;
 
-    transition: opacity 2s ease;
+    transition:
+        opacity 2s ease;
 
     pointer-events: none;
 }
@@ -219,7 +223,7 @@ body {
 
 
 /* ========================================
-   SYSTEM MAP / CIPHER
+   CIPHER / SYSTEM MAP
 ======================================== */
 
 .system-map {
@@ -234,6 +238,27 @@ body {
     top: 50vh;
 
     transform: translateY(-50%);
+
+    opacity: 0;
+
+    animation:
+        cipherFadeIn
+        1.5s
+        ease
+        forwards;
+}
+
+
+@keyframes cipherFadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
 }
 
 
@@ -380,6 +405,11 @@ body {
 }
 
 
+.map-message:hover {
+    transform: scale(1.08);
+}
+
+
 /* ========================================
    CONNECTION LINES
 ======================================== */
@@ -406,7 +436,28 @@ body {
 
     opacity: 0;
 
-    transition: opacity 0.4s ease;
+    transition:
+        opacity 0.4s ease;
 
     pointer-events: none;
+}
+
+
+/* ========================================
+   VISITED MAP NODES
+======================================== */
+
+.map-node.visited {
+    border-color: #666666;
+
+    color: #777777;
+}
+
+
+.map-node.visited:hover {
+    border-color: #999999;
+
+    color: white;
+
+    transform: scale(1.08);
 }

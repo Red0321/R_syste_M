@@ -1,11 +1,24 @@
+/* ========================================
+   ELEMENTS
+======================================== */
+
 const background =
-    document.getElementById("binary-background");
+    document.getElementById(
+        "binary-background"
+    );
+
 
 const firstText =
-    document.getElementById("first-text");
+    document.getElementById(
+        "first-text"
+    );
+
 
 const systemNavigation =
-    document.getElementById("system-navigation");
+    document.getElementById(
+        "system-navigation"
+    );
+
 
 
 /* ========================================
@@ -18,15 +31,25 @@ const characters =
 
 function generateCode() {
 
+    /*
+       Only run if the page
+       has the background.
+    */
+
     if (!background) {
+
         return;
+
     }
+
 
     const width =
         window.innerWidth;
 
+
     const height =
         window.innerHeight;
+
 
     const characterWidth = 9;
 
@@ -54,11 +77,13 @@ function generateCode() {
         row++
     ) {
 
+
         for (
             let column = 0;
             column < columns;
             column++
         ) {
+
 
             const random =
                 Math.floor(
@@ -69,16 +94,41 @@ function generateCode() {
 
             text +=
                 characters[random];
+
         }
 
 
         text += "\n";
+
     }
 
 
     background.textContent =
         text;
+
 }
+
+
+
+/* ========================================
+   WAIT
+======================================== */
+
+function wait(milliseconds) {
+
+    return new Promise(
+        function (resolve) {
+
+            setTimeout(
+                resolve,
+                milliseconds
+            );
+
+        }
+    );
+
+}
+
 
 
 /* ========================================
@@ -106,33 +156,37 @@ const paragraphs = [
 ];
 
 
-function wait(milliseconds) {
-
-    return new Promise(
-        resolve => {
-            setTimeout(
-                resolve,
-                milliseconds
-            );
-        }
-    );
-
-}
-
 
 /* ========================================
-   TYPE FIRST TEXT
+   TYPE FIRST
 ======================================== */
 
 async function typeText() {
 
+
+    /*
+       If this isn't FIRST,
+       stop here.
+    */
+
     if (!firstText) {
+
         return;
+
     }
 
 
+    /*
+       Clear previous text.
+    */
+
     firstText.innerHTML = "";
 
+
+
+    /* ====================================
+       PARAGRAPHS
+    ==================================== */
 
     for (
         let p = 0;
@@ -140,8 +194,11 @@ async function typeText() {
         p++
     ) {
 
+
         const paragraph =
-            document.createElement("p");
+            document.createElement(
+                "p"
+            );
 
 
         firstText.appendChild(
@@ -156,63 +213,109 @@ async function typeText() {
         let currentTag = null;
 
 
+
+        /* ====================================
+           CHARACTERS
+        ==================================== */
+
         for (
             let i = 0;
             i < text.length;
             i++
         ) {
 
-            const character =
-                text[i];
-
 
             /*
-               HTML tags
-               such as <strong>
+               OPEN STRONG
             */
 
-            if (text.startsWith(
-                "<strong>",
-                i
-            )) {
+            if (
+                text.startsWith(
+                    "<strong>",
+                    i
+                )
+            ) {
+
 
                 currentTag =
-                    document.createElement("strong");
+                    document.createElement(
+                        "strong"
+                    );
+
 
                 paragraph.appendChild(
                     currentTag
                 );
 
+
+                /*
+                   Skip "<strong>"
+                */
+
                 i += 7;
 
+
                 continue;
+
             }
 
 
-            if (text.startsWith(
-                "</strong>",
-                i
-            )) {
 
-                currentTag = null;
+            /*
+               CLOSE STRONG
+            */
+
+            if (
+                text.startsWith(
+                    "</strong>",
+                    i
+                )
+            ) {
+
+
+                currentTag =
+                    null;
+
+
+                /*
+                   Skip "</strong>"
+                */
 
                 i += 8;
 
+
                 continue;
+
             }
 
+
+
+            /*
+               Current writing target.
+            */
 
             const target =
                 currentTag ||
                 paragraph;
 
 
+
+            const character =
+                text[i];
+
+
             target.textContent +=
                 character;
 
 
+
+            /* ====================================
+               PAUSES
+            ==================================== */
+
+
             /*
-               Commas
+               COMMA
             */
 
             if (
@@ -220,11 +323,12 @@ async function typeText() {
             ) {
 
                 await wait(220);
+
             }
 
 
             /*
-               Periods
+               PERIOD
             */
 
             else if (
@@ -232,26 +336,30 @@ async function typeText() {
             ) {
 
                 await wait(700);
+
             }
 
 
             /*
-               Normal characters
+               NORMAL CHARACTER
             */
 
             else {
 
                 await wait(25);
+
             }
 
         }
 
 
-        /*
-           Normal paragraph pause
-        */
+
+        /* ====================================
+           PARAGRAPH PAUSE
+        ==================================== */
 
         await wait(700);
+
 
 
         /*
@@ -262,7 +370,9 @@ async function typeText() {
         if (p === 4) {
 
             await wait(1200);
+
         }
+
 
 
         /*
@@ -273,11 +383,36 @@ async function typeText() {
         if (p === 5) {
 
             await wait(1000);
+
         }
 
     }
 
+
+
+    /* ====================================
+       SHOW NAVIGATION
+    ==================================== */
+
+    /*
+       Wait before showing
+       the navigation.
+    */
+
+    if (systemNavigation) {
+
+
+        await wait(2000);
+
+
+        systemNavigation.classList.add(
+            "active"
+        );
+
+    }
+
 }
+
 
 
 /* ========================================
@@ -287,6 +422,7 @@ async function typeText() {
 document.addEventListener(
     "DOMContentLoaded",
     function () {
+
 
         const spotX =
             document.getElementById(
@@ -306,6 +442,13 @@ document.addEventListener(
             );
 
 
+
+        /*
+           If these elements don't
+           exist on the current page,
+           do nothing.
+        */
+
         if (
             !spotX ||
             !passwordContainer ||
@@ -313,12 +456,15 @@ document.addEventListener(
         ) {
 
             return;
+
         }
+
 
 
         spotX.addEventListener(
             "click",
             function () {
+
 
                 passwordContainer.classList.add(
                     "active"
@@ -334,13 +480,15 @@ document.addEventListener(
 );
 
 
+
 /* ========================================
-   CIPHER MAP LINES
+   CIPHER MAP
 ======================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
+
 
         const map =
             document.querySelector(
@@ -366,6 +514,11 @@ document.addEventListener(
             );
 
 
+
+        /*
+           Only run on CIPHER.
+        */
+
         if (
             !map ||
             !center ||
@@ -374,18 +527,24 @@ document.addEventListener(
         ) {
 
             return;
+
         }
 
 
-        const connections =
-            new Map();
 
+        /* ====================================
+           CREATE LINES
+        ==================================== */
 
         function createLines() {
 
+
+            /*
+               Remove old lines.
+            */
+
             linesContainer.innerHTML = "";
 
-            connections.clear();
 
 
             const mapRect =
@@ -395,6 +554,11 @@ document.addEventListener(
             const centerRect =
                 center.getBoundingClientRect();
 
+
+
+            /*
+               Center of R_syste_M
+            */
 
             const centerX =
                 centerRect.left +
@@ -408,12 +572,23 @@ document.addEventListener(
                 mapRect.top;
 
 
+
+            /* =================================
+               EACH NODE
+            ================================= */
+
             nodes.forEach(
                 function (node) {
+
 
                     const rect =
                         node.getBoundingClientRect();
 
+
+
+                    /*
+                       Center of node
+                    */
 
                     const nodeCenterX =
                         rect.left +
@@ -427,6 +602,11 @@ document.addEventListener(
                         mapRect.top;
 
 
+
+                    /*
+                       Difference
+                    */
+
                     const deltaX =
                         centerX -
                         nodeCenterX;
@@ -437,12 +617,22 @@ document.addEventListener(
                         nodeCenterY;
 
 
+
+                    /*
+                       Distance
+                    */
+
                     const distance =
                         Math.sqrt(
                             deltaX * deltaX +
                             deltaY * deltaY
                         );
 
+
+
+                    /*
+                       Angle
+                    */
 
                     const angle =
                         Math.atan2(
@@ -452,36 +642,34 @@ document.addEventListener(
                         (180 / Math.PI);
 
 
+
                     /*
-                       Radius of node
+                       Circle radius
                     */
 
                     const nodeRadius =
                         rect.width / 2;
 
 
-                    /*
-                       Start line at
-                       edge of node
-                    */
-
-                    const startDistance =
-                        nodeRadius;
-
 
                     /*
-                       Stop line slightly
-                       before R_syste_M
+                       Small gap before
+                       R_syste_M
                     */
 
-                    const centerGap =
-                        45;
+                    const centerGap = 45;
 
+
+
+                    /*
+                       Final line length
+                    */
 
                     const lineLength =
                         distance -
-                        startDistance -
+                        nodeRadius -
                         centerGap;
+
 
 
                     if (
@@ -489,8 +677,15 @@ document.addEventListener(
                     ) {
 
                         return;
+
                     }
 
+
+
+                    /*
+                       Starting point
+                       at circle edge
+                    */
 
                     const startX =
                         nodeCenterX +
@@ -499,7 +694,7 @@ document.addEventListener(
                             Math.PI /
                             180
                         ) *
-                        startDistance;
+                        nodeRadius;
 
 
                     const startY =
@@ -509,8 +704,13 @@ document.addEventListener(
                             Math.PI /
                             180
                         ) *
-                        startDistance;
+                        nodeRadius;
 
+
+
+                    /*
+                       Create line
+                    */
 
                     const line =
                         document.createElement(
@@ -520,6 +720,7 @@ document.addEventListener(
 
                     line.className =
                         "map-line";
+
 
 
                     line.style.width =
@@ -538,16 +739,16 @@ document.addEventListener(
                         `rotate(${angle}deg)`;
 
 
+
                     linesContainer.appendChild(
                         line
                     );
 
 
-                    connections.set(
-                        node,
-                        line
-                    );
 
+                    /* =========================
+                       HOVER ON
+                    ========================= */
 
                     node.addEventListener(
                         "mouseenter",
@@ -559,6 +760,11 @@ document.addEventListener(
                         }
                     );
 
+
+
+                    /* =========================
+                       HOVER OFF
+                    ========================= */
 
                     node.addEventListener(
                         "mouseleave",
@@ -576,8 +782,19 @@ document.addEventListener(
         }
 
 
+
+        /*
+           Initial calculation.
+        */
+
         createLines();
 
+
+
+        /*
+           Recalculate when
+           window changes size.
+        */
 
         window.addEventListener(
             "resize",
@@ -588,18 +805,132 @@ document.addEventListener(
 );
 
 
+
+/* ========================================
+   CIPHER VISITED MEMORY
+======================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        const mapNodes =
+            document.querySelectorAll(
+                ".map-node"
+            );
+
+
+
+        /*
+           Only run on CIPHER.
+        */
+
+        if (!mapNodes.length) {
+
+            return;
+
+        }
+
+
+
+        mapNodes.forEach(
+            function (node) {
+
+
+                const link =
+                    node.getAttribute(
+                        "href"
+                    );
+
+
+                if (!link) {
+
+                    return;
+
+                }
+
+
+
+                /*
+                   Remove query/cache
+                   information.
+                */
+
+                const page =
+                    link.split("?")[0];
+
+
+
+                /*
+                   Check previous visit.
+                */
+
+                if (
+                    localStorage.getItem(
+                        "visited_" + page
+                    ) === "true"
+                ) {
+
+
+                    node.classList.add(
+                        "visited"
+                    );
+
+                }
+
+
+
+                /*
+                   Save visit.
+                */
+
+                node.addEventListener(
+                    "click",
+                    function () {
+
+
+                        localStorage.setItem(
+                            "visited_" + page,
+                            "true"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    }
+);
+
+
+
 /* ========================================
    START
 ======================================== */
 
+
+/*
+   Generate background
+   on every page.
+*/
+
 generateCode();
 
+
+
+/*
+   FIRST only runs when
+   #first-text exists.
+*/
 
 if (firstText) {
 
     typeText();
 
 }
+
 
 
 /* ========================================
