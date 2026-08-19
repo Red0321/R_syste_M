@@ -223,9 +223,6 @@ body {
     width: 800px;
     height: 800px;
 
-    max-width: 90vw;
-    max-height: 90vh;
-
     margin: 0 auto;
 
     top: 50vh;
@@ -235,7 +232,7 @@ body {
 
 
 /* ========================================
-   MAP CENTER
+   CENTER
 ======================================== */
 
 .map-center {
@@ -254,12 +251,12 @@ body {
 
     color: white;
 
-    z-index: 5;
+    z-index: 10;
 }
 
 
 /* ========================================
-   MAP NODES
+   NODES
 ======================================== */
 
 .map-node {
@@ -273,11 +270,11 @@ body {
     align-items: center;
     justify-content: center;
 
+    box-sizing: border-box;
+
     border: 1px solid #444444;
 
     border-radius: 50%;
-
-    box-sizing: border-box;
 
     color: #555555;
 
@@ -289,7 +286,7 @@ body {
 
     letter-spacing: 2px;
 
-    z-index: 3;
+    z-index: 5;
 
     transition:
         color 0.5s ease,
@@ -298,27 +295,108 @@ body {
 }
 
 
-/* ========================================
-   NODE TEXT
-======================================== */
-
 .map-node span {
     position: relative;
 
-    z-index: 4;
+    z-index: 6;
 }
 
 
-/* ========================================
-   NODE HOVER
-======================================== */
-
 .map-node:hover {
-
     color: white;
 
     border-color: #888888;
 
+    transform: scale(1.08);
+}
+
+
+/* ========================================
+   FIRST
+======================================== */
+
+.map-first {
+    top: 35px;
+    left: 345px;
+}
+
+
+.map-first:hover {
+    transform: scale(1.08);
+}
+
+
+/* ========================================
+   WORLD
+======================================== */
+
+.map-world {
+    top: 150px;
+    left: 140px;
+}
+
+
+/* ========================================
+   SOON
+======================================== */
+
+.map-soon {
+    top: 150px;
+    right: 140px;
+}
+
+
+/* ========================================
+   THE WIND
+======================================== */
+
+.map-wind {
+    top: 300px;
+    left: 105px;
+}
+
+
+/* ========================================
+   THE DIVE
+======================================== */
+
+.map-dive {
+    top: 300px;
+    right: 105px;
+}
+
+
+/* ========================================
+   THE GAME
+======================================== */
+
+.map-game {
+    bottom: 150px;
+    left: 140px;
+}
+
+
+/* ========================================
+   THE SPOT
+======================================== */
+
+.map-spot {
+    bottom: 150px;
+    right: 140px;
+}
+
+
+/* ========================================
+   THE MESSAGE
+======================================== */
+
+.map-message {
+    bottom: 35px;
+    left: 345px;
+}
+
+
+.map-message:hover {
     transform: scale(1.08);
 }
 
@@ -333,30 +411,26 @@ body {
 
     position: absolute;
 
+    width: 260px;
     height: 1px;
 
     background: #555555;
 
     opacity: 0;
 
+    pointer-events: none;
+
     transform-origin: left center;
 
     transition: opacity 0.5s ease;
-
-    pointer-events: none;
 
     z-index: -1;
 }
 
 
-/* ========================================
-   FIRST
-======================================== */
+/* FIRST */
 
 .map-first::after {
-
-    width: 250px;
-
     top: 100%;
     left: 50%;
 
@@ -366,110 +440,69 @@ body {
 }
 
 
-/* ========================================
-   WORLD
-======================================== */
+/* WORLD */
 
 .map-world::after {
-
-    width: 280px;
-
-    top: 75%;
+    top: 70%;
     left: 85%;
 
-    transform:
-        rotate(32deg);
+    transform: rotate(25deg);
 }
 
 
-/* ========================================
-   SOON
-======================================== */
+/* SOON */
 
 .map-soon::after {
-
-    width: 280px;
-
-    top: 75%;
+    top: 70%;
     left: 15%;
 
-    transform:
-        rotate(148deg);
+    transform: rotate(155deg);
 }
 
 
-/* ========================================
-   THE WIND
-======================================== */
+/* THE WIND */
 
 .map-wind::after {
-
-    width: 210px;
-
-    top: 55%;
+    top: 50%;
     left: 85%;
 
-    transform:
-        rotate(-8deg);
+    transform: rotate(8deg);
 }
 
 
-/* ========================================
-   THE DIVE
-======================================== */
+/* THE DIVE */
 
 .map-dive::after {
-
-    width: 210px;
-
-    top: 55%;
+    top: 50%;
     left: 15%;
 
-    transform:
-        rotate(188deg);
+    transform: rotate(172deg);
 }
 
 
-/* ========================================
-   THE GAME
-======================================== */
+/* THE GAME */
 
 .map-game::after {
-
-    width: 280px;
-
-    top: 25%;
+    top: 30%;
     left: 85%;
 
-    transform:
-        rotate(-32deg);
+    transform: rotate(-25deg);
 }
 
 
-/* ========================================
-   THE SPOT
-======================================== */
+/* THE SPOT */
 
 .map-spot::after {
-
-    width: 280px;
-
-    top: 25%;
+    top: 30%;
     left: 15%;
 
-    transform:
-        rotate(212deg);
+    transform: rotate(205deg);
 }
 
 
-/* ========================================
-   THE MESSAGE
-======================================== */
+/* THE MESSAGE */
 
 .map-message::after {
-
-    width: 250px;
-
     bottom: 100%;
     left: 50%;
 
@@ -479,12 +512,9 @@ body {
 }
 
 
-/* ========================================
-   SHOW CONNECTION
-======================================== */
+/* SHOW LINE */
 
 .map-node:hover::after {
-
     opacity: 1;
 }
 
