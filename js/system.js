@@ -103,11 +103,20 @@ async function typeText() {
 
         for (let i = 0; i < text.length; i++) {
 
-            paragraph.textContent += text[i];
+    const character = text[i];
 
-            await wait(25);
-        }
+    paragraph.textContent += character;
 
+    if (character === ",") {
+        await wait(120);
+    }
+    else if (character === ".") {
+        await wait(220);
+    }
+    else {
+        await wait(25);
+    }
+}
 
         /*
            Normal pause between paragraphs.
