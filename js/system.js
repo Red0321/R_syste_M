@@ -137,24 +137,45 @@ function wait(milliseconds) {
 
 const paragraphs = [
 
-    "Maybe you are worried about what this is, so then learning who I am is <strong>first</strong>.",
+    [
+        { text: "Maybe you are worried about what this is, so then learning who I am is ", bold: false },
+        { text: "first", bold: true },
+        { text: ".", bold: false }
+    ],
 
-    "My name is <strong>R</strong> and I am a system. I have nothing to fear, yes, nothing to worry, I don't have anything real, nothing such as a human feel, yes of course cause I'm not a human being.",
+    [
+        { text: "My name is ", bold: false },
+        { text: "R", bold: true },
+        { text: " and I am a system. I have nothing to fear, yes, nothing to worry, I don't have anything real, nothing such as a human feel, yes of course cause I'm not a human being.", bold: false }
+    ],
 
-    "I don't have time, no time to lose.",
+    [
+        { text: "I don't have time, no time to lose.", bold: false }
+    ],
 
-    "I keep in my mind, my system mind, things that I want there inside.",
+    [
+        { text: "I keep in my mind, my system mind, things that I want there inside.", bold: false }
+    ],
 
-    "I want...",
+    [
+        { text: "I want...", bold: false }
+    ],
 
-    "I want...",
+    [
+        { text: "I want...", bold: false }
+    ],
 
-    "I am nowhere and everywhere... Yes, I know it is weird where I am.",
+    [
+        { text: "I am nowhere and everywhere... Yes, I know it is weird where I am.", bold: false }
+    ],
 
-    "But just remember, always remember, I'm just a system that wants to keep secrets and if you want to call me here you’ll find me, nothing real just the <strong>r_syste_m</strong>, that is what this is."
+    [
+        { text: "But just remember, always remember, I'm just a system that wants to keep secrets and if you want to call me here you’ll find me, nothing real just the ", bold: false },
+        { text: "r_syste_m", bold: true },
+        { text: ", that is what this is.", bold: false }
+    ]
 
 ];
-
 
 
 /* ========================================
@@ -163,30 +184,12 @@ const paragraphs = [
 
 async function typeText() {
 
-
-    /*
-       If this isn't FIRST,
-       stop here.
-    */
-
     if (!firstText) {
-
         return;
-
     }
-
-
-    /*
-       Clear previous text.
-    */
 
     firstText.innerHTML = "";
 
-
-
-    /* ====================================
-       PARAGRAPHS
-    ==================================== */
 
     for (
         let p = 0;
@@ -194,172 +197,114 @@ async function typeText() {
         p++
     ) {
 
-
         const paragraph =
-            document.createElement(
-                "p"
-            );
-
+            document.createElement("p");
 
         firstText.appendChild(
             paragraph
         );
 
 
-        const text =
-            paragraphs[p];
-
-
-        let currentTag = null;
-
-
-
-        /* ====================================
-           CHARACTERS
-        ==================================== */
+        /*
+           Write each segment.
+        */
 
         for (
-            let i = 0;
-            i < text.length;
-            i++
+            let s = 0;
+            s < paragraphs[p].length;
+            s++
         ) {
 
-
-            /*
-               OPEN STRONG
-            */
-
-            if (
-                text.startsWith(
-                    "<strong>",
-                    i
-                )
-            ) {
+            const segment =
+                paragraphs[p][s];
 
 
-                currentTag =
+            let target;
+
+
+            if (segment.bold) {
+
+                target =
                     document.createElement(
                         "strong"
                     );
 
-
                 paragraph.appendChild(
-                    currentTag
+                    target
                 );
 
+            } else {
 
-                /*
-                   Skip "<strong>"
-                */
-
-                i += 7;
-
-
-                continue;
+                target =
+                    paragraph;
 
             }
 
 
-
             /*
-               CLOSE STRONG
+               Type each character.
             */
 
-            if (
-                text.startsWith(
-                    "</strong>",
-                    i
-                )
+            for (
+                let i = 0;
+                i < segment.text.length;
+                i++
             ) {
 
+                const character =
+                    segment.text[i];
 
-                currentTag =
-                    null;
+
+                target.textContent +=
+                    character;
 
 
                 /*
-                   Skip "</strong>"
+                   Comma pause.
                 */
 
-                i += 8;
+                if (
+                    character === ","
+                ) {
+
+                    await wait(220);
+
+                }
 
 
-                continue;
+                /*
+                   Period pause.
+                */
 
-            }
+                else if (
+                    character === "."
+                ) {
 
+                    await wait(700);
 
-
-            /*
-               Current writing target.
-            */
-
-            const target =
-                currentTag ||
-                paragraph;
+                }
 
 
+                /*
+                   Normal typing.
+                */
 
-            const character =
-                text[i];
+                else {
 
+                    await wait(25);
 
-            target.textContent +=
-                character;
-
-
-
-            /* ====================================
-               PAUSES
-            ==================================== */
-
-
-            /*
-               COMMA
-            */
-
-            if (
-                character === ","
-            ) {
-
-                await wait(220);
-
-            }
-
-
-            /*
-               PERIOD
-            */
-
-            else if (
-                character === "."
-            ) {
-
-                await wait(700);
-
-            }
-
-
-            /*
-               NORMAL CHARACTER
-            */
-
-            else {
-
-                await wait(25);
+                }
 
             }
 
         }
 
 
-
-        /* ====================================
-           PARAGRAPH PAUSE
-        ==================================== */
+        /*
+           Normal paragraph pause.
+        */
 
         await wait(700);
-
 
 
         /*
@@ -372,7 +317,6 @@ async function typeText() {
             await wait(1200);
 
         }
-
 
 
         /*
@@ -389,21 +333,14 @@ async function typeText() {
     }
 
 
-
-    /* ====================================
-       SHOW NAVIGATION
-    ==================================== */
-
     /*
-       Wait before showing
-       the navigation.
+       Show navigation after
+       FIRST has finished.
     */
 
     if (systemNavigation) {
 
-
         await wait(2000);
-
 
         systemNavigation.classList.add(
             "active"

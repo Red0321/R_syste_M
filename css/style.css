@@ -461,3 +461,702 @@ body {
 
     transform: scale(1.08);
 }
+
+
+/* ========================================
+   WORLD
+======================================== */
+
+.world-title {
+    opacity: 0;
+
+    animation:
+        worldTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.world-intro {
+    opacity: 0;
+
+    animation:
+        worldFadeIn
+        2.5s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+.world-final {
+    opacity: 0;
+
+    animation:
+        worldFinalFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 5.8s;
+}
+
+
+@keyframes worldTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes worldFadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes worldFinalFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+.world-list {
+    margin-top: 90px;
+
+    text-align: center;
+}
+
+
+.world-item {
+    opacity: 0;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 18px;
+
+    letter-spacing: 4px;
+
+    margin: 35px 0;
+
+    animation:
+        worldItemFade
+        2s
+        ease
+        forwards;
+}
+
+
+.world-item:nth-child(1) {
+    animation-delay: 8s;
+}
+
+
+.world-item:nth-child(2) {
+    animation-delay: 9.5s;
+}
+
+
+.world-item:nth-child(3) {
+    animation-delay: 11s;
+}
+
+
+@keyframes worldItemFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* ========================================
+   THE WIND
+======================================== */
+
+.wind-title {
+    opacity: 0;
+
+    animation:
+        windTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.wind-intro {
+    opacity: 0;
+
+    animation:
+        windIntroFade
+        2.5s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+.wind-final {
+    opacity: 0;
+
+    animation:
+        windFinalFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 6s;
+}
+
+
+@keyframes windTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes windIntroFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes windFinalFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* ========================================
+   THE DIVE
+======================================== */
+
+.dive-title {
+    opacity: 0;
+
+    animation:
+        diveTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.dive-intro {
+    opacity: 0;
+
+    animation:
+        diveTextFade
+        2.5s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+/* DARKNESS */
+
+.dive-darkness {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: black;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    animation:
+        diveDarkness
+        18s
+        ease
+        forwards;
+
+    animation-delay: 5s;
+}
+
+
+/* FINAL WORD */
+
+.dive-final {
+    opacity: 0;
+
+    animation:
+        diveFinalFade
+        4s
+        ease
+        forwards;
+
+    animation-delay: 18s;
+}
+
+
+/* ========================================
+   DIVE ANIMATIONS
+======================================== */
+
+@keyframes diveTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes diveTextFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes diveDarkness {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0.75;
+    }
+
+}
+
+
+@keyframes diveFinalFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* ========================================
+   SOON
+======================================== */
+
+.soon-title {
+    opacity: 0;
+
+    animation:
+        soonTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.soon-intro {
+    opacity: 0;
+
+    animation:
+        soonIntroFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+.soon-intro p {
+    margin-bottom: 25px;
+}
+
+
+.soon-final {
+    opacity: 0;
+
+    font-weight: bold;
+
+    animation:
+        soonFinalFade
+        4s
+        ease
+        forwards;
+
+    animation-delay: 9s;
+}
+
+
+/* ========================================
+   SOON ANIMATIONS
+======================================== */
+
+@keyframes soonTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes soonIntroFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes soonFinalFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* ========================================
+   THE GAME
+======================================== */
+
+.game-title {
+    opacity: 0;
+
+    animation:
+        gameTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.game-intro {
+    opacity: 0;
+
+    animation:
+        gameIntroFade
+        2.5s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+.game-final {
+    opacity: 0;
+
+    font-weight: bold;
+
+    animation:
+        gameFinalFade
+        3s
+        ease
+        forwards;
+
+    animation-delay: 8s;
+}
+
+
+@keyframes gameTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes gameIntroFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes gameFinalFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* ========================================
+   THE SPOT
+======================================== */
+
+.spot-title {
+    opacity: 0;
+
+    animation:
+        spotTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.spot-intro {
+    opacity: 0;
+
+    animation:
+        spotIntroFade
+        2.5s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+#spot-x {
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition:
+        opacity 0.3s ease;
+}
+
+
+#spot-x:hover {
+    opacity: 0.7;
+}
+
+
+@keyframes spotTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes spotIntroFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+#password-container {
+    opacity: 0;
+
+    margin-top: 45px;
+
+    transition:
+        opacity 1.5s ease;
+
+    pointer-events: none;
+}
+
+
+#password-container.active {
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+
+#password-input {
+    width: 250px;
+
+    background: transparent;
+
+    border: none;
+
+    border-bottom: 1px solid #555555;
+
+    outline: none;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 16px;
+
+    text-align: center;
+
+    padding: 8px 5px;
+}
+
+
+/* ========================================
+   THE MESSAGE
+======================================== */
+
+.message-title {
+    opacity: 0;
+
+    animation:
+        messageTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.message-intro {
+    opacity: 0;
+
+    animation:
+        messageIntroFade
+        3s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+.message-s {
+    font-weight: bold;
+}
+
+
+@keyframes messageTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes messageIntroFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
