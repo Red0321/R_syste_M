@@ -324,7 +324,7 @@ body {
 
 
 /* ========================================
-   CONNECTION LINE
+   CONNECTION LINES
 ======================================== */
 
 .map-node::after {
@@ -341,8 +341,11 @@ body {
 
     transform-origin: left center;
 
-    transition:
-        opacity 0.5s ease;
+    transition: opacity 0.5s ease;
+
+    pointer-events: none;
+
+    z-index: -1;
 }
 
 
@@ -350,29 +353,11 @@ body {
    FIRST
 ======================================== */
 
-.map-first {
-
-    top: 4%;
-    left: 50%;
-
-    transform: translateX(-50%);
-}
-
-
-.map-first:hover {
-
-    transform:
-        translateX(-50%)
-        scale(1.08);
-}
-
-
 .map-first::after {
 
-    width: 260px;
+    width: 250px;
 
     top: 100%;
-
     left: 50%;
 
     transform:
@@ -385,22 +370,15 @@ body {
    WORLD
 ======================================== */
 
-.map-world {
-
-    top: 19%;
-    left: 18%;
-}
-
-
 .map-world::after {
 
-    width: 270px;
+    width: 280px;
 
     top: 75%;
     left: 85%;
 
     transform:
-        rotate(24deg);
+        rotate(32deg);
 }
 
 
@@ -408,22 +386,15 @@ body {
    SOON
 ======================================== */
 
-.map-soon {
-
-    top: 19%;
-    right: 18%;
-}
-
-
 .map-soon::after {
 
-    width: 270px;
+    width: 280px;
 
     top: 75%;
     left: 15%;
 
     transform:
-        rotate(156deg);
+        rotate(148deg);
 }
 
 
@@ -431,22 +402,15 @@ body {
    THE WIND
 ======================================== */
 
-.map-wind {
-
-    top: 38%;
-    left: 15%;
-}
-
-
 .map-wind::after {
 
-    width: 230px;
+    width: 210px;
 
-    top: 50%;
+    top: 55%;
     left: 85%;
 
     transform:
-        rotate(10deg);
+        rotate(-8deg);
 }
 
 
@@ -454,22 +418,15 @@ body {
    THE DIVE
 ======================================== */
 
-.map-dive {
-
-    top: 38%;
-    right: 15%;
-}
-
-
 .map-dive::after {
 
-    width: 230px;
+    width: 210px;
 
-    top: 50%;
+    top: 55%;
     left: 15%;
 
     transform:
-        rotate(170deg);
+        rotate(188deg);
 }
 
 
@@ -477,22 +434,15 @@ body {
    THE GAME
 ======================================== */
 
-.map-game {
-
-    bottom: 21%;
-    left: 18%;
-}
-
-
 .map-game::after {
 
-    width: 270px;
+    width: 280px;
 
     top: 25%;
     left: 85%;
 
     transform:
-        rotate(-24deg);
+        rotate(-32deg);
 }
 
 
@@ -500,22 +450,15 @@ body {
    THE SPOT
 ======================================== */
 
-.map-spot {
-
-    bottom: 21%;
-    right: 18%;
-}
-
-
 .map-spot::after {
 
-    width: 270px;
+    width: 280px;
 
     top: 25%;
     left: 15%;
 
     transform:
-        rotate(204deg);
+        rotate(212deg);
 }
 
 
@@ -523,34 +466,16 @@ body {
    THE MESSAGE
 ======================================== */
 
-.map-message {
-
-    bottom: 4%;
-    left: 50%;
-
-    transform: translateX(-50%);
-}
-
-
-.map-message:hover {
-
-    transform:
-        translateX(-50%)
-        scale(1.08);
-}
-
-
 .map-message::after {
 
-    width: 260px;
+    width: 250px;
 
     bottom: 100%;
-
     left: 50%;
 
     transform:
         translateX(-50%)
-        rotate(90deg);
+        rotate(-90deg);
 }
 
 
