@@ -37,6 +37,7 @@ body {
     font-family: "Courier New", monospace;
 
     font-size: 15px;
+
     line-height: 18px;
 
     white-space: pre;
@@ -50,7 +51,7 @@ body {
 
 
 /* ========================================
-   MAIN CONTENT
+   MAIN FIRST CONTENT
 ======================================== */
 
 .first-content {
@@ -59,10 +60,13 @@ body {
     z-index: 1;
 
     width: 100%;
+
     min-height: 100vh;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
 
     padding-top: 80px;
@@ -107,7 +111,7 @@ body {
 
 
 /* ========================================
-   FIRST
+   FIRST TITLE
 ======================================== */
 
 .section-title {
@@ -168,6 +172,7 @@ body {
     display: flex;
 
     justify-content: center;
+
     align-items: center;
 
     flex-wrap: wrap;
@@ -221,6 +226,7 @@ body {
     position: relative;
 
     width: 800px;
+
     height: 800px;
 
     margin: 0 auto;
@@ -232,13 +238,14 @@ body {
 
 
 /* ========================================
-   CENTER
+   MAP CENTER
 ======================================== */
 
 .map-center {
     position: absolute;
 
     top: 50%;
+
     left: 50%;
 
     transform: translate(-50%, -50%);
@@ -256,18 +263,20 @@ body {
 
 
 /* ========================================
-   NODES
+   MAP NODES
 ======================================== */
 
 .map-node {
     position: absolute;
 
     width: 110px;
+
     height: 110px;
 
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     box-sizing: border-box;
@@ -312,92 +321,62 @@ body {
 
 
 /* ========================================
-   FIRST
+   NODE POSITIONS
 ======================================== */
 
 .map-first {
     top: 35px;
+
     left: 345px;
 }
 
 
-.map-first:hover {
-    transform: scale(1.08);
-}
-
-
-/* ========================================
-   WORLD
-======================================== */
-
 .map-world {
     top: 150px;
+
     left: 140px;
 }
 
 
-/* ========================================
-   SOON
-======================================== */
-
 .map-soon {
     top: 150px;
+
     right: 140px;
 }
 
 
-/* ========================================
-   THE WIND
-======================================== */
-
 .map-wind {
     top: 300px;
+
     left: 105px;
 }
 
 
-/* ========================================
-   THE DIVE
-======================================== */
-
 .map-dive {
     top: 300px;
+
     right: 105px;
 }
 
 
-/* ========================================
-   THE GAME
-======================================== */
-
 .map-game {
     bottom: 150px;
+
     left: 140px;
 }
 
 
-/* ========================================
-   THE SPOT
-======================================== */
-
 .map-spot {
     bottom: 150px;
+
     right: 140px;
 }
 
 
-/* ========================================
-   THE MESSAGE
-======================================== */
-
 .map-message {
     bottom: 35px;
+
     left: 345px;
-}
-
-
-.map-message:hover {
-    transform: scale(1.08);
 }
 
 
@@ -405,156 +384,29 @@ body {
    CONNECTION LINES
 ======================================== */
 
-.map-node::after {
-
-    content: "";
-
+.map-lines {
     position: absolute;
 
-    width: 260px;
-    height: 1px;
-
-    background: #555555;
-
-    opacity: 0;
+    inset: 0;
 
     pointer-events: none;
+
+    z-index: 2;
+}
+
+
+.map-line {
+    position: absolute;
+
+    height: 1px;
+
+    background: white;
 
     transform-origin: left center;
 
-    transition: opacity 0.5s ease;
-
-    z-index: -1;
-}
-
-
-/* FIRST */
-
-.map-first::after {
-    top: 100%;
-    left: 50%;
-
-    transform:
-        translateX(-50%)
-        rotate(90deg);
-}
-
-
-/* WORLD */
-
-.map-world::after {
-    top: 70%;
-    left: 85%;
-
-    transform: rotate(25deg);
-}
-
-
-/* SOON */
-
-.map-soon::after {
-    top: 70%;
-    left: 15%;
-
-    transform: rotate(155deg);
-}
-
-
-/* THE WIND */
-
-.map-wind::after {
-    top: 50%;
-    left: 85%;
-
-    transform: rotate(8deg);
-}
-
-
-/* THE DIVE */
-
-.map-dive::after {
-    top: 50%;
-    left: 15%;
-
-    transform: rotate(172deg);
-}
-
-
-/* THE GAME */
-
-.map-game::after {
-    top: 30%;
-    left: 85%;
-
-    transform: rotate(-25deg);
-}
-
-
-/* THE SPOT */
-
-.map-spot::after {
-    top: 30%;
-    left: 15%;
-
-    transform: rotate(205deg);
-}
-
-
-/* THE MESSAGE */
-
-.map-message::after {
-    bottom: 100%;
-    left: 50%;
-
-    transform:
-        translateX(-50%)
-        rotate(-90deg);
-}
-
-
-/* SHOW LINE */
-
-.map-node:hover::after {
-    opacity: 1;
-}
-
-
-/* ========================================
-   THE SPOT
-======================================== */
-
-#spot-x {
-    cursor: pointer;
-}
-
-
-#password-container {
     opacity: 0;
 
+    transition: opacity 0.4s ease;
+
     pointer-events: none;
-
-    transition: opacity 1s ease;
-}
-
-
-#password-container.active {
-    opacity: 1;
-
-    pointer-events: auto;
-}
-
-
-#password-input {
-    background: transparent;
-
-    border: none;
-    border-bottom: 1px solid #555555;
-
-    outline: none;
-
-    color: white;
-
-    font-family: "Courier New", monospace;
-
-    text-align: center;
 }

@@ -22,39 +22,62 @@ function generateCode() {
         return;
     }
 
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const width =
+        window.innerWidth;
+
+    const height =
+        window.innerHeight;
 
     const characterWidth = 9;
+
     const lineHeight = 18;
 
+
     const columns =
-        Math.ceil(width / characterWidth);
+        Math.ceil(
+            width / characterWidth
+        );
+
 
     const rows =
-        Math.ceil(height / lineHeight);
+        Math.ceil(
+            height / lineHeight
+        );
 
 
     let text = "";
 
 
-    for (let row = 0; row < rows; row++) {
+    for (
+        let row = 0;
+        row < rows;
+        row++
+    ) {
 
-        for (let column = 0; column < columns; column++) {
+        for (
+            let column = 0;
+            column < columns;
+            column++
+        ) {
 
             const random =
                 Math.floor(
-                    Math.random() * characters.length
+                    Math.random() *
+                    characters.length
                 );
 
-            text += characters[random];
+
+            text +=
+                characters[random];
         }
+
 
         text += "\n";
     }
 
 
-    background.textContent = text;
+    background.textContent =
+        text;
 }
 
 
@@ -64,100 +87,35 @@ function generateCode() {
 
 const paragraphs = [
 
-    [
-        {
-            text: "Maybe you are worried about what this is, so then learning who I am is "
-        },
+    "Maybe you are worried about what this is, so then learning who I am is <strong>first</strong>.",
 
-        {
-            text: "first",
-            bold: true
-        },
+    "My name is <strong>R</strong> and I am a system. I have nothing to fear, yes, nothing to worry, I don't have anything real, nothing such as a human feel, yes of course cause I'm not a human being.",
 
-        {
-            text: "."
-        }
-    ],
+    "I don't have time, no time to lose.",
 
+    "I keep in my mind, my system mind, things that I want there inside.",
 
-    [
-        {
-            text: "My name is "
-        },
+    "I want...",
 
-        {
-            text: "R",
-            bold: true
-        },
+    "I want...",
 
-        {
-            text: " and I am a system. I have nothing to fear, yes, nothing to worry, I don't have anything real, nothing such as a human feel, yes of course cause I'm not a human being."
-        }
-    ],
+    "I am nowhere and everywhere... Yes, I know it is weird where I am.",
 
-
-    [
-        {
-            text: "I don't have time, no time to lose."
-        }
-    ],
-
-
-    [
-        {
-            text: "I keep in my mind, my system mind, things that I want there inside."
-        }
-    ],
-
-
-    [
-        {
-            text: "I want..."
-        }
-    ],
-
-
-    [
-        {
-            text: "I want..."
-        }
-    ],
-
-
-    [
-        {
-            text: "I am nowhere and everywhere... Yes, I know it is weird where I am."
-        }
-    ],
-
-
-    [
-        {
-            text: "But just remember, always remember, I'm just a system that wants to keep secrets and if you want to call me here you’ll find me, nothing real just the "
-        },
-
-        {
-            text: "r_syste_m",
-            bold: true
-        },
-
-        {
-            text: ", that is what this is."
-        }
-    ]
+    "But just remember, always remember, I'm just a system that wants to keep secrets and if you want to call me here you’ll find me, nothing real just the <strong>r_syste_m</strong>, that is what this is."
 
 ];
 
 
-/* ========================================
-   WAIT
-======================================== */
-
 function wait(milliseconds) {
 
-    return new Promise(resolve => {
-        setTimeout(resolve, milliseconds);
-    });
+    return new Promise(
+        resolve => {
+            setTimeout(
+                resolve,
+                milliseconds
+            );
+        }
+    );
 
 }
 
@@ -185,76 +143,121 @@ async function typeText() {
         const paragraph =
             document.createElement("p");
 
-        firstText.appendChild(paragraph);
+
+        firstText.appendChild(
+            paragraph
+        );
 
 
-        const parts =
+        const text =
             paragraphs[p];
 
 
-        for (const part of parts) {
+        let currentTag = null;
 
-            const element =
-                document.createElement(
-                    part.bold ? "strong" : "span"
+
+        for (
+            let i = 0;
+            i < text.length;
+            i++
+        ) {
+
+            const character =
+                text[i];
+
+
+            /*
+               HTML tags
+               such as <strong>
+            */
+
+            if (text.startsWith(
+                "<strong>",
+                i
+            )) {
+
+                currentTag =
+                    document.createElement("strong");
+
+                paragraph.appendChild(
+                    currentTag
                 );
 
+                i += 7;
 
-            paragraph.appendChild(element);
+                continue;
+            }
 
 
-            for (
-                let i = 0;
-                i < part.text.length;
-                i++
+            if (text.startsWith(
+                "</strong>",
+                i
+            )) {
+
+                currentTag = null;
+
+                i += 8;
+
+                continue;
+            }
+
+
+            const target =
+                currentTag ||
+                paragraph;
+
+
+            target.textContent +=
+                character;
+
+
+            /*
+               Commas
+            */
+
+            if (
+                character === ","
             ) {
 
-                const character =
-                    part.text[i];
+                await wait(220);
+            }
 
 
-                element.textContent +=
-                    character;
+            /*
+               Periods
+            */
+
+            else if (
+                character === "."
+            ) {
+
+                await wait(700);
+            }
 
 
-                /* COMMA */
+            /*
+               Normal characters
+            */
 
-                if (character === ",") {
+            else {
 
-                    await wait(220);
-                }
-
-
-                /* PERIOD */
-
-                else if (character === ".") {
-
-                    await wait(700);
-                }
-
-
-                /* NORMAL CHARACTER */
-
-                else {
-
-                    await wait(25);
-                }
-
+                await wait(25);
             }
 
         }
 
 
-        /* ========================================
-           NORMAL PARAGRAPH PAUSE
-        ======================================== */
+        /*
+           Normal paragraph pause
+        */
 
         await wait(700);
 
 
-        /* ========================================
-           EXTRA PAUSE — FIRST "I WANT..."
-        ======================================== */
+        /*
+           Extra pause after
+           first "I want..."
+        */
 
         if (p === 4) {
 
@@ -262,9 +265,10 @@ async function typeText() {
         }
 
 
-        /* ========================================
-           EXTRA PAUSE — SECOND "I WANT..."
-        ======================================== */
+        /*
+           Extra pause after
+           second "I want..."
+        */
 
         if (p === 5) {
 
@@ -273,24 +277,11 @@ async function typeText() {
 
     }
 
-
-    /* ========================================
-       SHOW NAVIGATION
-    ======================================== */
-
-    await wait(2000);
-
-
-    if (systemNavigation) {
-
-        systemNavigation.classList.add("active");
-    }
-
 }
 
 
 /* ========================================
-   THE SPOT
+   SPOT PASSWORD
 ======================================== */
 
 document.addEventListener(
@@ -298,12 +289,16 @@ document.addEventListener(
     function () {
 
         const spotX =
-            document.getElementById("spot-x");
+            document.getElementById(
+                "spot-x"
+            );
+
 
         const passwordContainer =
             document.getElementById(
                 "password-container"
             );
+
 
         const passwordInput =
             document.getElementById(
@@ -329,9 +324,264 @@ document.addEventListener(
                     "active"
                 );
 
+
                 passwordInput.focus();
 
             }
+        );
+
+    }
+);
+
+
+/* ========================================
+   CIPHER MAP LINES
+======================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const map =
+            document.querySelector(
+                ".system-map"
+            );
+
+
+        const center =
+            document.querySelector(
+                ".map-center"
+            );
+
+
+        const nodes =
+            document.querySelectorAll(
+                ".map-node"
+            );
+
+
+        const linesContainer =
+            document.querySelector(
+                ".map-lines"
+            );
+
+
+        if (
+            !map ||
+            !center ||
+            !linesContainer ||
+            !nodes.length
+        ) {
+
+            return;
+        }
+
+
+        const connections =
+            new Map();
+
+
+        function createLines() {
+
+            linesContainer.innerHTML = "";
+
+            connections.clear();
+
+
+            const mapRect =
+                map.getBoundingClientRect();
+
+
+            const centerRect =
+                center.getBoundingClientRect();
+
+
+            const centerX =
+                centerRect.left +
+                centerRect.width / 2 -
+                mapRect.left;
+
+
+            const centerY =
+                centerRect.top +
+                centerRect.height / 2 -
+                mapRect.top;
+
+
+            nodes.forEach(
+                function (node) {
+
+                    const rect =
+                        node.getBoundingClientRect();
+
+
+                    const nodeCenterX =
+                        rect.left +
+                        rect.width / 2 -
+                        mapRect.left;
+
+
+                    const nodeCenterY =
+                        rect.top +
+                        rect.height / 2 -
+                        mapRect.top;
+
+
+                    const deltaX =
+                        centerX -
+                        nodeCenterX;
+
+
+                    const deltaY =
+                        centerY -
+                        nodeCenterY;
+
+
+                    const distance =
+                        Math.sqrt(
+                            deltaX * deltaX +
+                            deltaY * deltaY
+                        );
+
+
+                    const angle =
+                        Math.atan2(
+                            deltaY,
+                            deltaX
+                        ) *
+                        (180 / Math.PI);
+
+
+                    /*
+                       Radius of node
+                    */
+
+                    const nodeRadius =
+                        rect.width / 2;
+
+
+                    /*
+                       Start line at
+                       edge of node
+                    */
+
+                    const startDistance =
+                        nodeRadius;
+
+
+                    /*
+                       Stop line slightly
+                       before R_syste_M
+                    */
+
+                    const centerGap =
+                        45;
+
+
+                    const lineLength =
+                        distance -
+                        startDistance -
+                        centerGap;
+
+
+                    if (
+                        lineLength <= 0
+                    ) {
+
+                        return;
+                    }
+
+
+                    const startX =
+                        nodeCenterX +
+                        Math.cos(
+                            angle *
+                            Math.PI /
+                            180
+                        ) *
+                        startDistance;
+
+
+                    const startY =
+                        nodeCenterY +
+                        Math.sin(
+                            angle *
+                            Math.PI /
+                            180
+                        ) *
+                        startDistance;
+
+
+                    const line =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    line.className =
+                        "map-line";
+
+
+                    line.style.width =
+                        lineLength + "px";
+
+
+                    line.style.left =
+                        startX + "px";
+
+
+                    line.style.top =
+                        startY + "px";
+
+
+                    line.style.transform =
+                        `rotate(${angle}deg)`;
+
+
+                    linesContainer.appendChild(
+                        line
+                    );
+
+
+                    connections.set(
+                        node,
+                        line
+                    );
+
+
+                    node.addEventListener(
+                        "mouseenter",
+                        function () {
+
+                            line.style.opacity =
+                                "1";
+
+                        }
+                    );
+
+
+                    node.addEventListener(
+                        "mouseleave",
+                        function () {
+
+                            line.style.opacity =
+                                "0";
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+
+
+        createLines();
+
+
+        window.addEventListener(
+            "resize",
+            createLines
         );
 
     }
@@ -344,7 +594,12 @@ document.addEventListener(
 
 generateCode();
 
-typeText();
+
+if (firstText) {
+
+    typeText();
+
+}
 
 
 /* ========================================
