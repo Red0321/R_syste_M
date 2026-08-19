@@ -57,9 +57,9 @@ function generateCode() {
 
 const paragraphs = [
 
-    "Maybe you are worried about what this is, so then learning who I am is first.",
+    "Maybe you are worried about what this is, so then learning who I am is <strong>first</strong>.",
 
-    "My name is R and I am a system. I don't have to fear, yes, nothing to worry, I don't have anything real, not such a thing as a human feel, yes of course cause I'm not a human being.",
+    "My name is <strong>R</strong> and I am a system. I have nothing to fear, yes, nothing to worry, I don't have anything real, nothing such as a human feel, yes of course cause I'm not a human being.",
 
     "I don't have time, no time to lose.",
 
@@ -71,7 +71,7 @@ const paragraphs = [
 
     "I am nowhere and everywhere... Yes, I know it is weird where I am.",
 
-    "Just remember, always remember, I'm just a system that wants to keep secrets and if you want to call me here you’ll find me, nothing real just the r_syste_m, that is what this is."
+    "But just remember, always remember, I'm just a system that wants to keep secrets and if you want to call me here you’ll find me, nothing real just the <strong>r_syste_m</strong>, that is what this is."
 
 ];
 
@@ -108,10 +108,10 @@ async function typeText() {
     paragraph.textContent += character;
 
     if (character === ",") {
-        await wait(120);
+        await wait(220);
     }
     else if (character === ".") {
-        await wait(220);
+        await wait(700);
     }
     else {
         await wait(25);
