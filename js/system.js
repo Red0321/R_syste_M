@@ -166,17 +166,22 @@ window.addEventListener(
     "resize",
     generateCode
 );
-const spotX =
-    document.getElementById("spot-x");
+document.addEventListener("DOMContentLoaded", function () {
 
-const passwordContainer =
-    document.getElementById("password-container");
+    const spotX =
+        document.getElementById("spot-x");
 
-const passwordInput =
-    document.getElementById("password-input");
+    const passwordContainer =
+        document.getElementById("password-container");
+
+    const passwordInput =
+        document.getElementById("password-input");
 
 
-if (spotX) {
+    if (!spotX || !passwordContainer || !passwordInput) {
+        return;
+    }
+
 
     spotX.addEventListener("click", function () {
 
@@ -186,4 +191,4 @@ if (spotX) {
 
     });
 
-}
+});
