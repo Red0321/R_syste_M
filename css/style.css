@@ -1,13 +1,3 @@
-/* ========================================
-   R_syste_M
-   GLOBAL STYLE
-======================================== */
-
-
-/* ========================================
-   RESET
-======================================== */
-
 html,
 body {
     margin: 0;
@@ -28,7 +18,7 @@ body {
 
 
 /* ========================================
-   BACKGROUND
+   BACKGROUND CODE
 ======================================== */
 
 #binary-background {
@@ -37,57 +27,80 @@ body {
     top: 0;
     left: 0;
 
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
+
+    background: black;
+
+    color: #444444;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 15px;
+
+    line-height: 18px;
+
+    white-space: pre;
 
     overflow: hidden;
 
-    pointer-events: none;
-
     z-index: 0;
+
+    pointer-events: none;
 }
 
 
 /* ========================================
-   MAIN CONTENT
+   MAIN FIRST CONTENT
 ======================================== */
 
 .first-content {
     position: relative;
 
-    z-index: 2;
+    z-index: 1;
 
     width: 100%;
+
     min-height: 100vh;
 
-    box-sizing: border-box;
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    padding-top: 80px;
 
     text-align: center;
-
-    padding-top: 50px;
 }
 
 
 /* ========================================
-   SYSTEM TITLE
+   R_syste_M
 ======================================== */
 
 .system-title {
-    display: inline-block;
-
-    color: white;
-
     font-family: "Courier New", monospace;
 
-    font-size: 20px;
+    font-size: 48px;
 
-    letter-spacing: 5px;
+    font-weight: normal;
+
+    letter-spacing: 3px;
+
+    color: white;
 
     text-decoration: none;
 }
 
 
 .system-link {
+    display: block;
+
+    color: white;
+
+    text-decoration: none;
+
     cursor: pointer;
 
     transition:
@@ -96,31 +109,35 @@ body {
 
 
 .system-link:hover {
-    opacity: 0.6;
+    opacity: 0.65;
 }
 
 
 /* ========================================
-   SECTION TITLE
+   FIRST TITLE
 ======================================== */
 
 .section-title {
-    color: white;
+    margin-top: 35px;
 
-    font-family: "Courier New", monospace;
-
-    font-size: 30px;
+    font-size: 18px;
 
     letter-spacing: 8px;
+
+    color: white;
 }
 
 
 /* ========================================
-   GENERAL TEXT
+   FIRST TEXT
 ======================================== */
 
 .first-text {
-    color: white;
+    width: 750px;
+
+    max-width: 90%;
+
+    margin: 60px auto 0;
 
     font-family: "Courier New", monospace;
 
@@ -128,73 +145,1105 @@ body {
 
     line-height: 1.8;
 
-    letter-spacing: 2px;
+    text-align: center;
+
+    color: white;
 }
 
 
 .first-text p {
-    margin: 0;
+    margin-bottom: 30px;
 }
 
 
 .first-text strong {
+    font-weight: bold;
+
+    color: white;
+}
+
+
+/* ========================================
+   SYSTEM NAVIGATION
+======================================== */
+
+.system-navigation {
+    width: 90%;
+
+    margin-top: 90px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 30px;
+
+    opacity: 0;
+
+    transition:
+        opacity 2s ease;
+
+    pointer-events: none;
+}
+
+
+.system-navigation.active {
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+
+.system-navigation a {
+    color: #555555;
+
+    text-decoration: none;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 15px;
+
+    letter-spacing: 2px;
+
+    transition:
+        color 0.4s ease,
+        letter-spacing 0.4s ease;
+}
+
+
+.system-navigation a:hover {
     color: white;
 
-    font-weight: normal;
+    letter-spacing: 3px;
 }
 
 
 /* ========================================
-   GENERAL LINKS
+   CIPHER / SYSTEM MAP
 ======================================== */
 
-a {
-    color: inherit;
+.system-map {
+    position: relative;
 
-    text-decoration: none;
+    width: 800px;
+
+    height: 800px;
+
+    margin: 0 auto;
+
+    top: 50vh;
+
+    transform: translateY(-50%);
+
+    opacity: 0;
+
+    animation:
+        cipherFadeIn
+        1.5s
+        ease
+        forwards;
 }
 
 
-a:hover {
-    text-decoration: none;
+@keyframes cipherFadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
 }
 
 
 /* ========================================
-   RESPONSIVE
+   MAP CENTER
 ======================================== */
 
-@media (max-width: 900px) {
+.map-center {
+    position: absolute;
 
-    .first-content {
-        padding-left: 20px;
+    top: 50%;
 
-        padding-right: 20px;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    font-family: "Courier New", monospace;
+
+    font-size: 32px;
+
+    letter-spacing: 3px;
+
+    color: white;
+
+    z-index: 10;
+}
+
+
+/* ========================================
+   MAP NODES
+======================================== */
+
+.map-node {
+    position: absolute;
+
+    width: 110px;
+
+    height: 110px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    border: 1px solid #444444;
+
+    border-radius: 50%;
+
+    color: #555555;
+
+    text-decoration: none;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 14px;
+
+    letter-spacing: 2px;
+
+    z-index: 5;
+
+    transition:
+        color 0.5s ease,
+        border-color 0.5s ease,
+        transform 0.5s ease;
+}
+
+
+.map-node span {
+    position: relative;
+
+    z-index: 6;
+}
+
+
+.map-node:hover {
+    color: white;
+
+    border-color: #888888;
+
+    transform: scale(1.08);
+}
+
+
+/* ========================================
+   NODE POSITIONS
+======================================== */
+
+.map-first {
+    top: 35px;
+
+    left: 345px;
+}
+
+
+.map-world {
+    top: 150px;
+
+    left: 140px;
+}
+
+
+.map-soon {
+    top: 150px;
+
+    right: 140px;
+}
+
+
+.map-wind {
+    top: 300px;
+
+    left: 105px;
+}
+
+
+.map-dive {
+    top: 300px;
+
+    right: 105px;
+}
+
+
+.map-game {
+    bottom: 150px;
+
+    left: 140px;
+}
+
+
+.map-spot {
+    bottom: 150px;
+
+    right: 140px;
+}
+
+
+.map-message {
+    bottom: 35px;
+    left: 345px;
+}
+
+.map-message span {
+    width: 100%;
+    text-align: center;
+}
+
+
+/* ========================================
+   CONNECTION LINES
+======================================== */
+
+.map-lines {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+
+.map-line {
+    position: absolute;
+
+    height: 1px;
+
+    background: white;
+
+    transform-origin: left center;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.4s ease;
+
+    pointer-events: none;
+}
+
+
+/* ========================================
+   VISITED MAP NODES
+======================================== */
+
+.map-node.visited {
+    border-color: #666666;
+
+    color: #777777;
+}
+
+
+.map-node.visited:hover {
+    border-color: #999999;
+
+    color: white;
+
+    transform: scale(1.08);
+}
+
+
+/* ========================================
+   WORLD
+======================================== */
+
+.world-title {
+    opacity: 0;
+
+    animation:
+        worldTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.world-intro {
+    opacity: 0;
+
+    animation:
+        worldFadeIn
+        2.5s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+.world-final {
+    opacity: 0;
+
+    animation:
+        worldFinalFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 5.8s;
+}
+
+
+@keyframes worldTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 
 }
 
 
-@media (max-width: 600px) {
+@keyframes worldFadeIn {
 
-    .system-title {
-        font-size: 17px;
-
-        letter-spacing: 4px;
+    from {
+        opacity: 0;
     }
 
-
-    .section-title {
-        font-size: 24px;
-
-        letter-spacing: 6px;
-    }
-
-
-    .first-text {
-        font-size: 14px;
-
-        letter-spacing: 1px;
+    to {
+        opacity: 1;
     }
 
 }
+
+
+@keyframes worldFinalFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* ========================================
+   WORLD LIST
+======================================== */
+
+.world-list {
+    width: 850px;
+
+    max-width: 90%;
+
+    margin: 90px auto 0;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    column-gap: 50px;
+
+    row-gap: 35px;
+
+    text-align: center;
+}
+
+
+/* ========================================
+   WORLD ITEMS
+======================================== */
+
+.world-item {
+    opacity: 0;
+
+    display: block;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 18px;
+
+    letter-spacing: 4px;
+
+    margin: 35px 0;
+
+    color: #cccccc;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    animation:
+        worldItemFade
+        2s
+        ease
+        forwards;
+}
+
+
+.world-item span {
+    display: inline-block;
+
+    color: #cccccc;
+
+    transition:
+        transform 0.4s ease,
+        letter-spacing 0.4s ease,
+        color 0.05s ease 0.4s;
+        color 0.4s ease;
+}
+
+
+.world-item:hover span {
+    color: white;
+
+    transform: scale(1.06);
+
+    letter-spacing: 5px;
+}
+
+
+/* ========================================
+   WORLD ITEM DELAYS
+======================================== */
+
+.world-item:nth-child(1) {
+    animation-delay: 8s;
+}
+
+.world-item:nth-child(2) {
+    animation-delay: 9.5s;
+}
+
+.world-item:nth-child(3) {
+    animation-delay: 11s;
+}
+
+.world-item:nth-child(4) {
+    animation-delay: 12.5s;
+}
+
+.world-item:nth-child(5) {
+    animation-delay: 14s;
+}
+
+.world-item:nth-child(6) {
+    animation-delay: 15.5s;
+}
+
+.world-item:nth-child(7) {
+    animation-delay: 17s;
+}
+
+.world-item:nth-child(8) {
+    animation-delay: 18.5s;
+}
+
+.world-item:nth-child(9) {
+    animation-delay: 20s;
+}
+
+.world-item:nth-child(10) {
+    animation-delay: 21.5s;
+}
+
+.world-item:nth-child(11) {
+    animation-delay: 23s;
+}
+
+.world-item:nth-child(12) {
+    animation-delay: 24.5s;
+}
+
+
+/* ========================================
+   WORLD ITEM ANIMATION
+======================================== */
+
+@keyframes worldItemFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+/* ========================================
+   THE WIND
+======================================== */
+
+.wind-title {
+    opacity: 0;
+
+    animation:
+        windTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.wind-intro {
+    opacity: 0;
+
+    animation:
+        windIntroFade
+        2.5s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+.wind-final {
+    opacity: 0;
+
+    animation:
+        windFinalFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 6s;
+}
+
+
+@keyframes windTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes windIntroFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes windFinalFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* ========================================
+   THE DIVE
+======================================== */
+
+.dive-title {
+    opacity: 0;
+
+    animation:
+        diveTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.dive-intro {
+    opacity: 0;
+
+    animation:
+        diveTextFade
+        2.5s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+/* DARKNESS */
+
+.dive-darkness {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: black;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    animation:
+        diveDarkness
+        18s
+        ease
+        forwards;
+
+    animation-delay: 5s;
+}
+
+
+/* FINAL WORD */
+
+.dive-final {
+    opacity: 0;
+
+    animation:
+        diveFinalFade
+        4s
+        ease
+        forwards;
+
+    animation-delay: 18s;
+}
+
+
+/* ========================================
+   DIVE ANIMATIONS
+======================================== */
+
+@keyframes diveTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes diveTextFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes diveDarkness {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0.75;
+    }
+
+}
+
+
+@keyframes diveFinalFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* ========================================
+   SOON
+======================================== */
+
+.soon-title {
+    opacity: 0;
+
+    animation:
+        soonTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.soon-intro {
+    opacity: 0;
+
+    animation:
+        soonIntroFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+.soon-intro p {
+    margin-bottom: 25px;
+}
+
+
+.soon-final {
+    opacity: 0;
+
+    font-weight: bold;
+
+    animation:
+        soonFinalFade
+        4s
+        ease
+        forwards;
+
+    animation-delay: 9s;
+}
+
+
+/* ========================================
+   SOON ANIMATIONS
+======================================== */
+
+@keyframes soonTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes soonIntroFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes soonFinalFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* ========================================
+   THE GAME
+======================================== */
+
+.game-title {
+    opacity: 0;
+
+    animation:
+        gameTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.game-intro {
+    opacity: 0;
+
+    animation:
+        gameIntroFade
+        2.5s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+.game-final {
+    opacity: 0;
+
+    font-weight: bold;
+
+    animation:
+        gameFinalFade
+        3s
+        ease
+        forwards;
+
+    animation-delay: 8s;
+}
+
+
+@keyframes gameTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes gameIntroFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes gameFinalFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* ========================================
+   THE SPOT
+======================================== */
+
+.spot-title {
+    opacity: 0;
+
+    animation:
+        spotTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.spot-intro {
+    opacity: 0;
+
+    animation:
+        spotIntroFade
+        2.5s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+#spot-x {
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition:
+        opacity 0.3s ease;
+}
+
+
+#spot-x:hover {
+    opacity: 0.7;
+}
+
+
+@keyframes spotTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes spotIntroFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+#password-container {
+    opacity: 0;
+
+    margin-top: 45px;
+
+    transition:
+        opacity 1.5s ease;
+
+    pointer-events: none;
+}
+
+
+#password-container.active {
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+
+#password-input {
+    width: 250px;
+
+    background: transparent;
+
+    border: none;
+
+    border-bottom: 1px solid #555555;
+
+    outline: none;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 16px;
+
+    text-align: center;
+
+    padding: 8px 5px;
+}
+
+
+/* ========================================
+   THE MESSAGE
+======================================== */
+
+.message-title {
+    opacity: 0;
+
+    animation:
+        messageTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.message-intro {
+    opacity: 0;
+
+    animation:
+        messageIntroFade
+        3s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+.message-s {
+    font-weight: bold;
+}
+
+
+@keyframes messageTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes messageIntroFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
