@@ -595,19 +595,24 @@ body {
         2s
         ease
         forwards;
+}
+
+
+.world-item span {
+    display: inline-block;
+
+    color: white;
 
     transition:
-        font-size 0.4s ease,
+        transform 0.4s ease,
         letter-spacing 0.4s ease;
 }
 
 
-.world-item:hover {
+.world-item:hover span {
     color: white;
 
-    text-decoration: none;
-
-    font-size: 19px;
+    transform: scale(1.06);
 
     letter-spacing: 5px;
 }
