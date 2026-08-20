@@ -4,10 +4,16 @@
 
 const gameData = [
 
-    {
+    /* ========================================
+   RECORD 001
+======================================== */
+
+{
     number: "001",
 
     type: "text",
+
+    inputStyle: "cursor",
 
     content:
 `A being that is neither darkness nor light;
@@ -24,6 +30,10 @@ shall be dubbed...`,
     answer: "NOBODY"
 },
 
+
+    /* ========================================
+       RECORD 002
+    ======================================== */
 
     {
         number: "002",
@@ -44,47 +54,75 @@ shall be dubbed...`,
     },
 
 
+    /* ========================================
+       RECORD 003
+    ======================================== */
+
     {
         number: "003",
 
-        type: "text",
+        type: "rearrange",
 
         content:
 `BIOHAZARD
 
-RECORD CORRUPTED:
+RECORD CORRUPTED:`,
 
--TRIVUS`,
+        letters: [
+            "-",
+            "T",
+            "R",
+            "I",
+            "V",
+            "U",
+            "S"
+        ],
 
-        answer: "T-VIRUS"
+        answer: [
+            "T",
+            "-",
+            "V",
+            "I",
+            "R",
+            "U",
+            "S"
+        ]
     },
 
+
+    /* ========================================
+       RECORD 004
+    ======================================== */
 
     {
         number: "004",
 
-        type: "text",
+        type: "inline",
 
-        content:
+        before:
 `TEMPORAL FILE
 
 RECORD 1999 A.D.:
 
-DAY OF __________`,
+DAY OF`,
 
         answer: "LAVOS"
     },
 
 
-    {
-        number: "005",
+    /* ========================================
+   RECORD 005
+======================================== */
 
-        type: "text",
+{
+    number: "005",
 
-        content:
-`GOTHIC RECORD
+    type: "text",
 
-HE HAS DIED
+    inputStyle: "cursor",
+
+    content:
+`HE HAS DIED
 MORE TIMES THAN
 HE CAN BE COUNTED.
 
@@ -99,9 +137,12 @@ THROUGH THE CASTLE.
 HE IS THE LORD
 OF THE NIGHT.`,
 
-        answer: "DRACULA"
-    },
+    answer: "DRACULA"
+},
 
+    /* ========================================
+       RECORD 006
+    ======================================== */
 
     {
         number: "006",
@@ -110,8 +151,8 @@ OF THE NIGHT.`,
 
         values: [
             "COURAGE",
-            "POWR",
-            "WISDM"
+            "R",
+            "SM"
         ],
 
         answer: [
@@ -122,12 +163,16 @@ OF THE NIGHT.`,
     },
 
 
+    /* ========================================
+       RECORD 007
+    ======================================== */
+
     {
         number: "007",
 
-        type: "text",
+        type: "inline",
 
-        content:
+        before:
 `TRANSMISSION // 004
 
 THE SIGNAL WAS RECEIVED.
@@ -136,11 +181,15 @@ THE MESSAGE WAS NOT.
 
 ONE WORD REMAINS:
 
-YOU ARE MY ONLY _____`,
+YOU ARE MY ONLY`,
 
         answer: "HOPE"
     },
 
+
+    /* ========================================
+       RECORD 008
+    ======================================== */
 
     {
         number: "008",
@@ -162,6 +211,10 @@ THE GHOST OF SPARTA.`,
     },
 
 
+    /* ========================================
+       RECORD 009
+    ======================================== */
+
     {
         number: "009",
 
@@ -172,11 +225,15 @@ THE GHOST OF SPARTA.`,
 
 PILOT:
 
-SHINJI ________`,
+SHINJI`,
 
         answer: "IKARI"
     },
 
+
+    /* ========================================
+       RECORD 010
+    ======================================== */
 
     {
         number: "010",
@@ -197,6 +254,10 @@ WAS NOT ITS MASTER.`,
     },
 
 
+    /* ========================================
+       RECORD 011
+    ======================================== */
+
     {
         number: "011",
 
@@ -211,11 +272,15 @@ THE DEAD COULD NO LONGER
 REMAIN DEAD.
 
 THE LIVING COULD NO LONGER
-REMAIN ________.`,
+REMAIN`,
 
         answer: "ALONE"
     },
 
+
+    /* ========================================
+       RECORD 012
+    ======================================== */
 
     {
         number: "012",
@@ -246,6 +311,7 @@ ONE NAME WAS LEFT BEHIND.`,
 ======================================== */
 
 let currentQuestion = 0;
+
 let answerLocked = false;
 
 
@@ -284,7 +350,8 @@ if (
         "R_syste_M: Game interface not found."
     );
 
-} else {
+}
+else {
 
     showQuestion();
 
@@ -317,10 +384,6 @@ function showQuestion() {
         `RECORD ${question.number}`;
 
 
-    /*
-     * Franchise names are intentionally hidden.
-     */
-
     if (questionContext) {
 
         questionContext.textContent = "";
@@ -328,35 +391,71 @@ function showQuestion() {
     }
 
 
-    questionContent.textContent =
-        question.content;
+    questionContent.textContent = "";
+
+    answerArea.innerHTML = "";
+
+    feedback.textContent = "";
 
 
-    answerArea.innerHTML =
-        "";
-
-
-    feedback.textContent =
-        "";
-
-
-    /*
-     * Create interaction.
-     */
+    /* ====================================
+       TYPE: TEXT
+    ==================================== */
 
     if (question.type === "text") {
+
+        questionContent.textContent =
+            question.content;
 
         createTextInput(question);
 
     }
 
+
+    /* ====================================
+       TYPE: EDIT
+    ==================================== */
+
     else if (question.type === "edit") {
 
-        createEditInputs(question);
+        createEditQuestion(question);
 
     }
 
+
+    /* ====================================
+       TYPE: REARRANGE
+    ==================================== */
+
+    else if (question.type === "rearrange") {
+
+        questionContent.textContent =
+            question.content;
+
+        createRearrange(question);
+
+    }
+
+
+    /* ====================================
+       TYPE: INLINE
+    ==================================== */
+
+    else if (question.type === "inline") {
+
+        createInline(question);
+
+    }
+
+
+    /* ====================================
+       TYPE: SELECT
+    ==================================== */
+
     else if (question.type === "select") {
+
+        questionContent.textContent =
+            question.content;
 
         createSelect(question);
 
@@ -379,6 +478,20 @@ function createTextInput(question) {
         "game-input";
 
 
+    /*
+     * Records that use only the blinking
+     * cursor have no visible underline.
+     */
+
+    if (question.inputStyle === "cursor") {
+
+        input.classList.add(
+            "invisible-input"
+        );
+
+    }
+
+
     input.type =
         "text";
 
@@ -389,6 +502,10 @@ function createTextInput(question) {
 
     input.spellcheck =
         false;
+
+
+    input.placeholder =
+        "";
 
 
     input.addEventListener(
@@ -422,23 +539,15 @@ function createTextInput(question) {
     answerArea.appendChild(input);
 
 
-    setTimeout(
-        function () {
-
-            input.focus();
-
-        },
-        100
-    );
+    focusInput(input);
 
 }
 
-
 /* ========================================
-   EDIT INPUTS
+   EDIT QUESTION
 ======================================== */
 
-function createEditInputs(question) {
+function createEditQuestion(question) {
 
     const wrapper =
         document.createElement("div");
@@ -509,18 +618,7 @@ function createEditInputs(question) {
     answerArea.appendChild(wrapper);
 
 
-    setTimeout(
-        function () {
-
-            if (inputs[0]) {
-
-                inputs[0].focus();
-
-            }
-
-        },
-        100
-    );
+    focusInput(inputs[0]);
 
 }
 
@@ -545,11 +643,6 @@ function checkEditAnswer(
             }
         );
 
-
-    /*
-     * Wait until every field
-     * contains something.
-     */
 
     if (
         values.some(
@@ -587,6 +680,453 @@ function checkEditAnswer(
         correctAnswer();
 
     }
+
+}
+
+
+/* ========================================
+   RECORD 003
+   REARRANGE
+======================================== */
+
+function createRearrange(question) {
+
+    const wrapper =
+        document.createElement("div");
+
+
+    wrapper.className =
+        "rearrange-record";
+
+
+    const lettersContainer =
+        document.createElement("div");
+
+
+    lettersContainer.className =
+        "rearrange-letters";
+
+
+    /*
+     * Create the letters in random order.
+     */
+
+    const shuffled =
+        shuffleArray(
+            question.letters
+        );
+
+
+    shuffled.forEach(
+        function (letter) {
+
+            const button =
+                document.createElement("button");
+
+
+            button.className =
+                "rearrange-letter";
+
+
+            button.type =
+                "button";
+
+
+            button.textContent =
+                letter;
+
+
+            button.draggable =
+                true;
+
+
+            /*
+             * Clicking two letters swaps them.
+             */
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    handleLetterClick(
+                        button,
+                        lettersContainer
+                    );
+
+                }
+            );
+
+
+            /*
+             * Drag and drop.
+             */
+
+            button.addEventListener(
+                "dragstart",
+                function (event) {
+
+                    event.dataTransfer.setData(
+                        "text/plain",
+                        ""
+                    );
+
+                    button.classList.add(
+                        "dragging"
+                    );
+
+                }
+            );
+
+
+            button.addEventListener(
+                "dragend",
+                function () {
+
+                    button.classList.remove(
+                        "dragging"
+                    );
+
+                    checkRearrangeAnswer(
+                        lettersContainer,
+                        question.answer
+                    );
+
+                }
+            );
+
+
+            button.addEventListener(
+                "dragover",
+                function (event) {
+
+                    event.preventDefault();
+
+                    const dragging =
+                        lettersContainer.querySelector(
+                            ".dragging"
+                        );
+
+
+                    if (
+                        dragging &&
+                        dragging !== button
+                    ) {
+
+                        const rect =
+                            button.getBoundingClientRect();
+
+
+                        const middle =
+                            rect.left +
+                            rect.width / 2;
+
+
+                        if (
+                            event.clientX <
+                            middle
+                        ) {
+
+                            lettersContainer.insertBefore(
+                                dragging,
+                                button
+                            );
+
+                        }
+                        else {
+
+                            lettersContainer.insertBefore(
+                                dragging,
+                                button.nextSibling
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            lettersContainer.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    wrapper.appendChild(
+        lettersContainer
+    );
+
+
+    answerArea.appendChild(
+        wrapper
+    );
+
+}
+
+
+/* ========================================
+   LETTER CLICK SWAP
+======================================== */
+
+let selectedLetter = null;
+
+
+function handleLetterClick(
+    button,
+    container
+) {
+
+    if (answerLocked) {
+
+        return;
+
+    }
+
+
+    if (!selectedLetter) {
+
+        selectedLetter = button;
+
+        button.classList.add(
+            "selected"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        selectedLetter === button
+    ) {
+
+        button.classList.remove(
+            "selected"
+        );
+
+        selectedLetter = null;
+
+        return;
+
+    }
+
+
+    const buttons =
+        Array.from(
+            container.children
+        );
+
+
+    const firstIndex =
+        buttons.indexOf(
+            selectedLetter
+        );
+
+
+    const secondIndex =
+        buttons.indexOf(
+            button
+        );
+
+
+    if (
+        firstIndex < secondIndex
+    ) {
+
+        container.insertBefore(
+            button,
+            selectedLetter
+        );
+
+    }
+    else {
+
+        container.insertBefore(
+            selectedLetter,
+            button
+        );
+
+    }
+
+
+    selectedLetter.classList.remove(
+        "selected"
+    );
+
+
+    selectedLetter = null;
+
+
+    /*
+     * Check immediately.
+     */
+
+    const current =
+        Array.from(
+            container.children
+        ).map(
+            function (element) {
+
+                return element.textContent;
+
+            }
+        );
+
+
+    checkRearrangeArray(
+        current
+    );
+
+}
+
+
+/* ========================================
+   CHECK REARRANGE
+======================================== */
+
+function checkRearrangeAnswer(
+    container,
+    answer
+) {
+
+    const current =
+        Array.from(
+            container.children
+        ).map(
+            function (element) {
+
+                return element.textContent;
+
+            }
+        );
+
+
+    if (
+        arraysEqual(
+            current,
+            answer
+        )
+    ) {
+
+        correctAnswer();
+
+    }
+
+}
+
+
+function checkRearrangeArray(
+    current
+) {
+
+    const question =
+        gameData[currentQuestion];
+
+
+    if (!question) {
+
+        return;
+
+    }
+
+
+    if (
+        arraysEqual(
+            current,
+            question.answer
+        )
+    ) {
+
+        correctAnswer();
+
+    }
+
+}
+
+
+/* ========================================
+   RECORD 004 / 007
+   INLINE INPUT
+======================================== */
+
+function createInline(question) {
+
+    const wrapper =
+        document.createElement("div");
+
+
+    wrapper.className =
+        "inline-question";
+
+
+    const text =
+        document.createElement("div");
+
+
+    text.className =
+        "inline-text";
+
+
+    text.textContent =
+        question.before;
+
+
+    const input =
+        document.createElement("input");
+
+
+    input.className =
+        "inline-input";
+
+
+    input.type =
+        "text";
+
+
+    input.autocomplete =
+        "off";
+
+
+    input.spellcheck =
+        false;
+
+
+    input.addEventListener(
+        "input",
+        function () {
+
+            if (answerLocked) {
+
+                return;
+
+            }
+
+
+            if (
+                normalize(input.value) ===
+                normalize(question.answer)
+            ) {
+
+                correctAnswer();
+
+            }
+
+        }
+    );
+
+
+    wrapper.appendChild(text);
+
+    wrapper.appendChild(input);
+
+
+    answerArea.appendChild(wrapper);
+
+
+    focusInput(input);
 
 }
 
@@ -643,7 +1183,6 @@ function createSelect(question) {
                         correctAnswer();
 
                     }
-
                     else {
 
                         incorrectAnswer();
@@ -661,6 +1200,125 @@ function createSelect(question) {
 
 
     answerArea.appendChild(wrapper);
+
+}
+
+
+/* ========================================
+   FOCUS
+======================================== */
+
+function focusInput(input) {
+
+    if (!input) {
+
+        return;
+
+    }
+
+
+    setTimeout(
+        function () {
+
+            input.focus();
+
+        },
+        100
+    );
+
+}
+
+
+/* ========================================
+   SHUFFLE
+======================================== */
+
+function shuffleArray(array) {
+
+    const result =
+        [...array];
+
+
+    /*
+     * Keep shuffling until the result
+     * is different from the answer.
+     */
+
+    let attempts = 0;
+
+
+    do {
+
+        for (
+            let i = result.length - 1;
+            i > 0;
+            i--
+        ) {
+
+            const j =
+                Math.floor(
+                    Math.random() * (i + 1)
+                );
+
+
+            [
+                result[i],
+                result[j]
+            ] =
+            [
+                result[j],
+                result[i]
+            ];
+
+        }
+
+
+        attempts++;
+
+    }
+    while (
+        arraysEqual(
+            result,
+            gameData[currentQuestion].answer
+        )
+        &&
+        attempts < 10
+    );
+
+
+    return result;
+
+}
+
+
+/* ========================================
+   ARRAY COMPARISON
+======================================== */
+
+function arraysEqual(
+    a,
+    b
+) {
+
+    if (
+        a.length !==
+        b.length
+    ) {
+
+        return false;
+
+    }
+
+
+    return a.every(
+        function (value, index) {
+
+            return (
+                value === b[index]
+            );
+
+        }
+    );
 
 }
 
@@ -718,6 +1376,8 @@ function correctAnswer() {
         function () {
 
             currentQuestion++;
+
+            selectedLetter = null;
 
             showQuestion();
 

@@ -247,6 +247,50 @@ body {
 
 
 /* ========================================
+   INVISIBLE INPUT
+   RECORD 001
+======================================== */
+
+.game-input.invisible-input {
+
+    width: 120px;
+
+    border-bottom: none;
+
+    padding: 5px;
+
+    caret-color: white;
+
+}
+
+
+.game-input.invisible-input:focus {
+
+    border-bottom: none;
+
+}
+
+
+/* ========================================
+   BLINKING CURSOR
+   RECORD 001
+======================================== */
+
+.game-input.invisible-input {
+
+    position: relative;
+
+}
+
+
+.game-input.invisible-input::after {
+
+    content: "";
+
+}
+
+
+/* ========================================
    INPUT PLACEHOLDER
 ======================================== */
 
@@ -357,6 +401,236 @@ body {
 ======================================== */
 
 .edit-input:disabled {
+
+    opacity: 0.5;
+
+    cursor: default;
+
+}
+
+
+/* ========================================
+   REARRANGE RECORD
+   RECORD 003
+======================================== */
+
+.rearrange-record {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    margin-top: 20px;
+
+}
+
+
+/* ========================================
+   REARRANGE LETTERS
+======================================== */
+
+.rearrange-letters {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 8px;
+
+    min-height: 50px;
+
+}
+
+
+/* ========================================
+   REARRANGE LETTER
+======================================== */
+
+.rearrange-letter {
+
+    width: 38px;
+
+    height: 42px;
+
+    padding: 0;
+
+    margin: 0;
+
+    background: transparent;
+
+    border: none;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 18px;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+
+}
+
+
+/* ========================================
+   LETTER HOVER
+======================================== */
+
+.rearrange-letter:hover {
+
+    opacity: 0.55;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* ========================================
+   SELECTED LETTER
+======================================== */
+
+.rearrange-letter.selected {
+
+    opacity: 0.45;
+
+    transform: translateY(-4px);
+
+}
+
+
+/* ========================================
+   DRAGGING LETTER
+======================================== */
+
+.rearrange-letter.dragging {
+
+    opacity: 0.25;
+
+}
+
+
+/* ========================================
+   DISABLED LETTER
+======================================== */
+
+.rearrange-letter:disabled {
+
+    opacity: 0.5;
+
+    cursor: default;
+
+}
+
+
+/* ========================================
+   INLINE RECORD
+   RECORD 004 / 007
+======================================== */
+
+.inline-question {
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-top: 0;
+
+}
+
+
+/* ========================================
+   INLINE TEXT
+======================================== */
+
+.inline-text {
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 17px;
+
+    line-height: 2;
+
+    letter-spacing: 3px;
+
+    white-space: pre-line;
+
+}
+
+
+/* ========================================
+   INLINE INPUT
+======================================== */
+
+.inline-input {
+
+    display: inline-block;
+
+    width: 130px;
+
+    margin-left: 12px;
+
+    background: transparent;
+
+    border: none;
+
+    border-bottom: 1px solid white;
+
+    outline: none;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 17px;
+
+    letter-spacing: 3px;
+
+    line-height: 1.5;
+
+    text-align: left;
+
+    padding: 4px 2px;
+
+    text-transform: uppercase;
+
+}
+
+
+/* ========================================
+   INLINE INPUT FOCUS
+======================================== */
+
+.inline-input:focus {
+
+    border-bottom-color: white;
+
+}
+
+
+/* ========================================
+   INLINE INPUT DISABLED
+======================================== */
+
+.inline-input:disabled {
 
     opacity: 0.5;
 
@@ -560,11 +834,58 @@ body {
     }
 
 
+    .game-input.invisible-input {
+
+        width: 100px;
+
+    }
+
+
     .edit-input {
 
         width: 70vw;
 
         font-size: 16px;
+
+    }
+
+
+    .rearrange-letters {
+
+        gap: 4px;
+
+    }
+
+
+    .rearrange-letter {
+
+        width: 32px;
+
+        height: 38px;
+
+        font-size: 16px;
+
+    }
+
+
+    .inline-text {
+
+        font-size: 15px;
+
+        line-height: 1.9;
+
+        letter-spacing: 2px;
+
+    }
+
+
+    .inline-input {
+
+        width: 100px;
+
+        font-size: 15px;
+
+        letter-spacing: 2px;
 
     }
 
@@ -576,5 +897,28 @@ body {
         letter-spacing: 3px;
 
     }
+
+}
+/* ========================================
+   INVISIBLE INPUT
+   RECORDS 001 / 005
+======================================== */
+
+.game-input.invisible-input {
+
+    border-bottom: none;
+
+    width: 300px;
+
+    caret-color: white;
+
+}
+
+
+.game-input.invisible-input:focus {
+
+    border-bottom: none;
+
+    outline: none;
 
 }
