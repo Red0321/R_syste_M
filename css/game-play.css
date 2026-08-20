@@ -1,0 +1,319 @@
+html,
+body {
+
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    min-height: 100%;
+
+    background: black;
+
+    color: white;
+
+    font-family: Arial, sans-serif;
+}
+
+
+body {
+
+    overflow-x: hidden;
+
+}
+
+
+/* ========================================
+   BACKGROUND
+======================================== */
+
+#game-background {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+}
+
+
+/* ========================================
+   CONTENT
+======================================== */
+
+.game-play-content {
+
+    position: relative;
+
+    z-index: 1;
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    box-sizing: border-box;
+
+    padding-top: 80px;
+
+    text-align: center;
+
+}
+
+
+/* ========================================
+   SYSTEM TITLE
+======================================== */
+
+.game-system-title {
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 24px;
+
+    letter-spacing: 6px;
+
+    text-decoration: none;
+
+}
+
+
+.game-system-title:hover {
+
+    opacity: 0.6;
+
+}
+
+
+/* ========================================
+   GAME INTERFACE
+======================================== */
+
+#game-interface {
+
+    width: min(700px, 90vw);
+
+    margin: 120px auto 0;
+
+    font-family: "Courier New", monospace;
+
+}
+
+
+/* ========================================
+   QUESTION NUMBER
+======================================== */
+
+#question-number {
+
+    font-size: 13px;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 35px;
+
+}
+
+
+/* ========================================
+   CONTEXT
+======================================== */
+
+#question-context {
+
+    font-size: 14px;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 50px;
+
+}
+
+
+/* ========================================
+   CONTENT
+======================================== */
+
+#question-content {
+
+    font-size: 17px;
+
+    line-height: 2;
+
+    letter-spacing: 3px;
+
+    white-space: pre-line;
+
+}
+
+
+/* ========================================
+   ANSWER
+======================================== */
+
+#answer-area {
+
+    margin-top: 50px;
+
+}
+
+
+.game-input {
+
+    width: 300px;
+
+    max-width: 80vw;
+
+    background: transparent;
+
+    border: none;
+
+    border-bottom: 1px solid white;
+
+    outline: none;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 18px;
+
+    letter-spacing: 4px;
+
+    text-align: center;
+
+    padding: 10px;
+
+    text-transform: uppercase;
+
+}
+
+
+.game-button {
+
+    display: block;
+
+    margin: 25px auto 0;
+
+    background: none;
+
+    border: none;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 13px;
+
+    letter-spacing: 4px;
+
+    cursor: pointer;
+
+}
+
+
+.game-button:hover {
+
+    opacity: 0.5;
+
+}
+
+
+/* ========================================
+   EDITABLE RECORD
+======================================== */
+
+.edit-record {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 18px;
+
+}
+
+
+.edit-input {
+
+    width: 250px;
+
+    background: transparent;
+
+    border: none;
+
+    border-bottom: 1px solid white;
+
+    outline: none;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 18px;
+
+    letter-spacing: 4px;
+
+    text-align: center;
+
+    text-transform: uppercase;
+
+    padding: 8px;
+
+}
+
+
+/* ========================================
+   FEEDBACK
+======================================== */
+
+#feedback {
+
+    min-height: 30px;
+
+    margin-top: 45px;
+
+    font-size: 13px;
+
+    letter-spacing: 4px;
+
+}
+
+
+/* ========================================
+   ANIMATION
+======================================== */
+
+#game-interface {
+
+    opacity: 0;
+
+    animation:
+        gameInterfaceFade
+        2s
+        ease
+        forwards;
+
+}
+
+
+@keyframes gameInterfaceFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}

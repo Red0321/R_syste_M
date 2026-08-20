@@ -1240,3 +1240,58 @@ body {
     to {
         opacity: 1;
     }
+}
+
+/* ========================================
+   THE GAME — START
+======================================== */
+
+.game-start {
+
+    display: block;
+
+    margin-top: 70px;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 18px;
+
+    letter-spacing: 5px;
+
+    text-decoration: none;
+
+    opacity: 0;
+
+    animation:
+        gameStartFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 2s;
+
+    transition:
+        opacity 0.3s ease;
+}
+
+
+.game-start:hover {
+
+    opacity: 0.5;
+
+}
+
+
+@keyframes gameStartFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
