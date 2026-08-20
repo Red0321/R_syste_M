@@ -597,17 +597,17 @@ body {
         forwards;
 
     transition:
-        transform 0.4s ease,
+        font-size 0.4s ease,
         letter-spacing 0.4s ease;
 }
 
 
 .world-item:hover {
-    color: white !important;
+    color: white;
 
     text-decoration: none;
 
-    transform: scale(1.06);
+    font-size: 19px;
 
     letter-spacing: 5px;
 }
