@@ -580,11 +580,23 @@ body {
 
     letter-spacing: 4px;
 
+    margin: 35px 0;
+
+    color: #555555;
+
+    text-decoration: none;
+
     animation:
         worldItemFade
         2s
         ease
         forwards;
+}
+
+.world-item:hover {
+    color: white;
+
+    text-decoration: none;
 }
 
 

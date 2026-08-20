@@ -143,22 +143,25 @@
 
 
 .database-link {
-    color: #555555;
+    color: white;
 
     text-decoration: none;
+
+    font-family: "Courier New", monospace;
 
     font-size: 15px;
 
     letter-spacing: 2px;
 
     transition:
-        color 0.4s ease,
+        opacity 0.4s ease,
         letter-spacing 0.4s ease;
 }
 
-
 .database-link:hover {
     color: white;
+
+    opacity: 0.65;
 
     letter-spacing: 3px;
 }
@@ -195,4 +198,35 @@
     color: white;
 
     letter-spacing: 4px;
+}
+.database-record {
+    color: white;
+}
+.database-record p,
+.database-record span,
+.database-record strong,
+.database-link {
+    color: white;
+}
+.database-page {
+    opacity: 0;
+
+    animation:
+        databaseFadeIn
+        2s
+        ease
+        forwards;
+}
+
+
+@keyframes databaseFadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
 }
