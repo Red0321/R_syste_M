@@ -199,15 +199,20 @@
 
     letter-spacing: 4px;
 }
+
+
 .database-record {
     color: white;
 }
+
 .database-record p,
 .database-record span,
 .database-record strong,
 .database-link {
     color: white;
 }
+
+
 .database-page {
     opacity: 0;
 
@@ -230,6 +235,12 @@
     }
 
 }
+
+
+/* ========================================
+   EVENT BANNER
+======================================== */
+
 .event-banner {
     width: 100%;
     margin-bottom: 35px;
@@ -237,6 +248,23 @@
 }
 
 .event-banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+/* ========================================
+   INDIVIDUAL BANNER
+======================================== */
+
+.person-banner {
+    width: 100%;
+    margin-bottom: 35px;
+    overflow: hidden;
+}
+
+.person-banner img {
     display: block;
     width: 100%;
     height: auto;
