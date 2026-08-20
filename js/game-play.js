@@ -188,94 +188,123 @@ YOU ARE MY ONLY`,
 
 
     /* ========================================
-       RECORD 008
-    ======================================== */
+   RECORD 008
+======================================== */
 
-    {
-        number: "008",
+{
+    number: "008",
 
-        type: "text",
+    type: "gods",
 
-        content:
-`MYTHOLOGY FILE
+    content:
+`RECORD CORRUPTED`,
 
-SON OF ZEUS.
+    options: [
+        "ZEUS",
+        "ARES",
+        "FREYA",
+        "ATHENA",
+        "PANDORA",
+        "BALDUR",
+        "ODIN",
+        "THOR",
+        "POSEIDON",
+        "ANUBIS",
+        "RA",
+        "OSIRIS"
+    ],
 
-GOD OF WAR.
-
-FATHER OF ATREUS.
-
-THE GHOST OF SPARTA.`,
-
-        answer: "KRATOS"
-    },
-
-
-    /* ========================================
-       RECORD 009
-    ======================================== */
-
-    {
-        number: "009",
-
-        type: "text",
-
-        content:
-`EVA-01
-
-PILOT:
-
-SHINJI`,
-
-        answer: "IKARI"
-    },
+    answer: [
+        "ANUBIS",
+        "RA",
+        "OSIRIS"
+    ]
+},
 
 
     /* ========================================
-       RECORD 010
-    ======================================== */
+   RECORD 009
+   SYNCHRONIZATION
+======================================== */
 
-    {
-        number: "010",
+{
+    number: "009",
 
-        type: "text",
+    type: "eva",
 
-        content:
-`AN OBJECT WAS CREATED
-TO RULE THEM ALL.
+    content:
+`SYNCHRONIZATION`,
 
-IT WAS DESTROYED
-WHERE IT WAS BORN.
+    values: [
+        {
+            name: "NAMIKAMI",
+            unit: "UNIT-00"
+        },
+        {
+            name: "NAGISA",
+            unit: "UNIT-01"
+        },
+        {
+            name: "LANGLEY",
+            unit: "UNIT-02"
+        },
+        {
+            name: "IKARI",
+            unit: "UNIT-03"
+        },
+        {
+            name: "SUZUHARA",
+            unit: "UNIT-06"
+        },
+        {
+            name: "AYANAMI",
+            unit: "UNIT-08"
+        }
+    ],
 
-ITS CREATOR
-WAS NOT ITS MASTER.`,
+    answer: [
+        "NAMIKAMI|UNIT-08",
+        "NAGISA|UNIT-06",
+        "LANGLEY|UNIT-02",
+        "IKARI|UNIT-01",
+        "SUZUHARA|UNIT-03",
+        "AYANAMI|UNIT-00"
+    ]
+},
 
-        answer: "THE ONE RING"
-    },
+    /* ========================================
+   RECORD 010
+======================================== */
+
+{
+    number: "010",
+
+    type: "text",
+
+    inputStyle: "cursor",
+
+    content:
+`One to rule them all,
+One to find them,
+One to bring them all
+and in the darkness bind them.`,
+
+    answer: "THE ONE RING"
+},
 
 
     /* ========================================
-       RECORD 011
-    ======================================== */
+   RECORD 011 — CONNECTION LOST
+======================================== */
 
-    {
-        number: "011",
+{
+    number: "011",
 
-        type: "text",
+    type: "connection",
 
-        content:
-`CONNECTION FILE
-
-THE WORLD WAS BROKEN.
-
-THE DEAD COULD NO LONGER
-REMAIN DEAD.
-
-THE LIVING COULD NO LONGER
-REMAIN`,
-
-        answer: "ALONE"
-    },
+    content:
+`CONNECTION LOST`
+},
 
 
     /* ========================================
@@ -363,7 +392,13 @@ else {
 ======================================== */
 
 function showQuestion() {
+if (window.currentCleanup) {
 
+    window.currentCleanup();
+
+    window.currentCleanup = null;
+
+}
     const question =
         gameData[currentQuestion];
 
@@ -460,6 +495,42 @@ function showQuestion() {
         createSelect(question);
 
     }
+
+}
+/* ====================================
+   TYPE: GODS
+==================================== */
+
+else if (question.type === "gods") {
+
+    questionContent.textContent =
+        question.content;
+
+    createGodCircle(question);
+
+}
+/* ====================================
+   TYPE: EVA
+==================================== */
+
+else if (question.type === "eva") {
+
+    questionContent.textContent =
+        question.content;
+
+    createEvaQuestion(question);
+
+}
+/* ====================================
+   TYPE: CONNECTION
+==================================== */
+
+else if (question.type === "connection") {
+
+    questionContent.textContent =
+        question.content;
+
+    createConnectionQuestion();
 
 }
 
@@ -1452,5 +1523,807 @@ function finishGame() {
 
     feedback.textContent =
         "";
+
+}
+/* ========================================
+   RECORD 008
+   GOD CIRCLE
+======================================== */
+
+function createGodCircle(question) {
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "god-circle-wrapper";
+
+
+    const circle =
+        document.createElement("div");
+
+    circle.className =
+        "god-circle";
+
+
+    const selectedCorrect = [];
+
+
+    question.options.forEach(
+        function (god, index) {
+
+            const button =
+                document.createElement("button");
+
+
+            button.className =
+                "god-option";
+
+
+            button.type =
+                "button";
+
+
+            button.textContent =
+                god;
+
+
+            /*
+             * Position around the circle.
+             */
+
+            const angle =
+                (360 / question.options.length) *
+                index;
+
+
+            button.style.setProperty(
+                "--god-angle",
+                `${angle}deg`
+            );
+
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    if (answerLocked) {
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * Correct Egyptian god.
+                     */
+
+                    if (
+                        question.answer.includes(god)
+                    ) {
+
+                        if (
+                            !selectedCorrect.includes(god)
+                        ) {
+
+                            selectedCorrect.push(god);
+
+                        }
+
+
+                        button.classList.add(
+                            "removed"
+                        );
+
+
+                        setTimeout(
+                            function () {
+
+                                button.remove();
+
+
+                                /*
+                                 * All three Egyptian
+                                 * gods removed.
+                                 */
+
+                                if (
+                                    selectedCorrect.length ===
+                                    question.answer.length
+                                ) {
+
+                                    correctAnswer();
+
+                                }
+
+                            },
+                            350
+                        );
+
+                    }
+
+
+                    /*
+                     * Wrong mythology.
+                     */
+
+                    else {
+
+                        incorrectAnswer();
+
+                        button.classList.add(
+                            "wrong"
+                        );
+
+
+                        setTimeout(
+                            function () {
+
+                                button.classList.remove(
+                                    "wrong"
+                                );
+
+                            },
+                            500
+                        );
+
+                    }
+
+                }
+            );
+
+
+            circle.appendChild(button);
+
+        }
+    );
+
+
+    wrapper.appendChild(circle);
+
+    answerArea.appendChild(wrapper);
+
+}
+/* ========================================
+   RECORD 009
+   EVA SYNCHRONIZATION
+======================================== */
+
+function createEvaQuestion(question) {
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "eva-record";
+
+
+    const list =
+        document.createElement("div");
+
+    list.className =
+        "eva-list";
+
+
+    /*
+     * Shuffle complete rows.
+     */
+
+    const shuffled =
+        shuffleEvaRows(question.values);
+
+
+    shuffled.forEach(
+        function (item) {
+
+            const row =
+                document.createElement("div");
+
+            row.className =
+                "eva-row";
+
+
+            row.draggable =
+                true;
+
+
+            const name =
+                document.createElement("span");
+
+            name.className =
+                "eva-name";
+
+            name.textContent =
+                item.name;
+
+
+            const unit =
+                document.createElement("span");
+
+            unit.className =
+                "eva-unit";
+
+            unit.textContent =
+                item.unit;
+
+
+            row.appendChild(name);
+
+            row.appendChild(unit);
+
+
+            /*
+             * Drag start.
+             */
+
+            row.addEventListener(
+                "dragstart",
+                function () {
+
+                    row.classList.add(
+                        "eva-dragging"
+                    );
+
+                }
+            );
+
+
+            /*
+             * Drag end.
+             */
+
+            row.addEventListener(
+                "dragend",
+                function () {
+
+                    row.classList.remove(
+                        "eva-dragging"
+                    );
+
+                    checkEvaAnswer(
+                        list,
+                        question.answer
+                    );
+
+                }
+            );
+
+
+            /*
+             * Allow dropping.
+             */
+
+            row.addEventListener(
+                "dragover",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    const dragging =
+                        list.querySelector(
+                            ".eva-dragging"
+                        );
+
+
+                    if (
+                        !dragging ||
+                        dragging === row
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const rect =
+                        row.getBoundingClientRect();
+
+
+                    const middle =
+                        rect.top +
+                        rect.height / 2;
+
+
+                    if (
+                        event.clientY < middle
+                    ) {
+
+                        list.insertBefore(
+                            dragging,
+                            row
+                        );
+
+                    }
+                    else {
+
+                        list.insertBefore(
+                            dragging,
+                            row.nextSibling
+                        );
+
+                    }
+
+                }
+            );
+
+
+            list.appendChild(row);
+
+        }
+    );
+
+
+    const sync =
+        document.createElement("div");
+
+    sync.className =
+        "sync-rate";
+
+    sync.textContent =
+        "SYNC RATE: 00%";
+
+
+    wrapper.appendChild(list);
+
+    wrapper.appendChild(sync);
+
+    answerArea.appendChild(wrapper);
+
+}
+/* ========================================
+   SHUFFLE EVA ROWS
+======================================== */
+
+function shuffleEvaRows(values) {
+
+    const result =
+        [...values];
+
+
+    let attempts = 0;
+
+
+    do {
+
+        for (
+            let i = result.length - 1;
+            i > 0;
+            i--
+        ) {
+
+            const j =
+                Math.floor(
+                    Math.random() * (i + 1)
+                );
+
+
+            [
+                result[i],
+                result[j]
+            ] =
+            [
+                result[j],
+                result[i]
+            ];
+
+        }
+
+
+        attempts++;
+
+    }
+    while (
+        isEvaCorrectOrder(result) &&
+        attempts < 10
+    );
+
+
+    return result;
+
+}
+
+
+/* ========================================
+   CHECK INITIAL ORDER
+======================================== */
+
+function isEvaCorrectOrder(rows) {
+
+    const expected = [
+        "NAMIKAMI|UNIT-08",
+        "NAGISA|UNIT-06",
+        "LANGLEY|UNIT-02",
+        "IKARI|UNIT-01",
+        "SUZUHARA|UNIT-03",
+        "AYANAMI|UNIT-00"
+    ];
+
+
+    return rows.every(
+        function (row, index) {
+
+            return (
+                `${row.name}|${row.unit}` ===
+                expected[index]
+            );
+
+        }
+    );
+
+}
+
+
+/* ========================================
+   CHECK EVA ANSWER
+======================================== */
+
+function checkEvaAnswer(
+    list,
+    answer
+) {
+
+    const rows =
+        Array.from(
+            list.children
+        );
+
+
+    const current =
+        rows.map(
+            function (row) {
+
+                const name =
+                    row.querySelector(
+                        ".eva-name"
+                    ).textContent;
+
+                const unit =
+                    row.querySelector(
+                        ".eva-unit"
+                    ).textContent;
+
+
+                return `${name}|${unit}`;
+
+            }
+        );
+
+
+    const correct =
+        current.length === answer.length &&
+        current.every(
+            function (value, index) {
+
+                return (
+                    value === answer[index]
+                );
+
+            }
+        );
+
+
+    if (!correct) {
+
+        return;
+
+    }
+
+
+    animateSyncRate();
+
+}
+/* ========================================
+   SYNCHRONIZATION ANIMATION
+======================================== */
+
+function animateSyncRate() {
+
+    if (answerLocked) {
+
+        return;
+
+    }
+
+
+    answerLocked = true;
+
+
+    const sync =
+        document.querySelector(
+            ".sync-rate"
+        );
+
+
+    if (!sync) {
+
+        correctAnswer();
+
+        return;
+
+    }
+
+
+    const rates = [
+        1,
+        27,
+        64,
+        100
+    ];
+
+
+    let index = 0;
+
+
+    function nextRate() {
+
+        if (index >= rates.length) {
+
+            sync.textContent =
+                "SYNCHRONIZATION COMPLETE.";
+
+
+            setTimeout(
+                function () {
+
+                    feedback.textContent =
+                        "RECORD RESTORED.";
+
+
+                    setTimeout(
+                        function () {
+
+                            currentQuestion++;
+
+                            showQuestion();
+
+                        },
+                        1600
+                    );
+
+                },
+                1000
+            );
+
+
+            return;
+
+        }
+
+
+        sync.textContent =
+            `SYNC RATE: ${String(
+                rates[index]
+            ).padStart(2, "0")}%`;
+
+
+        index++;
+
+
+        setTimeout(
+            nextRate,
+            800
+        );
+
+    }
+
+
+    nextRate();
+
+}
+/* ========================================
+   RECORD 011
+   CONNECTION
+======================================== */
+
+function createConnectionQuestion() {
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "connection-record";
+
+
+    const field =
+        document.createElement("div");
+
+    field.className =
+        "connection-field";
+
+
+    const player =
+        document.createElement("div");
+
+    player.className =
+        "connection-player";
+
+    player.textContent =
+        "A→";
+
+
+    const target =
+        document.createElement("div");
+
+    target.className =
+        "connection-target";
+
+    target.textContent =
+        "B";
+
+
+    /*
+     * Starting position.
+     */
+
+    let x = 25;
+
+    let y = 70;
+
+
+    /*
+     * Target position.
+     */
+
+    const targetX = 72;
+
+    const targetY = 38;
+
+
+    function updatePosition() {
+
+        player.style.left =
+            `${x}%`;
+
+        player.style.top =
+            `${y}%`;
+
+    }
+
+
+    updatePosition();
+
+
+    field.appendChild(player);
+
+    field.appendChild(target);
+
+    wrapper.appendChild(field);
+
+    answerArea.appendChild(wrapper);
+
+
+    /*
+     * Keyboard control.
+     */
+
+    function handleMovement(event) {
+
+        if (answerLocked) {
+
+            return;
+
+        }
+
+
+        const step = 2;
+
+
+        if (
+            event.key === "ArrowUp"
+        ) {
+
+            y -= step;
+
+            event.preventDefault();
+
+        }
+
+
+        else if (
+            event.key === "ArrowDown"
+        ) {
+
+            y += step;
+
+            event.preventDefault();
+
+        }
+
+
+        else if (
+            event.key === "ArrowLeft"
+        ) {
+
+            x -= step;
+
+            event.preventDefault();
+
+        }
+
+
+        else if (
+            event.key === "ArrowRight"
+        ) {
+
+            x += step;
+
+            event.preventDefault();
+
+        }
+
+
+        /*
+         * Keep player inside field.
+         */
+
+        x =
+            Math.max(
+                3,
+                Math.min(
+                    97,
+                    x
+                )
+            );
+
+
+        y =
+            Math.max(
+                5,
+                Math.min(
+                    95,
+                    y
+                )
+            );
+
+
+        updatePosition();
+
+
+        /*
+         * Check physical contact.
+         */
+
+        const distance =
+            Math.sqrt(
+                Math.pow(
+                    x - targetX,
+                    2
+                ) +
+                Math.pow(
+                    y - targetY,
+                    2
+                )
+            );
+
+
+        if (distance < 7) {
+
+            connectionEstablished();
+
+        }
+
+    }
+
+
+    document.addEventListener(
+        "keydown",
+        handleMovement
+    );
+window.currentCleanup = function () {
+
+    document.removeEventListener(
+        "keydown",
+        handleMovement
+    );
+
+};
+
+    /*
+     * Store listener so it can be
+     * removed when leaving the record.
+     */
+
+    document.body.focus();
 
 }
