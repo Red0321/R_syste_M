@@ -584,7 +584,7 @@ body {
 
     margin: 35px 0;
 
-    color: white;
+    color: #cccccc;
 
     text-decoration: none;
 
@@ -601,11 +601,12 @@ body {
 .world-item span {
     display: inline-block;
 
-    color: white;
+    color: #cccccc;
 
     transition:
         transform 0.4s ease,
-        letter-spacing 0.4s ease;
+        letter-spacing 0.4s ease,
+        color 0.05s ease 0.4s;
 }
 
 
