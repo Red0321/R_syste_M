@@ -9,34 +9,35 @@
 
 const gameData = [
 
+    /* ----------------------------------------
+       RECORD 001 — KINGDOM HEARTS
+    ---------------------------------------- */
+
     {
         number: "001",
-
-        context: "KINGDOM HEARTS",
 
         type: "text",
 
         content:
-`A HEART WAS LOST.
-
-THE BODY REMAINED.
-
-THE SOUL COULD NOT RETURN.
-
-WHAT REMAINED
-WAS NOT THE PERSON.
-
-AN EMPTY EXISTENCE
-BORN FROM ABSENCE.`,
+`A being that is neither darkness nor light; 
+belonging nowhere; abandoned by its heart; 
+a mere shell of its former self.
+The relation between the heart and body is complex. However,
+I am certain that if your self exists here, then by definition, 
+the other cannot truly "exist."
+The other, the one which does not exist, 
+shall be dubbed...
 
         answer: "NOBODY"
     },
 
 
+    /* ----------------------------------------
+       RECORD 002 — METAL GEAR
+    ---------------------------------------- */
+
     {
         number: "002",
-
-        context: "METAL GEAR",
 
         type: "edit",
 
@@ -54,15 +55,19 @@ BORN FROM ABSENCE.`,
     },
 
 
+    /* ----------------------------------------
+       RECORD 003 — RESIDENT EVIL
+    ---------------------------------------- */
+
     {
         number: "003",
-
-        context: "BIOHAZARD",
 
         type: "text",
 
         content:
-`RECORD CORRUPTED:
+`BIOHAZARD
+
+RECORD CORRUPTED:
 
 -TRIVUS`,
 
@@ -70,10 +75,12 @@ BORN FROM ABSENCE.`,
     },
 
 
+    /* ----------------------------------------
+       RECORD 004 — CHRONO TRIGGER
+    ---------------------------------------- */
+
     {
         number: "004",
-
-        context: "CHRONO TRIGGER",
 
         type: "text",
 
@@ -88,10 +95,12 @@ DAY OF __________`,
     },
 
 
+    /* ----------------------------------------
+       RECORD 005 — CASTLEVANIA
+    ---------------------------------------- */
+
     {
         number: "005",
-
-        context: "CASTLEVANIA",
 
         type: "text",
 
@@ -117,17 +126,19 @@ OF THE NIGHT.`,
     },
 
 
+    /* ----------------------------------------
+       RECORD 006 — THE LEGEND OF ZELDA
+    ---------------------------------------- */
+
     {
         number: "006",
-
-        context: "THE LEGEND OF ZELDA",
 
         type: "edit",
 
         values: [
             "COURAGE",
-            "POWR",
-            "WISDM"
+            "R",
+            "SM"
         ],
 
         answer: [
@@ -138,10 +149,12 @@ OF THE NIGHT.`,
     },
 
 
+    /* ----------------------------------------
+       RECORD 007 — STAR WARS
+    ---------------------------------------- */
+
     {
         number: "007",
-
-        context: "STAR WARS",
 
         type: "text",
 
@@ -160,10 +173,12 @@ YOU ARE MY ONLY _____`,
     },
 
 
+    /* ----------------------------------------
+       RECORD 008 — GOD OF WAR
+    ---------------------------------------- */
+
     {
         number: "008",
-
-        context: "GOD OF WAR",
 
         type: "text",
 
@@ -182,10 +197,12 @@ THE GHOST OF SPARTA.`,
     },
 
 
+    /* ----------------------------------------
+       RECORD 009 — EVANGELION
+    ---------------------------------------- */
+
     {
         number: "009",
-
-        context: "EVANGELION",
 
         type: "text",
 
@@ -200,10 +217,12 @@ SHINJI ________`,
     },
 
 
+    /* ----------------------------------------
+       RECORD 010 — LORD OF THE RINGS
+    ---------------------------------------- */
+
     {
         number: "010",
-
-        context: "LORD OF THE RINGS",
 
         type: "text",
 
@@ -221,10 +240,12 @@ WAS NOT ITS MASTER.`,
     },
 
 
+    /* ----------------------------------------
+       RECORD 011 — DEATH STRANDING
+    ---------------------------------------- */
+
     {
         number: "011",
-
-        context: "DEATH STRANDING",
 
         type: "text",
 
@@ -243,10 +264,12 @@ REMAIN ________.`,
     },
 
 
+    /* ----------------------------------------
+       RECORD 012 — FINAL FANTASY
+    ---------------------------------------- */
+
     {
         number: "012",
-
-        context: "FINAL FANTASY",
 
         type: "select",
 
@@ -270,10 +293,12 @@ ONE NAME WAS LEFT BEHIND.`,
 
 
 /* ========================================
-   VARIABLES
+   GAME STATE
 ======================================== */
 
 let currentQuestion = 0;
+
+let answerLocked = false;
 
 
 /* ========================================
@@ -297,7 +322,7 @@ const feedback =
 
 
 /* ========================================
-   START
+   INITIALIZE
 ======================================== */
 
 showQuestion();
@@ -313,40 +338,96 @@ function showQuestion() {
         gameData[currentQuestion];
 
 
-    questionNumber.textContent =
-        `RECORD // ${question.number}`;
+    if (!question) {
 
+        finishGame();
+
+        return;
+
+    }
+
+
+    answerLocked = false;
+
+
+    /*
+     * Only the record number is visible.
+     */
+
+    questionNumber.textContent =
+        `RECORD ${question.number}`;
+
+
+    /*
+     * Franchise names are intentionally
+     * not displayed.
+     */
 
     questionContext.textContent =
-        question.context;
+        "";
 
 
     questionContent.textContent =
         question.content;
 
 
-    answerArea.innerHTML = "";
-
-    feedback.textContent = "";
-
-
-    if (question.type === "text") {
-
-        createTextInput(question);
-
-    }
+    answerArea.innerHTML =
+        "";
 
 
-    if (question.type === "edit") {
-
-        createEditInputs(question);
-
-    }
+    feedback.textContent =
+        "";
 
 
-    if (question.type === "select") {
+    /*
+     * Fade between records.
+     */
 
-        createSelect(question);
+    const interfaceElement =
+        document.getElementById("game-interface");
+
+
+    interfaceElement.style.opacity =
+        "0";
+
+
+    setTimeout(() => {
+
+        interfaceElement.style.transition =
+            "opacity 1.2s ease";
+
+        interfaceElement.style.opacity =
+            "1";
+
+    }, 50);
+
+
+    /*
+     * Create the appropriate
+     * interaction.
+     */
+
+    switch (question.type) {
+
+        case "text":
+
+            createTextInput(question);
+
+            break;
+
+
+        case "edit":
+
+            createEditInputs(question);
+
+            break;
+
+
+        case "select":
+
+            createSelect(question);
+
+            break;
 
     }
 
@@ -366,59 +447,85 @@ function createTextInput(question) {
     input.className =
         "game-input";
 
+
     input.type =
         "text";
+
 
     input.autocomplete =
         "off";
 
 
-    const button =
-        document.createElement("button");
+    input.spellcheck =
+        false;
 
 
-    button.className =
-        "game-button";
+    /*
+     * The answer is checked
+     * automatically as the player types.
+     */
 
-    button.textContent =
-        "SUBMIT";
+    input.addEventListener(
+        "input",
+        () => {
+
+            if (answerLocked) {
+
+                return;
+
+            }
 
 
-    button.onclick = () => {
-
-        checkText(
-            input.value,
-            question.answer
-        );
-
-    };
+            const value =
+                normalize(input.value);
 
 
-    input.onkeydown = event => {
+            /*
+             * Empty answers are ignored.
+             */
 
-        if (event.key === "Enter") {
+            if (!value) {
 
-            checkText(
-                input.value,
-                question.answer
-            );
+                return;
+
+            }
+
+
+            /*
+             * Correct answer.
+             */
+
+            if (
+                value ===
+                normalize(question.answer)
+            ) {
+
+                correctAnswer();
+
+            }
 
         }
-
-    };
+    );
 
 
     answerArea.appendChild(input);
 
-    answerArea.appendChild(button);
 
-    input.focus();
+    /*
+     * Automatically focus the field.
+     */
+
+    setTimeout(() => {
+
+        input.focus();
+
+    }, 100);
 
 }
 
 
 /* ========================================
-   EDIT INPUTS
+   EDITABLE RECORD
 ======================================== */
 
 function createEditInputs(question) {
@@ -434,65 +541,83 @@ function createEditInputs(question) {
     const inputs = [];
 
 
-    question.values.forEach(value => {
+    question.values.forEach(
+        (value, index) => {
 
-        const input =
-            document.createElement("input");
-
-
-        input.className =
-            "edit-input";
-
-        input.type =
-            "text";
-
-        input.value =
-            value;
-
-        input.autocomplete =
-            "off";
+            const input =
+                document.createElement("input");
 
 
-        inputs.push(input);
-
-        wrapper.appendChild(input);
-
-    });
+            input.className =
+                "edit-input";
 
 
-    const button =
-        document.createElement("button");
+            input.type =
+                "text";
 
 
-    button.className =
-        "game-button";
-
-    button.textContent =
-        "SUBMIT";
+            input.value =
+                value;
 
 
-    button.onclick = () => {
+            input.autocomplete =
+                "off";
 
-        const values =
-            inputs.map(
-                input =>
-                    input.value
-                        .trim()
-                        .toUpperCase()
+
+            input.spellcheck =
+                false;
+
+
+            /*
+             * Check automatically whenever
+             * the player edits a field.
+             */
+
+            input.addEventListener(
+                "input",
+                () => {
+
+                    if (answerLocked) {
+
+                        return;
+
+                    }
+
+
+                    checkEditAnswer(
+                        inputs,
+                        question.answer
+                    );
+
+                }
             );
 
 
-        checkEdit(
-            values,
-            question.answer
-        );
-
-    };
+            inputs.push(input);
 
 
-    wrapper.appendChild(button);
+            wrapper.appendChild(input);
+
+        }
+    );
+
 
     answerArea.appendChild(wrapper);
+
+
+    /*
+     * Focus the first editable field.
+     */
+
+    setTimeout(() => {
+
+        if (inputs.length > 0) {
+
+            inputs[0].focus();
+
+        }
+
+    }, 100);
 
 }
 
@@ -503,88 +628,120 @@ function createEditInputs(question) {
 
 function createSelect(question) {
 
-    question.options.forEach(option => {
-
-        const button =
-            document.createElement("button");
+    const wrapper =
+        document.createElement("div");
 
 
-        button.className =
-            "game-button";
-
-        button.textContent =
-            option;
+    wrapper.className =
+        "select-record";
 
 
-        button.onclick = () => {
+    question.options.forEach(
+        option => {
 
-            checkText(
-                option,
-                question.answer
+            const button =
+                document.createElement("button");
+
+
+            button.className =
+                "game-option";
+
+
+            button.type =
+                "button";
+
+
+            button.textContent =
+                option;
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    if (answerLocked) {
+
+                        return;
+
+                    }
+
+
+                    if (
+                        normalize(option) ===
+                        normalize(question.answer)
+                    ) {
+
+                        correctAnswer();
+
+                    } else {
+
+                        incorrectAnswer();
+
+                    }
+
+                }
             );
 
-        };
+
+            wrapper.appendChild(button);
+
+        }
+    );
 
 
-        answerArea.appendChild(button);
-
-    });
-
-}
-
-
-/* ========================================
-   CHECK TEXT
-======================================== */
-
-function checkText(
-    value,
-    answer
-) {
-
-    const userAnswer =
-        value
-            .trim()
-            .toUpperCase();
-
-
-    if (userAnswer === answer) {
-
-        correct();
-
-    } else {
-
-        incorrect();
-
-    }
+    answerArea.appendChild(wrapper);
 
 }
 
 
 /* ========================================
-   CHECK EDIT
+   CHECK EDIT ANSWER
 ======================================== */
 
-function checkEdit(
-    values,
-    answers
+function checkEditAnswer(
+    inputs,
+    correctValues
 ) {
 
-    const correct =
-        values.length === answers.length &&
-        values.every(
-            (value, index) =>
-                value === answers[index]
+    const values =
+        inputs.map(
+            input =>
+                normalize(input.value)
         );
 
 
-    if (correct) {
+    /*
+     * Do not evaluate until every
+     * field contains something.
+     */
 
-        correct();
+    if (
+        values.some(
+            value => value === ""
+        )
+    ) {
 
-    } else {
+        return;
 
-        incorrect();
+    }
+
+
+    const isCorrect =
+        values.length ===
+        correctValues.length &&
+
+        values.every(
+            (value, index) =>
+                value ===
+                normalize(
+                    correctValues[index]
+                )
+        );
+
+
+    if (isCorrect) {
+
+        correctAnswer();
 
     }
 
@@ -592,32 +749,68 @@ function checkEdit(
 
 
 /* ========================================
-   CORRECT
+   NORMALIZE
 ======================================== */
 
-function correct() {
+function normalize(value) {
+
+    return String(value)
+        .trim()
+        .replace(/\s+/g, " ")
+        .toUpperCase();
+
+}
+
+
+/* ========================================
+   CORRECT ANSWER
+======================================== */
+
+function correctAnswer() {
+
+    if (answerLocked) {
+
+        return;
+
+    }
+
+
+    answerLocked = true;
+
 
     feedback.textContent =
         "RECORD RESTORED.";
 
 
-    setTimeout(() => {
+    /*
+     * Disable all inputs/buttons
+     * while the record is being restored.
+     */
 
-        currentQuestion++;
+    const controls =
+        answerArea.querySelectorAll(
+            "input, button"
+        );
 
 
-        if (
-            currentQuestion >=
-            gameData.length
-        ) {
+    controls.forEach(
+        control => {
 
-            finishGame();
-
-        } else {
-
-            showQuestion();
+            control.disabled =
+                true;
 
         }
+    );
+
+
+    /*
+     * Give the player time to see
+     * the restoration message.
+     */
+
+    setTimeout(() => {
+
+        nextQuestion();
 
     }, 1600);
 
@@ -625,36 +818,114 @@ function correct() {
 
 
 /* ========================================
-   INCORRECT
+   INCORRECT ANSWER
 ======================================== */
 
-function incorrect() {
+function incorrectAnswer() {
+
+    if (answerLocked) {
+
+        return;
+
+    }
+
 
     feedback.textContent =
         "RECORD NOT ACCEPTED.";
 
+
+    /*
+     * Remove the message after
+     * a short period.
+     */
+
+    setTimeout(() => {
+
+        if (!answerLocked) {
+
+            feedback.textContent =
+                "";
+
+        }
+
+    }, 1200);
+
 }
-    
+
 
 /* ========================================
-   FINISH
+   NEXT QUESTION
+======================================== */
+
+function nextQuestion() {
+
+    currentQuestion++;
+
+
+    if (
+        currentQuestion >=
+        gameData.length
+    ) {
+
+        finishGame();
+
+        return;
+
+    }
+
+
+    showQuestion();
+
+}
+
+
+/* ========================================
+   FINISH GAME
 ======================================== */
 
 function finishGame() {
 
+    answerLocked = true;
+
+
     questionNumber.textContent =
         "";
+
 
     questionContext.textContent =
         "";
 
+
     questionContent.textContent =
         "ALL RECORDS RESTORED.";
+
 
     answerArea.innerHTML =
         "";
 
+
     feedback.textContent =
         "";
+
+
+    const interfaceElement =
+        document.getElementById(
+            "game-interface"
+        );
+
+
+    interfaceElement.style.opacity =
+        "0";
+
+
+    setTimeout(() => {
+
+        interfaceElement.style.transition =
+            "opacity 2s ease";
+
+        interfaceElement.style.opacity =
+            "1";
+
+    }, 50);
 
 }

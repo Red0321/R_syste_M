@@ -1,3 +1,13 @@
+/* ========================================
+   R_syste_M — THE GAME
+   GAME PLAY
+======================================== */
+
+
+/* ========================================
+   BASE
+======================================== */
+
 html,
 body {
 
@@ -12,6 +22,7 @@ body {
     color: white;
 
     font-family: Arial, sans-serif;
+
 }
 
 
@@ -44,7 +55,7 @@ body {
 
 
 /* ========================================
-   CONTENT
+   MAIN CONTENT
 ======================================== */
 
 .game-play-content {
@@ -61,13 +72,15 @@ body {
 
     padding-top: 80px;
 
+    padding-bottom: 100px;
+
     text-align: center;
 
 }
 
 
 /* ========================================
-   SYSTEM TITLE
+   R_syste_M
 ======================================== */
 
 .game-system-title {
@@ -82,12 +95,15 @@ body {
 
     text-decoration: none;
 
+    transition:
+        opacity 0.3s ease;
+
 }
 
 
 .game-system-title:hover {
 
-    opacity: 0.6;
+    opacity: 0.5;
 
 }
 
@@ -104,44 +120,62 @@ body {
 
     font-family: "Courier New", monospace;
 
+    opacity: 0;
+
+    animation:
+        gameInterfaceFade
+        2s
+        ease
+        forwards;
+
 }
 
 
 /* ========================================
-   QUESTION NUMBER
+   RECORD NUMBER
 ======================================== */
 
 #question-number {
 
-    font-size: 13px;
-
-    letter-spacing: 4px;
-
-    margin-bottom: 35px;
-
-}
-
-
-/* ========================================
-   CONTEXT
-======================================== */
-
-#question-context {
-
-    font-size: 14px;
-
-    letter-spacing: 4px;
+    min-height: 18px;
 
     margin-bottom: 50px;
 
+    color: white;
+
+    font-size: 13px;
+
+    letter-spacing: 5px;
+
+    line-height: 1.5;
+
 }
 
 
 /* ========================================
-   CONTENT
+   QUESTION CONTEXT
+======================================== */
+
+/*
+   Intentionally kept in the layout
+   but hidden because the franchise
+   name must NOT appear to the player.
+*/
+
+#question-context {
+
+    display: none;
+
+}
+
+
+/* ========================================
+   QUESTION CONTENT
 ======================================== */
 
 #question-content {
+
+    color: white;
 
     font-size: 17px;
 
@@ -151,25 +185,39 @@ body {
 
     white-space: pre-line;
 
+    min-height: 40px;
+
 }
 
 
 /* ========================================
-   ANSWER
+   ANSWER AREA
 ======================================== */
 
 #answer-area {
 
-    margin-top: 50px;
+    width: 100%;
+
+    margin-top: 55px;
 
 }
 
 
+/* ========================================
+   TEXT INPUT
+======================================== */
+
 .game-input {
+
+    display: block;
 
     width: 300px;
 
     max-width: 80vw;
+
+    margin: 0 auto;
+
+    box-sizing: border-box;
 
     background: transparent;
 
@@ -187,6 +235,8 @@ body {
 
     letter-spacing: 4px;
 
+    line-height: 1.5;
+
     text-align: center;
 
     padding: 10px;
@@ -196,41 +246,130 @@ body {
 }
 
 
-.game-button {
+/* ========================================
+   INPUT PLACEHOLDER
+======================================== */
 
-    display: block;
-
-    margin: 25px auto 0;
-
-    background: none;
-
-    border: none;
+.game-input::placeholder {
 
     color: white;
 
-    font-family: "Courier New", monospace;
-
-    font-size: 13px;
-
-    letter-spacing: 4px;
-
-    cursor: pointer;
-
-}
-
-
-.game-button:hover {
-
-    opacity: 0.5;
+    opacity: 0.25;
 
 }
 
 
 /* ========================================
-   EDITABLE RECORD
+   INPUT FOCUS
+======================================== */
+
+.game-input:focus {
+
+    border-bottom-color: white;
+
+}
+
+
+/* ========================================
+   DISABLED INPUT
+======================================== */
+
+.game-input:disabled {
+
+    opacity: 0.5;
+
+    cursor: default;
+
+}
+
+
+/* ========================================
+   EDIT RECORD
 ======================================== */
 
 .edit-record {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 20px;
+
+}
+
+
+/* ========================================
+   EDIT INPUT
+======================================== */
+
+.edit-input {
+
+    display: block;
+
+    width: 250px;
+
+    max-width: 80vw;
+
+    box-sizing: border-box;
+
+    background: transparent;
+
+    border: none;
+
+    border-bottom: 1px solid white;
+
+    outline: none;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 18px;
+
+    letter-spacing: 4px;
+
+    line-height: 1.5;
+
+    text-align: center;
+
+    padding: 8px;
+
+    text-transform: uppercase;
+
+}
+
+
+/* ========================================
+   EDIT INPUT FOCUS
+======================================== */
+
+.edit-input:focus {
+
+    border-bottom-color: white;
+
+}
+
+
+/* ========================================
+   DISABLED EDIT INPUT
+======================================== */
+
+.edit-input:disabled {
+
+    opacity: 0.5;
+
+    cursor: default;
+
+}
+
+
+/* ========================================
+   SELECT RECORD
+======================================== */
+
+.select-record {
 
     display: flex;
 
@@ -243,31 +382,54 @@ body {
 }
 
 
-.edit-input {
+/* ========================================
+   SELECT OPTION
+======================================== */
 
-    width: 250px;
+.game-option {
 
-    background: transparent;
+    background: none;
 
     border: none;
-
-    border-bottom: 1px solid white;
-
-    outline: none;
 
     color: white;
 
     font-family: "Courier New", monospace;
 
-    font-size: 18px;
+    font-size: 15px;
 
     letter-spacing: 4px;
 
-    text-align: center;
+    cursor: pointer;
 
-    text-transform: uppercase;
+    padding: 4px 10px;
 
-    padding: 8px;
+    transition:
+        opacity 0.3s ease;
+
+}
+
+
+/* ========================================
+   SELECT OPTION HOVER
+======================================== */
+
+.game-option:hover {
+
+    opacity: 0.5;
+
+}
+
+
+/* ========================================
+   DISABLED OPTION
+======================================== */
+
+.game-option:disabled {
+
+    opacity: 0.5;
+
+    cursor: default;
 
 }
 
@@ -278,13 +440,30 @@ body {
 
 #feedback {
 
-    min-height: 30px;
+    min-height: 25px;
 
     margin-top: 45px;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
 
     font-size: 13px;
 
     letter-spacing: 4px;
+
+    line-height: 1.5;
+
+}
+
+
+/* ========================================
+   CORRECT / INCORRECT
+======================================== */
+
+#feedback {
+
+    opacity: 1;
 
 }
 
@@ -293,27 +472,109 @@ body {
    ANIMATION
 ======================================== */
 
-#game-interface {
+@keyframes gameInterfaceFade {
 
-    opacity: 0;
+    from {
 
-    animation:
-        gameInterfaceFade
-        2s
-        ease
-        forwards;
+        opacity: 0;
+
+    }
+
+    to {
+
+        opacity: 1;
+
+    }
 
 }
 
 
-@keyframes gameInterfaceFade {
+/* ========================================
+   MOBILE
+======================================== */
 
-    from {
-        opacity: 0;
+@media (max-width: 600px) {
+
+    .game-play-content {
+
+        padding-top: 50px;
+
+        padding-bottom: 80px;
+
     }
 
-    to {
-        opacity: 1;
+
+    .game-system-title {
+
+        font-size: 20px;
+
+        letter-spacing: 5px;
+
+    }
+
+
+    #game-interface {
+
+        width: 88vw;
+
+        margin-top: 90px;
+
+    }
+
+
+    #question-number {
+
+        margin-bottom: 40px;
+
+        font-size: 12px;
+
+        letter-spacing: 4px;
+
+    }
+
+
+    #question-content {
+
+        font-size: 15px;
+
+        line-height: 1.9;
+
+        letter-spacing: 2px;
+
+    }
+
+
+    #answer-area {
+
+        margin-top: 45px;
+
+    }
+
+
+    .game-input {
+
+        width: 80vw;
+
+        font-size: 16px;
+
+    }
+
+
+    .edit-input {
+
+        width: 70vw;
+
+        font-size: 16px;
+
+    }
+
+
+    .game-option {
+
+        font-size: 14px;
+
+        letter-spacing: 3px;
+
     }
 
 }
