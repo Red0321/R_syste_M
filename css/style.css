@@ -1031,6 +1031,61 @@ body {
 }
 
 
+/* ========================================
+   GAME START
+======================================== */
+
+.game-start {
+
+    display: block;
+
+    margin-top: 70px;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 18px;
+
+    letter-spacing: 5px;
+
+    text-decoration: none;
+
+    opacity: 0;
+
+    animation:
+        gameStartFade
+        2s
+        ease
+        forwards;
+
+    /*
+       game-final:
+       starts at 8s
+       lasts 3s
+       ends at 11s
+
+       START begins after it.
+    */
+
+    animation-delay: 11s;
+
+    transition:
+        opacity 0.3s ease;
+}
+
+
+.game-start:hover {
+
+    opacity: 0.5;
+
+}
+
+
+/* ========================================
+   THE GAME ANIMATIONS
+======================================== */
+
 @keyframes gameTitleFade {
 
     from {
@@ -1069,6 +1124,18 @@ body {
 
 }
 
+
+@keyframes gameStartFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
 
 /* ========================================
    THE SPOT
@@ -1240,105 +1307,4 @@ body {
     to {
         opacity: 1;
     }
-}
-
-/* ========================================
-   THE GAME — START
-======================================== */
-
-.game-start {
-
-    display: block;
-
-    margin-top: 70px;
-
-    color: white;
-
-    font-family: "Courier New", monospace;
-
-    font-size: 18px;
-
-    letter-spacing: 5px;
-
-    text-decoration: none;
-
-    opacity: 0;
-
-    animation:
-        gameStartFade
-        2s
-        ease
-        forwards;
-
-    animation-delay: 2s;
-
-    transition:
-        opacity 0.3s ease;
-}
-
-
-.game-start:hover {
-
-    opacity: 0.5;
-
-}
-
-
-@keyframes gameStartFade {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-
-}
-/* ========================================
-   THE GAME — START
-======================================== */
-
-.game-start {
-
-    display: block;
-
-    margin-top: 70px;
-
-    color: white;
-
-    font-family: "Courier New", monospace;
-
-    font-size: 18px;
-
-    letter-spacing: 5px;
-
-    text-decoration: none;
-
-    opacity: 0;
-
-    animation: gameStartFade 2s ease forwards;
-
-    animation-delay: 2s;
-
-}
-
-
-.game-start:hover {
-
-    opacity: 0.5;
-
-}
-
-
-@keyframes gameStartFade {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-
 }

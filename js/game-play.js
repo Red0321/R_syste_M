@@ -2,39 +2,28 @@
    R_syste_M — THE GAME
 ======================================== */
 
-
-/* ========================================
-   GAME DATA
-======================================== */
-
 const gameData = [
 
-    /* ----------------------------------------
-       RECORD 001 — KINGDOM HEARTS
-    ---------------------------------------- */
-
     {
-        number: "001",
+    number: "001",
 
-        type: "text",
+    type: "text",
 
-        content:
-`A being that is neither darkness nor light; 
-belonging nowhere; abandoned by its heart; 
+    content:
+`A being that is neither darkness nor light;
+belonging nowhere; abandoned by its heart;
 a mere shell of its former self.
+
 The relation between the heart and body is complex. However,
-I am certain that if your self exists here, then by definition, 
+I am certain that if your self exists here, then by definition,
 the other cannot truly "exist."
-The other, the one which does not exist, 
-shall be dubbed...
 
-        answer: "NOBODY"
-    },
+The other, the one which does not exist,
+shall be dubbed...`,
 
+    answer: "NOBODY"
+},
 
-    /* ----------------------------------------
-       RECORD 002 — METAL GEAR
-    ---------------------------------------- */
 
     {
         number: "002",
@@ -55,10 +44,6 @@ shall be dubbed...
     },
 
 
-    /* ----------------------------------------
-       RECORD 003 — RESIDENT EVIL
-    ---------------------------------------- */
-
     {
         number: "003",
 
@@ -75,10 +60,6 @@ RECORD CORRUPTED:
     },
 
 
-    /* ----------------------------------------
-       RECORD 004 — CHRONO TRIGGER
-    ---------------------------------------- */
-
     {
         number: "004",
 
@@ -94,10 +75,6 @@ DAY OF __________`,
         answer: "LAVOS"
     },
 
-
-    /* ----------------------------------------
-       RECORD 005 — CASTLEVANIA
-    ---------------------------------------- */
 
     {
         number: "005",
@@ -126,10 +103,6 @@ OF THE NIGHT.`,
     },
 
 
-    /* ----------------------------------------
-       RECORD 006 — THE LEGEND OF ZELDA
-    ---------------------------------------- */
-
     {
         number: "006",
 
@@ -137,8 +110,8 @@ OF THE NIGHT.`,
 
         values: [
             "COURAGE",
-            "R",
-            "SM"
+            "POWR",
+            "WISDM"
         ],
 
         answer: [
@@ -148,10 +121,6 @@ OF THE NIGHT.`,
         ]
     },
 
-
-    /* ----------------------------------------
-       RECORD 007 — STAR WARS
-    ---------------------------------------- */
 
     {
         number: "007",
@@ -173,10 +142,6 @@ YOU ARE MY ONLY _____`,
     },
 
 
-    /* ----------------------------------------
-       RECORD 008 — GOD OF WAR
-    ---------------------------------------- */
-
     {
         number: "008",
 
@@ -197,10 +162,6 @@ THE GHOST OF SPARTA.`,
     },
 
 
-    /* ----------------------------------------
-       RECORD 009 — EVANGELION
-    ---------------------------------------- */
-
     {
         number: "009",
 
@@ -216,10 +177,6 @@ SHINJI ________`,
         answer: "IKARI"
     },
 
-
-    /* ----------------------------------------
-       RECORD 010 — LORD OF THE RINGS
-    ---------------------------------------- */
 
     {
         number: "010",
@@ -240,10 +197,6 @@ WAS NOT ITS MASTER.`,
     },
 
 
-    /* ----------------------------------------
-       RECORD 011 — DEATH STRANDING
-    ---------------------------------------- */
-
     {
         number: "011",
 
@@ -263,10 +216,6 @@ REMAIN ________.`,
         answer: "ALONE"
     },
 
-
-    /* ----------------------------------------
-       RECORD 012 — FINAL FANTASY
-    ---------------------------------------- */
 
     {
         number: "012",
@@ -293,11 +242,10 @@ ONE NAME WAS LEFT BEHIND.`,
 
 
 /* ========================================
-   GAME STATE
+   STATE
 ======================================== */
 
 let currentQuestion = 0;
-
 let answerLocked = false;
 
 
@@ -322,10 +270,25 @@ const feedback =
 
 
 /* ========================================
-   INITIALIZE
+   SAFETY CHECK
 ======================================== */
 
-showQuestion();
+if (
+    !questionNumber ||
+    !questionContent ||
+    !answerArea ||
+    !feedback
+) {
+
+    console.error(
+        "R_syste_M: Game interface not found."
+    );
+
+} else {
+
+    showQuestion();
+
+}
 
 
 /* ========================================
@@ -350,21 +313,19 @@ function showQuestion() {
     answerLocked = false;
 
 
-    /*
-     * Only the record number is visible.
-     */
-
     questionNumber.textContent =
         `RECORD ${question.number}`;
 
 
     /*
-     * Franchise names are intentionally
-     * not displayed.
+     * Franchise names are intentionally hidden.
      */
 
-    questionContext.textContent =
-        "";
+    if (questionContext) {
+
+        questionContext.textContent = "";
+
+    }
 
 
     questionContent.textContent =
@@ -380,54 +341,24 @@ function showQuestion() {
 
 
     /*
-     * Fade between records.
+     * Create interaction.
      */
 
-    const interfaceElement =
-        document.getElementById("game-interface");
+    if (question.type === "text") {
 
+        createTextInput(question);
 
-    interfaceElement.style.opacity =
-        "0";
+    }
 
+    else if (question.type === "edit") {
 
-    setTimeout(() => {
+        createEditInputs(question);
 
-        interfaceElement.style.transition =
-            "opacity 1.2s ease";
+    }
 
-        interfaceElement.style.opacity =
-            "1";
+    else if (question.type === "select") {
 
-    }, 50);
-
-
-    /*
-     * Create the appropriate
-     * interaction.
-     */
-
-    switch (question.type) {
-
-        case "text":
-
-            createTextInput(question);
-
-            break;
-
-
-        case "edit":
-
-            createEditInputs(question);
-
-            break;
-
-
-        case "select":
-
-            createSelect(question);
-
-            break;
+        createSelect(question);
 
     }
 
@@ -460,14 +391,9 @@ function createTextInput(question) {
         false;
 
 
-    /*
-     * The answer is checked
-     * automatically as the player types.
-     */
-
     input.addEventListener(
         "input",
-        () => {
+        function () {
 
             if (answerLocked) {
 
@@ -479,21 +405,6 @@ function createTextInput(question) {
             const value =
                 normalize(input.value);
 
-
-            /*
-             * Empty answers are ignored.
-             */
-
-            if (!value) {
-
-                return;
-
-            }
-
-
-            /*
-             * Correct answer.
-             */
 
             if (
                 value ===
@@ -511,21 +422,20 @@ function createTextInput(question) {
     answerArea.appendChild(input);
 
 
-    /*
-     * Automatically focus the field.
-     */
+    setTimeout(
+        function () {
 
-    setTimeout(() => {
+            input.focus();
 
-        input.focus();
-
-    }, 100);
+        },
+        100
+    );
 
 }
 
 
 /* ========================================
-   EDITABLE RECORD
+   EDIT INPUTS
 ======================================== */
 
 function createEditInputs(question) {
@@ -542,7 +452,7 @@ function createEditInputs(question) {
 
 
     question.values.forEach(
-        (value, index) => {
+        function (value) {
 
             const input =
                 document.createElement("input");
@@ -568,14 +478,9 @@ function createEditInputs(question) {
                 false;
 
 
-            /*
-             * Check automatically whenever
-             * the player edits a field.
-             */
-
             input.addEventListener(
                 "input",
-                () => {
+                function () {
 
                     if (answerLocked) {
 
@@ -595,7 +500,6 @@ function createEditInputs(question) {
 
             inputs.push(input);
 
-
             wrapper.appendChild(input);
 
         }
@@ -605,19 +509,84 @@ function createEditInputs(question) {
     answerArea.appendChild(wrapper);
 
 
+    setTimeout(
+        function () {
+
+            if (inputs[0]) {
+
+                inputs[0].focus();
+
+            }
+
+        },
+        100
+    );
+
+}
+
+
+/* ========================================
+   CHECK EDIT
+======================================== */
+
+function checkEditAnswer(
+    inputs,
+    answers
+) {
+
+    const values =
+        inputs.map(
+            function (input) {
+
+                return normalize(
+                    input.value
+                );
+
+            }
+        );
+
+
     /*
-     * Focus the first editable field.
+     * Wait until every field
+     * contains something.
      */
 
-    setTimeout(() => {
+    if (
+        values.some(
+            function (value) {
 
-        if (inputs.length > 0) {
+                return value === "";
 
-            inputs[0].focus();
+            }
+        )
+    ) {
 
-        }
+        return;
 
-    }, 100);
+    }
+
+
+    const correct =
+        values.length === answers.length &&
+        values.every(
+            function (value, index) {
+
+                return (
+                    value ===
+                    normalize(
+                        answers[index]
+                    )
+                );
+
+            }
+        );
+
+
+    if (correct) {
+
+        correctAnswer();
+
+    }
 
 }
 
@@ -637,7 +606,7 @@ function createSelect(question) {
 
 
     question.options.forEach(
-        option => {
+        function (option) {
 
             const button =
                 document.createElement("button");
@@ -657,7 +626,7 @@ function createSelect(question) {
 
             button.addEventListener(
                 "click",
-                () => {
+                function () {
 
                     if (answerLocked) {
 
@@ -673,7 +642,9 @@ function createSelect(question) {
 
                         correctAnswer();
 
-                    } else {
+                    }
+
+                    else {
 
                         incorrectAnswer();
 
@@ -695,60 +666,6 @@ function createSelect(question) {
 
 
 /* ========================================
-   CHECK EDIT ANSWER
-======================================== */
-
-function checkEditAnswer(
-    inputs,
-    correctValues
-) {
-
-    const values =
-        inputs.map(
-            input =>
-                normalize(input.value)
-        );
-
-
-    /*
-     * Do not evaluate until every
-     * field contains something.
-     */
-
-    if (
-        values.some(
-            value => value === ""
-        )
-    ) {
-
-        return;
-
-    }
-
-
-    const isCorrect =
-        values.length ===
-        correctValues.length &&
-
-        values.every(
-            (value, index) =>
-                value ===
-                normalize(
-                    correctValues[index]
-                )
-        );
-
-
-    if (isCorrect) {
-
-        correctAnswer();
-
-    }
-
-}
-
-
-/* ========================================
    NORMALIZE
 ======================================== */
 
@@ -763,7 +680,7 @@ function normalize(value) {
 
 
 /* ========================================
-   CORRECT ANSWER
+   CORRECT
 ======================================== */
 
 function correctAnswer() {
@@ -782,11 +699,6 @@ function correctAnswer() {
         "RECORD RESTORED.";
 
 
-    /*
-     * Disable all inputs/buttons
-     * while the record is being restored.
-     */
-
     const controls =
         answerArea.querySelectorAll(
             "input, button"
@@ -794,31 +706,30 @@ function correctAnswer() {
 
 
     controls.forEach(
-        control => {
+        function (control) {
 
-            control.disabled =
-                true;
+            control.disabled = true;
 
         }
     );
 
 
-    /*
-     * Give the player time to see
-     * the restoration message.
-     */
+    setTimeout(
+        function () {
 
-    setTimeout(() => {
+            currentQuestion++;
 
-        nextQuestion();
+            showQuestion();
 
-    }, 1600);
+        },
+        1600
+    );
 
 }
 
 
 /* ========================================
-   INCORRECT ANSWER
+   INCORRECT
 ======================================== */
 
 function incorrectAnswer() {
@@ -834,53 +745,24 @@ function incorrectAnswer() {
         "RECORD NOT ACCEPTED.";
 
 
-    /*
-     * Remove the message after
-     * a short period.
-     */
+    setTimeout(
+        function () {
 
-    setTimeout(() => {
+            if (!answerLocked) {
 
-        if (!answerLocked) {
+                feedback.textContent = "";
 
-            feedback.textContent =
-                "";
+            }
 
-        }
-
-    }, 1200);
+        },
+        1200
+    );
 
 }
 
 
 /* ========================================
-   NEXT QUESTION
-======================================== */
-
-function nextQuestion() {
-
-    currentQuestion++;
-
-
-    if (
-        currentQuestion >=
-        gameData.length
-    ) {
-
-        finishGame();
-
-        return;
-
-    }
-
-
-    showQuestion();
-
-}
-
-
-/* ========================================
-   FINISH GAME
+   FINISH
 ======================================== */
 
 function finishGame() {
@@ -892,8 +774,12 @@ function finishGame() {
         "";
 
 
-    questionContext.textContent =
-        "";
+    if (questionContext) {
+
+        questionContext.textContent =
+            "";
+
+    }
 
 
     questionContent.textContent =
@@ -906,26 +792,5 @@ function finishGame() {
 
     feedback.textContent =
         "";
-
-
-    const interfaceElement =
-        document.getElementById(
-            "game-interface"
-        );
-
-
-    interfaceElement.style.opacity =
-        "0";
-
-
-    setTimeout(() => {
-
-        interfaceElement.style.transition =
-            "opacity 2s ease";
-
-        interfaceElement.style.opacity =
-            "1";
-
-    }, 50);
 
 }
