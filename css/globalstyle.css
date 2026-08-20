@@ -2,11 +2,6 @@
    R_syste_M — GLOBAL STYLE
 ======================================== */
 
-
-/* ========================================
-   GLOBAL RESET
-======================================== */
-
 html,
 body {
     margin: 0;
@@ -48,7 +43,7 @@ body {
 
 
 /* ========================================
-   MAIN CONTENT
+   GLOBAL CONTENT
 ======================================== */
 
 .first-content {
@@ -57,7 +52,6 @@ body {
     z-index: 2;
 
     width: 100%;
-
     min-height: 100vh;
 
     box-sizing: border-box;
@@ -116,7 +110,7 @@ body {
 
 
 /* ========================================
-   GENERAL TEXT
+   FIRST TEXT
 ======================================== */
 
 .first-text {
@@ -141,6 +135,57 @@ body {
     color: white;
 
     font-weight: normal;
+}
+
+
+/* ========================================
+   SYSTEM NAVIGATION
+======================================== */
+
+.system-navigation {
+    position: relative;
+
+    z-index: 3;
+
+    width: 100%;
+    min-height: 100vh;
+
+    box-sizing: border-box;
+
+    padding-top: 50px;
+
+    text-align: center;
+}
+
+
+.system-navigation a {
+    color: white;
+
+    text-decoration: none;
+}
+
+
+/* ========================================
+   SHARED TITLE SPACING
+======================================== */
+
+.wind-title,
+.dive-title,
+.game-title,
+.spot-title,
+.message-title,
+.soon-title {
+    margin-top: 70px;
+}
+
+
+.wind-intro,
+.dive-intro,
+.game-intro,
+.spot-intro,
+.message-intro,
+.soon-intro {
+    margin-top: 55px;
 }
 
 
