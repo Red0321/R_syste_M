@@ -1,0 +1,200 @@
+/* ========================================
+   R_syste_M
+   GLOBAL STYLE
+======================================== */
+
+
+/* ========================================
+   RESET
+======================================== */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    min-height: 100%;
+
+    background: black;
+}
+
+
+body {
+    color: white;
+
+    font-family: Arial, sans-serif;
+}
+
+
+/* ========================================
+   BACKGROUND
+======================================== */
+
+#binary-background {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+
+/* ========================================
+   MAIN CONTENT
+======================================== */
+
+.first-content {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+    min-height: 100vh;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    padding-top: 50px;
+}
+
+
+/* ========================================
+   SYSTEM TITLE
+======================================== */
+
+.system-title {
+    display: inline-block;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 20px;
+
+    letter-spacing: 5px;
+
+    text-decoration: none;
+}
+
+
+.system-link {
+    cursor: pointer;
+
+    transition:
+        opacity 0.4s ease;
+}
+
+
+.system-link:hover {
+    opacity: 0.6;
+}
+
+
+/* ========================================
+   SECTION TITLE
+======================================== */
+
+.section-title {
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 30px;
+
+    letter-spacing: 8px;
+}
+
+
+/* ========================================
+   GENERAL TEXT
+======================================== */
+
+.first-text {
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    letter-spacing: 2px;
+}
+
+
+.first-text p {
+    margin: 0;
+}
+
+
+.first-text strong {
+    color: white;
+
+    font-weight: normal;
+}
+
+
+/* ========================================
+   GENERAL LINKS
+======================================== */
+
+a {
+    color: inherit;
+
+    text-decoration: none;
+}
+
+
+a:hover {
+    text-decoration: none;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 900px) {
+
+    .first-content {
+        padding-left: 20px;
+
+        padding-right: 20px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .system-title {
+        font-size: 17px;
+
+        letter-spacing: 4px;
+    }
+
+
+    .section-title {
+        font-size: 24px;
+
+        letter-spacing: 6px;
+    }
+
+
+    .first-text {
+        font-size: 14px;
+
+        letter-spacing: 1px;
+    }
+
+}
