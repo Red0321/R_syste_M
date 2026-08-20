@@ -603,7 +603,7 @@ body {
 
 
 .world-item:hover {
-    color: white;
+    color: white !important;
 
     text-decoration: none;
 
