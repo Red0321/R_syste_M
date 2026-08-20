@@ -1,0 +1,234 @@
+/* ========================================
+   WORLD
+======================================== */
+
+.world-title {
+    opacity: 0;
+
+    animation:
+        worldTitleFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 0.8s;
+}
+
+
+.world-intro {
+    opacity: 0;
+
+    animation:
+        worldFadeIn
+        2.5s
+        ease
+        forwards;
+
+    animation-delay: 2.8s;
+}
+
+
+.world-final {
+    opacity: 0;
+
+    animation:
+        worldFinalFade
+        2s
+        ease
+        forwards;
+
+    animation-delay: 5.8s;
+}
+
+
+/* ========================================
+   WORLD TITLE ANIMATION
+======================================== */
+
+@keyframes worldTitleFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes worldFadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes worldFinalFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* ========================================
+   WORLD LIST
+======================================== */
+
+.world-list {
+    width: 850px;
+
+    max-width: 90%;
+
+    margin: 90px auto 0;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    column-gap: 50px;
+
+    row-gap: 35px;
+
+    text-align: center;
+}
+
+
+/* ========================================
+   WORLD ITEMS
+======================================== */
+
+.world-item {
+    opacity: 0;
+
+    display: block;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 18px;
+
+    letter-spacing: 4px;
+
+    margin: 35px 0;
+
+    color: #cccccc;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    animation:
+        worldItemFade
+        2s
+        ease
+        forwards;
+}
+
+
+.world-item span {
+    display: inline-block;
+
+    color: #cccccc;
+
+    transition:
+        color 0.4s ease;
+}
+
+
+.world-item:hover span {
+    color: white;
+}
+
+
+/* ========================================
+   WORLD ITEM DELAYS
+======================================== */
+
+.world-item:nth-child(1) {
+    animation-delay: 8s;
+}
+
+
+.world-item:nth-child(2) {
+    animation-delay: 9.5s;
+}
+
+
+.world-item:nth-child(3) {
+    animation-delay: 11s;
+}
+
+
+.world-item:nth-child(4) {
+    animation-delay: 12.5s;
+}
+
+
+.world-item:nth-child(5) {
+    animation-delay: 14s;
+}
+
+
+.world-item:nth-child(6) {
+    animation-delay: 15.5s;
+}
+
+
+.world-item:nth-child(7) {
+    animation-delay: 17s;
+}
+
+
+.world-item:nth-child(8) {
+    animation-delay: 18.5s;
+}
+
+
+.world-item:nth-child(9) {
+    animation-delay: 20s;
+}
+
+
+.world-item:nth-child(10) {
+    animation-delay: 21.5s;
+}
+
+
+.world-item:nth-child(11) {
+    animation-delay: 23s;
+}
+
+
+.world-item:nth-child(12) {
+    animation-delay: 24.5s;
+}
+
+
+/* ========================================
+   WORLD ITEM ANIMATION
+======================================== */
+
+@keyframes worldItemFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
