@@ -2860,47 +2860,81 @@ function createJumboFlanQuestion() {
 
 
         /* ================================
-           SELF
-        ================================ */
+   SELF
+================================ */
 
-        self.addEventListener(
-            "click",
+self.addEventListener(
+    "click",
+    function () {
+
+        message.textContent =
+            "WHAT ARE YOU DOING? IDIOT.";
+
+
+        setTimeout(
             function () {
 
-                message.textContent =
-                    "WHAT ARE YOU DOING? IDIOT.";
+                magicMenu.style.display =
+                    "none";
 
-            }
+                menu.style.display =
+                    "flex";
+
+                message.textContent =
+                    "";
+
+            },
+            1000
         );
 
+    }
+);
 
-        /* ================================
-           OPPONENT
-        ================================ */
 
-        opponent.addEventListener(
-            "click",
+/* ================================
+   OPPONENT
+================================ */
+
+opponent.addEventListener(
+    "click",
+    function () {
+
+        /*
+         * If Reflect has already
+         * been used, magic succeeds.
+         */
+
+        if (reflectActive) {
+
+            defeatFlan();
+
+            return;
+
+        }
+
+
+        message.textContent =
+            "THE OPPONENT REFLECTS THE ATTACK.";
+
+
+        setTimeout(
             function () {
 
-                /*
-                 * If Reflect has already
-                 * been used, magic succeeds.
-                 */
+                magicMenu.style.display =
+                    "none";
 
-                if (reflectActive) {
-
-                    defeatFlan();
-
-                    return;
-
-                }
-
+                menu.style.display =
+                    "flex";
 
                 message.textContent =
-                    "THE OPPONENT REFLECTS THE ATTACK.";
+                    "";
 
-            }
+            },
+            1000
         );
+
+    }
+);
 
 
         magicMenu.appendChild(self);
