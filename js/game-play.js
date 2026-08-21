@@ -1847,24 +1847,36 @@ function createEvaQuestion(question) {
 
 
     /* ====================================
-       CREATE INDEPENDENT ORDERS
+       CREATE ORDERS
     ==================================== */
 
+    /*
+     * Apellidos:
+     * permanecen completamente fijos.
+     */
+
     const names =
-        shuffleArray(
-            question.values.map(
-                function (item) {
-                    return item.name;
-                }
-            )
+        question.values.map(
+            function (item) {
+
+                return item.name;
+
+            }
         );
 
+
+    /*
+     * Units:
+     * aparecen en orden aleatorio.
+     */
 
     const units =
         shuffleArray(
             question.values.map(
                 function (item) {
+
                     return item.unit;
+
                 }
             )
         );
@@ -1891,7 +1903,7 @@ function createEvaQuestion(question) {
 
 
         /* =================================
-           NAME
+           NAME — FIXED
         ================================= */
 
         const name =
@@ -1903,12 +1915,17 @@ function createEvaQuestion(question) {
         name.textContent =
             names[i];
 
+
+        /*
+         * The name is NOT draggable.
+         */
+
         name.draggable =
-            true;
+            false;
 
 
         /* =================================
-           UNIT
+           UNIT — DRAGGABLE
         ================================= */
 
         const unit =
@@ -1932,122 +1949,6 @@ function createEvaQuestion(question) {
 
 
         /* =================================
-           NAME DRAG START
-        ================================= */
-
-        name.addEventListener(
-            "dragstart",
-            function () {
-
-                if (answerLocked) {
-
-                    return;
-
-                }
-
-                draggedElement =
-                    name;
-
-                name.classList.add(
-                    "eva-dragging"
-                );
-
-            }
-        );
-
-
-        /* =================================
-           NAME DRAG OVER
-        ================================= */
-
-        name.addEventListener(
-            "dragover",
-            function (event) {
-
-                event.preventDefault();
-
-            }
-        );
-
-
-        /* =================================
-           NAME DROP
-        ================================= */
-
-        name.addEventListener(
-            "drop",
-            function (event) {
-
-                event.preventDefault();
-
-
-                if (
-                    !draggedElement ||
-                    draggedElement === name
-                ) {
-
-                    return;
-
-                }
-
-
-                /*
-                 * Only swap names with names.
-                 */
-
-                if (
-                    draggedElement.classList.contains(
-                        "eva-name"
-                    )
-                ) {
-
-                    const temp =
-                        name.textContent;
-
-
-                    name.textContent =
-                        draggedElement.textContent;
-
-
-                    draggedElement.textContent =
-                        temp;
-
-                }
-
-            }
-        );
-
-
-        /* =================================
-           NAME DRAG END
-        ================================= */
-
-        name.addEventListener(
-            "dragend",
-            function () {
-
-                name.classList.remove(
-                    "eva-dragging"
-                );
-
-                draggedElement = null;
-
-
-                /*
-                 * Check after the complete
-                 * drag operation.
-                 */
-
-                checkEvaAnswer(
-                    list,
-                    question.answer
-                );
-
-            }
-        );
-
-
-        /* =================================
            UNIT DRAG START
         ================================= */
 
@@ -2061,8 +1962,10 @@ function createEvaQuestion(question) {
 
                 }
 
+
                 draggedElement =
                     unit;
+
 
                 unit.classList.add(
                     "eva-dragging"
@@ -2108,7 +2011,8 @@ function createEvaQuestion(question) {
 
 
                 /*
-                 * Only swap units with units.
+                 * Only Units can
+                 * be exchanged.
                  */
 
                 if (
@@ -2146,12 +2050,13 @@ function createEvaQuestion(question) {
                     "eva-dragging"
                 );
 
+
                 draggedElement = null;
 
 
                 /*
-                 * Check after the complete
-                 * drag operation.
+                 * Check after the
+                 * complete drag.
                  */
 
                 checkEvaAnswer(
@@ -2543,21 +2448,85 @@ function createConnectionQuestion() {
         "keydown",
         handleMovement
     );
-window.currentCleanup = function () {
 
-    document.removeEventListener(
-        "keydown",
-        handleMovement
-    );
-
-};
 
     /*
-     * Store listener so it can be
-     * removed when leaving the record.
+     * Remove keyboard listener
+     * when leaving the record.
      */
 
+    window.currentCleanup = function () {
+
+        document.removeEventListener(
+            "keydown",
+            handleMovement
+        );
+
+    };
+
+
     document.body.focus();
+
+}
+
+
+/* ========================================
+   RECORD 011
+   CONNECTION ESTABLISHED
+======================================== */
+
+function connectionEstablished() {
+
+    if (answerLocked) {
+
+        return;
+
+    }
+
+
+    answerLocked = true;
+
+
+    const record =
+        document.querySelector(
+            ".connection-record"
+        );
+
+
+    if (record) {
+
+        record.classList.add(
+            "connected"
+        );
+
+    }
+
+
+    feedback.textContent =
+        "CONNECTION ESTABLISHED.";
+
+
+    setTimeout(
+        function () {
+
+            feedback.textContent =
+                "RECORD RESTORED.";
+
+        },
+        800
+    );
+
+
+    setTimeout(
+        function () {
+
+            currentQuestion++;
+
+            showQuestion();
+
+        },
+        2400
+    );
 
 }
 /* ========================================

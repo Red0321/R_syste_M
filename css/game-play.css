@@ -1357,8 +1357,7 @@ body {
    CONNECTION COMPLETE
 ======================================== */
 
-.connection-record.connected
-.connection-field {
+.connection-record.connected .connection-field {
 
     border-color: white;
 
