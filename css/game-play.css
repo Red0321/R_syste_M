@@ -623,6 +623,8 @@ body {
     vertical-align: baseline;
 
     caret-color: white;
+
+    text-transform: uppercase;
 }
 
 

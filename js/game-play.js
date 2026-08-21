@@ -2423,23 +2423,23 @@ function createConnectionQuestion() {
          */
 
         const distance =
-            Math.sqrt(
-                Math.pow(
-                    x - targetX,
-                    2
-                ) +
-                Math.pow(
-                    y - targetY,
-                    2
-                )
-            );
+    Math.sqrt(
+        Math.pow(
+            x - targetX,
+            2
+        ) +
+        Math.pow(
+            y - targetY,
+            2
+        )
+    );
 
 
-        if (distance < 7) {
+if (distance < 2) {
 
-            connectionEstablished();
+    connectionEstablished();
 
-        }
+}
 
     }
 
@@ -2530,7 +2530,7 @@ function connectionEstablished() {
 
 }
 /* ========================================
-   RECORD 012
+   RECORD 012 / 013
    JUMBO FLAN
 ======================================== */
 
@@ -2543,9 +2543,9 @@ function createJumboFlanQuestion() {
         "jumbo-flan-record";
 
 
-    /*
-     * Enemy
-     */
+    /* ====================================
+       ENEMY NAME
+    ==================================== */
 
     const enemy =
         document.createElement("div");
@@ -2557,9 +2557,47 @@ function createJumboFlanQuestion() {
         "JUMBO FLAN";
 
 
-    /*
-     * Battle message
-     */
+    /* ====================================
+       ENEMY ASCII
+    ==================================== */
+
+    const enemyArt =
+        document.createElement("pre");
+
+    enemyArt.className =
+        "jumbo-flan-art";
+
+    enemyArt.textContent =
+`        ####     
+     ############
+   ###  ######  ###
+   ###    ##    ###
+   ################
+   #####      #####
+  ####          ####
+ #####          #####
+## ###   ####   ### ##
+   ################
+   ## # ### ## # ##`;
+
+
+    /* ====================================
+       PLAYER
+    ==================================== */
+
+    const player =
+        document.createElement("div");
+
+    player.className =
+        "jumbo-flan-player";
+
+    player.textContent =
+        "WARRIOR OF LIGHT";
+
+
+    /* ====================================
+       MESSAGE
+    ==================================== */
 
     const message =
         document.createElement("div");
@@ -2571,9 +2609,9 @@ function createJumboFlanQuestion() {
         "";
 
 
-    /*
-     * Main menu
-     */
+    /* ====================================
+       MAIN MENU
+    ==================================== */
 
     const menu =
         document.createElement("div");
@@ -2585,7 +2623,8 @@ function createJumboFlanQuestion() {
     const options = [
         "ATTACK",
         "MAGIC",
-        "DEFEND"
+        "DEFEND",
+        "RUN"
     ];
 
 
@@ -2616,15 +2655,36 @@ function createJumboFlanQuestion() {
                     }
 
 
+                    /* =========================
+                       ATTACK
+                    ========================= */
+
                     if (
                         option === "ATTACK"
                     ) {
 
                         message.textContent =
-                            "JUMBO FLAN DEFENDS HIMSELF.";
+                            "JUMBO FLAN DEFENDS.";
 
                     }
 
+
+                    /* =========================
+                       MAGIC
+                    ========================= */
+
+                    else if (
+                        option === "MAGIC"
+                    ) {
+
+                        showMagicMenu();
+
+                    }
+
+
+                    /* =========================
+                       DEFEND
+                    ========================= */
 
                     else if (
                         option === "DEFEND"
@@ -2636,11 +2696,16 @@ function createJumboFlanQuestion() {
                     }
 
 
+                    /* =========================
+                       RUN
+                    ========================= */
+
                     else if (
-                        option === "MAGIC"
+                        option === "RUN"
                     ) {
 
-                        showMagicMenu();
+                        message.textContent =
+                            "YOU CAN NOT RUN, COWARD...";
 
                     }
 
@@ -2654,9 +2719,9 @@ function createJumboFlanQuestion() {
     );
 
 
-    /*
-     * Magic menu
-     */
+    /* ====================================
+       MAGIC MENU
+    ==================================== */
 
     const magicMenu =
         document.createElement("div");
@@ -2669,12 +2734,14 @@ function createJumboFlanQuestion() {
 
 
     const magicOptions = [
-        "FIRE",
-        "BLIZZARD",
-        "THUNDER",
-        "CURE",
-        "REFLECT",
-        "MIRROR"
+        "FIRAGA",
+        "BLIZZAGA",
+        "THUNDAGA",
+        "WATERGA",
+        "HOLY",
+        "METEOR",
+        "FLARE",
+        "REFLECT"
     ];
 
 
@@ -2705,89 +2772,42 @@ function createJumboFlanQuestion() {
                     }
 
 
-                    /*
-                     * Reflect / Mirror
-                     */
+                    /* =========================
+                       REFLECT
+                    ========================= */
 
                     if (
-                        magic === "REFLECT" ||
-                        magic === "MIRROR"
+                        magic === "REFLECT"
                     ) {
 
-                        message.textContent =
-                            "SELECT TARGET.";
-
-                        showTargets(
-                            magicMenu,
-                            magic
-                        );
+                        useReflect();
 
                         return;
 
                     }
 
 
-                    /*
-                     * Offensive magic
-                     */
+                    /* =========================
+                       OFFENSIVE MAGIC
+                    ========================= */
 
-                    if (
-                        magic === "FIRE" ||
-                        magic === "BLIZZARD" ||
-                        magic === "THUNDER"
-                    ) {
-
-                        message.textContent =
-                            "MAGIC REFLECTED.\n\nMIRROR.";
-
-                        return;
-
-                    }
-
-
-                    /*
-                     * Defensive magic
-                     */
-
-                    if (
-                        magic === "CURE"
-                    ) {
-
-                        message.textContent =
-                            "NO EFFECT.";
-
-                    }
+                    showTargets(
+                        magic
+                    );
 
                 }
             );
 
 
-            magicMenu.appendChild(
-                button
-            );
+            magicMenu.appendChild(button);
 
         }
     );
 
 
-    /*
-     * Add everything
-     */
-
-    wrapper.appendChild(enemy);
-
-    wrapper.appendChild(message);
-
-    wrapper.appendChild(menu);
-
-    wrapper.appendChild(magicMenu);
-
-    answerArea.appendChild(wrapper);
-
-
-    /*
-     * MAGIC MENU
-     */
+    /* ====================================
+       SHOW MAGIC MENU
+    ==================================== */
 
     function showMagicMenu() {
 
@@ -2803,16 +2823,13 @@ function createJumboFlanQuestion() {
     }
 
 
-    /*
-     * TARGET SELECTION
-     */
+    /* ====================================
+       TARGET SELECTION
+    ==================================== */
 
-    function showTargets(
-        currentMagicMenu,
-        magic
-    ) {
+    function showTargets(magic) {
 
-        currentMagicMenu.innerHTML =
+        magicMenu.innerHTML =
             "";
 
 
@@ -2822,159 +2839,168 @@ function createJumboFlanQuestion() {
         self.className =
             "battle-option";
 
+        self.type =
+            "button";
+
         self.textContent =
             "SELF";
 
 
-        const enemyTarget =
+        const opponent =
             document.createElement("button");
 
-        enemyTarget.className =
+        opponent.className =
             "battle-option";
 
-        enemyTarget.textContent =
-            "JUMBO FLAN";
+        opponent.type =
+            "button";
+
+        opponent.textContent =
+            "OPPONENT";
 
 
-        /*
-         * Correct target:
-         * SELF
-         */
+        /* ================================
+           SELF
+        ================================ */
 
         self.addEventListener(
             "click",
             function () {
 
                 message.textContent =
-                    "REFLECT ACTIVE.";
-
-                showSelfMagic();
+                    "WHAT ARE YOU DOING? IDIOT.";
 
             }
         );
 
 
-        /*
-         * Wrong target:
-         * JUMBO FLAN
-         */
+        /* ================================
+           OPPONENT
+        ================================ */
 
-        enemyTarget.addEventListener(
+        opponent.addEventListener(
             "click",
             function () {
 
+                /*
+                 * If Reflect has already
+                 * been used, magic succeeds.
+                 */
+
+                if (reflectActive) {
+
+                    defeatFlan();
+
+                    return;
+
+                }
+
+
                 message.textContent =
-                    "MAGIC REFLECTED.\n\nMIRROR.";
+                    "THE OPPONENT REFLECTS THE ATTACK.";
 
             }
         );
 
 
-        currentMagicMenu.appendChild(
-            self
-        );
+        magicMenu.appendChild(self);
 
-        currentMagicMenu.appendChild(
-            enemyTarget
-        );
+        magicMenu.appendChild(opponent);
 
     }
 
 
-    /*
-     * Magic to cast on SELF
-     */
+    /* ====================================
+       REFLECT
+    ==================================== */
 
-    function showSelfMagic() {
-
-        magicMenu.innerHTML =
-            "";
+    let reflectActive = false;
 
 
-        const selfDamageMagic = [
-            "FIRE",
-            "BLIZZARD",
-            "THUNDER"
-        ];
+    function useReflect() {
+
+        reflectActive = true;
 
 
-        selfDamageMagic.forEach(
-            function (magic) {
+        menu.style.display =
+            "none";
 
-                const button =
-                    document.createElement("button");
-
-                button.className =
-                    "battle-option";
-
-                button.textContent =
-                    magic;
+        magicMenu.style.display =
+            "none";
 
 
-                button.addEventListener(
-                    "click",
-                    function () {
+        message.textContent =
+            "REFLECT USED ON USER.";
 
-                        if (answerLocked) {
-
-                            return;
-
-                        }
+    }
 
 
-                        answerLocked = true;
+    /* ====================================
+       DEFEAT
+    ==================================== */
+
+    function defeatFlan() {
+
+        answerLocked = true;
 
 
-                        magicMenu.style.display =
-                            "none";
+        menu.style.display =
+            "none";
+
+        magicMenu.style.display =
+            "none";
 
 
-                        message.textContent =
-`REFLECT ACTIVE.
-
-MAGIC CAST.
-
-DAMAGE:
+        message.textContent =
+`DAMAGE
 
 9999
 
 JUMBO FLAN DEFEATED.`;
 
 
-                        setTimeout(
-                            function () {
+        setTimeout(
+            function () {
 
-                                feedback.textContent =
-                                    "RECORD RESTORED.";
+                feedback.textContent =
+                    "RECORD RESTORED.";
 
-                            },
-                            800
-                        );
-
-
-                        setTimeout(
-                            function () {
-
-                                currentQuestion++;
-
-                                showQuestion();
-
-                            },
-                            2400
-                        );
-
-                    }
-                );
+            },
+            1800
+        );
 
 
-                magicMenu.appendChild(
-                    button
-                );
+        setTimeout(
+            function () {
 
-            }
+                currentQuestion++;
+
+                showQuestion();
+
+            },
+            3200
         );
 
     }
+
+
+    /* ====================================
+       ADD EVERYTHING
+    ==================================== */
+
+    wrapper.appendChild(enemy);
+
+    wrapper.appendChild(enemyArt);
+
+    wrapper.appendChild(player);
+
+    wrapper.appendChild(message);
+
+    wrapper.appendChild(menu);
+
+    wrapper.appendChild(magicMenu);
+
+    answerArea.appendChild(wrapper);
 
 }
 /* ========================================
