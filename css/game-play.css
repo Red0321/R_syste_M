@@ -618,7 +618,7 @@ body {
     color: white;
 
     font-family: inherit;
-    font-size: inherit;
+    font-size: 15px;
 
     vertical-align: baseline;
 
@@ -953,9 +953,9 @@ body {
 
     position: relative;
 
-    width: 460px;
+    width: 360px;
 
-    height: 460px;
+    height: 360px;
 
     max-width: 80vw;
 
@@ -983,8 +983,8 @@ body {
     transform:
         translate(-50%, -50%)
         rotate(var(--god-angle))
-        translateY(-195px)
-        rotate(calc(var(--god-angle) * -1));
+        translateY(-160px)
+        rotate(calc(-1 * var(--god-angle)));
 
     background: transparent;
 
