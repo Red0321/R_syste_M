@@ -533,7 +533,7 @@ else if (question.type === "connection") {
     createConnectionQuestion();
 
 }
-
+}
 
 /* ========================================
    TEXT INPUT
