@@ -2843,142 +2843,135 @@ function createJumboFlanQuestion() {
 
 
     /* ====================================
-       TARGET SELECTION
-    ==================================== */
+   TARGET SELECTION
+==================================== */
 
-    function showTargets(magic) {
+function showTargets(magic) {
 
-        magicMenu.innerHTML =
-            "";
-
-
-        const self =
-            document.createElement("button");
-
-        self.className =
-            "battle-option";
-
-        self.type =
-            "button";
-
-        self.textContent =
-            "SELF";
+    magicMenu.innerHTML = "";
 
 
-        const opponent =
-            document.createElement("button");
+    const self =
+        document.createElement("button");
 
-        opponent.className =
-            "battle-option";
+    self.className =
+        "battle-option";
 
-        opponent.type =
-            "button";
+    self.type =
+        "button";
 
-        opponent.textContent =
-            "OPPONENT";
-
-
-        /* ================================
-           SELF
-        ================================ */
-
-        self.addEventListener(
-            "click",
-            function () {
-
-                if (answerLocked) {
-
-                    return;
-
-                }
+    self.textContent =
+        "SELF";
 
 
-                message.textContent =
-                    "WHAT ARE YOU DOING? IDIOT.";
+    const opponent =
+        document.createElement("button");
+
+    opponent.className =
+        "battle-option";
+
+    opponent.type =
+        "button";
+
+    opponent.textContent =
+        "OPPONENT";
 
 
-                setTimeout(
-                    function () {
+    /* ================================
+       SELF
+    ================================ */
 
-                        magicMenu.style.display =
-                            "none";
+    self.addEventListener(
+        "click",
+        function () {
 
-                        menu.style.display =
-                            "flex";
+            /*
+             * If Reflect is active,
+             * using magic on yourself
+             * defeats Jumbo Flan.
+             */
 
-                        message.textContent =
-                            "";
+            if (reflectActive) {
 
-                    },
-                    1000
-                );
+                defeatFlan();
+
+                return;
 
             }
-        );
 
 
-        /* ================================
-           OPPONENT
-        ================================ */
+            /*
+             * Without Reflect,
+             * magic on yourself is stupid.
+             */
 
-        opponent.addEventListener(
-            "click",
-            function () {
-
-                if (answerLocked) {
-
-                    return;
-
-                }
+            message.textContent =
+                "WHAT ARE YOU DOING? IDIOT.";
 
 
-                /*
-                 * Reflect active:
-                 * magic defeats Jumbo Flan.
-                 */
+            setTimeout(
+                function () {
 
-                if (reflectActive) {
+                    magicMenu.style.display =
+                        "none";
 
-                    defeatFlan();
+                    menu.style.display =
+                        "flex";
 
-                    return;
+                    message.textContent =
+                        "";
 
-                }
+                },
+                1000
+            );
 
-
-                message.textContent =
-                    "THE OPPONENT REFLECTS THE ATTACK.";
-
-
-                setTimeout(
-                    function () {
-
-                        magicMenu.style.display =
-                            "none";
-
-                        menu.style.display =
-                            "flex";
-
-                        message.textContent =
-                            "";
-
-                    },
-                    1000
-                );
-
-            }
-        );
+        }
+    );
 
 
-        magicMenu.appendChild(
-            self
-        );
+    /* ================================
+       OPPONENT
+    ================================ */
 
-        magicMenu.appendChild(
-            opponent
-        );
+    opponent.addEventListener(
+        "click",
+        function () {
 
-    }
+            /*
+             * Even with Reflect active,
+             * attacking the opponent directly
+             * is still reflected.
+             */
+
+            message.textContent =
+                "THE OPPONENT REFLECTS THE ATTACK.";
+
+
+            setTimeout(
+                function () {
+
+                    magicMenu.style.display =
+                        "none";
+
+                    menu.style.display =
+                        "flex";
+
+                    message.textContent =
+                        "";
+
+                },
+                1000
+            );
+
+        }
+    );
+
+
+    magicMenu.appendChild(self);
+
+    magicMenu.appendChild(opponent);
+
+}
 
 
     /* ====================================

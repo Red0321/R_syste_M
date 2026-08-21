@@ -618,7 +618,7 @@ body {
     color: white;
 
     font-family: inherit;
-    font-size: 15px;
+    font-size: 18px;
 
     vertical-align: baseline;
 
@@ -946,6 +946,7 @@ body {
 
     justify-content: center;
 
+ transform: translateY(-30px);
 }
 
 
