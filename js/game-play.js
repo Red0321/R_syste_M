@@ -202,19 +202,17 @@ YOU ARE MY ONLY`,
         "ARES",
         "FREYA",
         "ATHENA",
-        "PANDORA",
+        "OSIRIS",
         "BALDUR",
         "ODIN",
+        "ANUBIS",
         "THOR",
         "POSEIDON",
-        "ANUBIS",
-        "RA",
-        "OSIRIS"
+        "PANDORA"
     ],
 
     answer: [
         "ANUBIS",
-        "RA",
         "OSIRIS"
     ]
 },
@@ -1848,9 +1846,9 @@ function createEvaQuestion(question) {
         "eva-list";
 
 
-    /*
-     * Create independent shuffled lists.
-     */
+    /* ====================================
+       CREATE INDEPENDENT ORDERS
+    ==================================== */
 
     const names =
         shuffleArray(
@@ -1875,9 +1873,9 @@ function createEvaQuestion(question) {
     let draggedElement = null;
 
 
-    /*
-     * Create rows.
-     */
+    /* ====================================
+       CREATE ROWS
+    ==================================== */
 
     for (
         let i = 0;
@@ -1892,9 +1890,9 @@ function createEvaQuestion(question) {
             "eva-row";
 
 
-        /*
-         * NAME
-         */
+        /* =================================
+           NAME
+        ================================= */
 
         const name =
             document.createElement("div");
@@ -1909,9 +1907,9 @@ function createEvaQuestion(question) {
             true;
 
 
-        /*
-         * UNIT
-         */
+        /* =================================
+           UNIT
+        ================================= */
 
         const unit =
             document.createElement("div");
@@ -1933,9 +1931,9 @@ function createEvaQuestion(question) {
         list.appendChild(row);
 
 
-        /* ====================================
-           NAME DRAG
-        ==================================== */
+        /* =================================
+           NAME DRAG START
+        ================================= */
 
         name.addEventListener(
             "dragstart",
@@ -1958,68 +1956,9 @@ function createEvaQuestion(question) {
         );
 
 
-        name.addEventListener(
-            "dragend",
-            function () {
-
-                name.classList.remove(
-                    "eva-dragging"
-                );
-
-                draggedElement = null;
-
-            }
-        );
-
-
-        /* ====================================
-           UNIT DRAG
-        ==================================== */
-
-        unit.addEventListener(
-            "dragstart",
-            function () {
-
-                if (answerLocked) {
-
-                    return;
-
-                }
-
-                draggedElement =
-                    unit;
-
-                unit.classList.add(
-                    "eva-dragging"
-                );
-
-            }
-        );
-
-
-        unit.addEventListener(
-            "dragend",
-            function () {
-
-                unit.classList.remove(
-                    "eva-dragging"
-                );
-
-                draggedElement = null;
-
-
-                checkEvaAnswer(
-                    list,
-                    question.answer
-                );
-
-            }
-        );
-
-
-        /* ====================================
-           NAME DROP
-        ==================================== */
+        /* =================================
+           NAME DRAG OVER
+        ================================= */
 
         name.addEventListener(
             "dragover",
@@ -2030,6 +1969,10 @@ function createEvaQuestion(question) {
             }
         );
 
+
+        /* =================================
+           NAME DROP
+        ================================= */
 
         name.addEventListener(
             "drop",
@@ -2075,9 +2018,63 @@ function createEvaQuestion(question) {
         );
 
 
-        /* ====================================
-           UNIT DROP
-        ==================================== */
+        /* =================================
+           NAME DRAG END
+        ================================= */
+
+        name.addEventListener(
+            "dragend",
+            function () {
+
+                name.classList.remove(
+                    "eva-dragging"
+                );
+
+                draggedElement = null;
+
+
+                /*
+                 * Check after the complete
+                 * drag operation.
+                 */
+
+                checkEvaAnswer(
+                    list,
+                    question.answer
+                );
+
+            }
+        );
+
+
+        /* =================================
+           UNIT DRAG START
+        ================================= */
+
+        unit.addEventListener(
+            "dragstart",
+            function () {
+
+                if (answerLocked) {
+
+                    return;
+
+                }
+
+                draggedElement =
+                    unit;
+
+                unit.classList.add(
+                    "eva-dragging"
+                );
+
+            }
+        );
+
+
+        /* =================================
+           UNIT DRAG OVER
+        ================================= */
 
         unit.addEventListener(
             "dragover",
@@ -2088,6 +2085,10 @@ function createEvaQuestion(question) {
             }
         );
 
+
+        /* =================================
+           UNIT DROP
+        ================================= */
 
         unit.addEventListener(
             "drop",
@@ -2127,13 +2128,36 @@ function createEvaQuestion(question) {
                     draggedElement.textContent =
                         temp;
 
-
-                    checkEvaAnswer(
-                        list,
-                        question.answer
-                    );
-
                 }
+
+            }
+        );
+
+
+        /* =================================
+           UNIT DRAG END
+        ================================= */
+
+        unit.addEventListener(
+            "dragend",
+            function () {
+
+                unit.classList.remove(
+                    "eva-dragging"
+                );
+
+                draggedElement = null;
+
+
+                /*
+                 * Check after the complete
+                 * drag operation.
+                 */
+
+                checkEvaAnswer(
+                    list,
+                    question.answer
+                );
 
             }
         );
@@ -2141,9 +2165,9 @@ function createEvaQuestion(question) {
     }
 
 
-    /*
-     * SYNC RATE
-     */
+    /* ====================================
+       SYNC RATE
+    ==================================== */
 
     const sync =
         document.createElement("div");
@@ -2162,88 +2186,6 @@ function createEvaQuestion(question) {
     answerArea.appendChild(wrapper);
 
 }
-/* ========================================
-   SHUFFLE EVA ROWS
-======================================== */
-
-function shuffleEvaRows(values) {
-
-    const result =
-        [...values];
-
-
-    let attempts = 0;
-
-
-    do {
-
-        for (
-            let i = result.length - 1;
-            i > 0;
-            i--
-        ) {
-
-            const j =
-                Math.floor(
-                    Math.random() * (i + 1)
-                );
-
-
-            [
-                result[i],
-                result[j]
-            ] =
-            [
-                result[j],
-                result[i]
-            ];
-
-        }
-
-
-        attempts++;
-
-    }
-    while (
-        isEvaCorrectOrder(result) &&
-        attempts < 10
-    );
-
-
-    return result;
-
-}
-
-
-/* ========================================
-   CHECK INITIAL ORDER
-======================================== */
-
-function isEvaCorrectOrder(rows) {
-
-    const expected = [
-        "NAMIKAMI|UNIT-08",
-        "NAGISA|UNIT-06",
-        "LANGLEY|UNIT-02",
-        "IKARI|UNIT-01",
-        "SUZUHARA|UNIT-03",
-        "AYANAMI|UNIT-00"
-    ];
-
-
-    return rows.every(
-        function (row, index) {
-
-            return (
-                `${row.name}|${row.unit}` ===
-                expected[index]
-            );
-
-        }
-    );
-
-}
-
 
 /* ========================================
    CHECK EVA ANSWER
