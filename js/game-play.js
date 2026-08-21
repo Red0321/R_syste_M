@@ -312,7 +312,7 @@ and in the darkness bind them.`,
 {
     number: "012",
 
-    type: "jumboflan",
+    type: "jumbo-flan",
 
     content:
 `JUMBO FLAN`,
@@ -353,6 +353,7 @@ and in the darkness bind them.`,
         "T"
     ]
 },
+];
 
 /* ========================================
    STATE
