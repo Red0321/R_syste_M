@@ -577,67 +577,66 @@ body {
 
 
 /* ========================================
-   INLINE INPUT
+   INLINE RECORDS
 ======================================== */
 
-.inline-input {
+.inline-question {
+    display: block;
 
+    width: 100%;
+
+    white-space: pre-wrap;
+
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+
+.inline-text {
+    display: inline;
+
+    white-space: pre-wrap;
+}
+
+
+.inline-input {
     display: inline-block;
 
-    width: 130px;
+    width: 120px;
 
-    margin-left: 12px;
+    margin-left: 6px;
+
+    padding: 0;
+
+    border: none;
+    border-bottom: none;
+    outline: none;
 
     background: transparent;
 
-    border: none;
-
-    border-bottom: 1px solid white;
-
-    outline: none;
-
     color: white;
 
-    font-family: "Courier New", monospace;
+    font-family: inherit;
+    font-size: inherit;
 
-    font-size: 17px;
+    vertical-align: baseline;
 
-    letter-spacing: 3px;
-
-    line-height: 1.5;
-
-    text-align: left;
-
-    padding: 4px 2px;
-
-    text-transform: uppercase;
-
+    caret-color: white;
 }
 
-
-/* ========================================
-   INLINE INPUT FOCUS
-======================================== */
 
 .inline-input:focus {
-
-    border-bottom-color: white;
-
+    border: none;
+    border-bottom: none;
+    outline: none;
 }
 
-
-/* ========================================
-   INLINE INPUT DISABLED
-======================================== */
 
 .inline-input:disabled {
-
-    opacity: 0.5;
-
-    cursor: default;
-
+    border: none;
+    border-bottom: none;
 }
-
 
 /* ========================================
    SELECT RECORD
@@ -1381,4 +1380,76 @@ body {
 
     }
 
+}
+/* ========================================
+   RECORD 008 — GODS
+======================================== */
+
+.god-circle-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+    width: 100%;
+}
+
+
+.god-circle {
+    position: relative;
+
+    width: 420px;
+    height: 420px;
+
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 50%;
+}
+
+
+.god-outside {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    min-width: 150px;
+    min-height: 200px;
+}
+
+
+/*
+ * Gods inside the circle.
+ */
+
+.god-circle .god-option {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(var(--god-angle))
+        translateY(-190px)
+        rotate(calc(-1 * var(--god-angle)));
+
+    cursor: pointer;
+}
+
+
+/*
+ * Gods outside the circle.
+ */
+
+.god-outside .god-option {
+    position: relative;
+
+    left: auto;
+    top: auto;
+
+    transform: none;
+
+    cursor: pointer;
 }

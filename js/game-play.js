@@ -175,11 +175,9 @@ OF THE NIGHT.`,
         before:
 `TRANSMISSION // 004
 
-THE SIGNAL WAS RECEIVED.
+SIGNAL RECEIVED.
 
-THE MESSAGE WAS NOT.
-
-ONE WORD REMAINS:
+MESSAGE INCOMPLETE
 
 YOU ARE MY ONLY`,
 
@@ -308,32 +306,53 @@ and in the darkness bind them.`,
 
 
     /* ========================================
-       RECORD 012
-    ======================================== */
+   RECORD 012 — JUMBO FLAN
+======================================== */
 
-    {
-        number: "012",
+{
+    number: "012",
 
-        type: "select",
+    type: "jumboflan",
 
-        content:
-`MEMORY FILE
+    content:
+`JUMBO FLAN`,
 
-ONE NAME WAS LEFT BEHIND.`,
+    answer: "DEFEATED"
+},
+/* ========================================
+   RECORD 013 — SUBJECT NO IDENTIFIED
+======================================== */
 
-        options: [
-            "CLOUD",
-            "AERITH",
-            "TIFA",
-            "BARRET",
-            "SEPHIROTH"
-        ],
+{
+    number: "013",
 
-        answer: "SEPHIROTH"
-    }
+    type: "xehanort",
 
-];
+    content:
+`SUBJECT NO IDENTIFIED`,
 
+    letters: [
+        "N",
+        "O",
+        "X",
+        "H",
+        "E",
+        "A",
+        "R",
+        "T"
+    ],
+
+    answer: [
+        "X",
+        "E",
+        "H",
+        "A",
+        "N",
+        "O",
+        "R",
+        "T"
+    ]
+},
 
 /* ========================================
    STATE
@@ -533,8 +552,33 @@ else if (question.type === "connection") {
     createConnectionQuestion();
 
 }
+
+/* ====================================
+   TYPE: XEHANORT
+==================================== */
+
+else if (question.type === "xehanort") {
+
+    questionContent.textContent =
+        question.content;
+
+    createXehanortQuestion(question);
+
 }
 
+/* ====================================
+   TYPE: JUMBO FLAN
+==================================== */
+
+else if (question.type === "jumbo-flan") {
+
+    questionContent.textContent =
+        question.content;
+
+    createJumboFlanQuestion();
+
+}
+}
 /* ========================================
    TEXT INPUT
 ======================================== */
@@ -783,9 +827,7 @@ function createRearrange(question) {
      */
 
     const shuffled =
-        shuffleArray(
-            question.letters
-        );
+    [...question.letters];
 
 
     shuffled.forEach(
@@ -1128,18 +1170,15 @@ function createInline(question) {
     const wrapper =
         document.createElement("div");
 
-
     wrapper.className =
         "inline-question";
 
 
     const text =
-        document.createElement("div");
-
+        document.createElement("span");
 
     text.className =
         "inline-text";
-
 
     text.textContent =
         question.before;
@@ -1148,21 +1187,20 @@ function createInline(question) {
     const input =
         document.createElement("input");
 
-
     input.className =
         "inline-input";
-
 
     input.type =
         "text";
 
-
     input.autocomplete =
         "off";
 
-
     input.spellcheck =
         false;
+
+    input.placeholder =
+        "";
 
 
     input.addEventListener(
@@ -1444,17 +1482,38 @@ function correctAnswer() {
 
 
     setTimeout(
-        function () {
+    function () {
 
-            currentQuestion++;
+        selectedLetter = null;
 
-            selectedLetter = null;
+        if (
+            gameData[currentQuestion].type ===
+            "xehanort"
+        ) {
 
-            showQuestion();
+            questionNumber.textContent = "";
 
-        },
-        1600
-    );
+            questionContext.textContent = "";
+
+            questionContent.textContent =
+                "WHO ARE THE PATRIOTS?";
+
+            answerArea.innerHTML = "";
+
+            feedback.textContent = "";
+
+            return;
+
+        }
+
+
+        currentQuestion++;
+
+        showQuestion();
+
+    },
+    1600
+);
 
 }
 
@@ -1539,6 +1598,10 @@ function createGodCircle(question) {
         "god-circle-wrapper";
 
 
+    /*
+     * Circle
+     */
+
     const circle =
         document.createElement("div");
 
@@ -1546,8 +1609,28 @@ function createGodCircle(question) {
         "god-circle";
 
 
-    const selectedCorrect = [];
+    /*
+     * Outside area
+     */
 
+    const outside =
+        document.createElement("div");
+
+    outside.className =
+        "god-outside";
+
+
+    /*
+     * Keep track of gods currently
+     * outside the circle.
+     */
+
+    const outsideGods = [];
+
+
+    /*
+     * Create all gods.
+     */
 
     question.options.forEach(
         function (god, index) {
@@ -1555,14 +1638,11 @@ function createGodCircle(question) {
             const button =
                 document.createElement("button");
 
-
             button.className =
                 "god-option";
 
-
             button.type =
                 "button";
-
 
             button.textContent =
                 god;
@@ -1583,6 +1663,13 @@ function createGodCircle(question) {
             );
 
 
+            /*
+             * Click:
+             *
+             * Inside  -> Outside
+             * Outside -> Inside
+             */
+
             button.addEventListener(
                 "click",
                 function () {
@@ -1595,76 +1682,81 @@ function createGodCircle(question) {
 
 
                     /*
-                     * Correct Egyptian god.
+                     * GOD IS INSIDE
+                     * Move it outside.
                      */
 
                     if (
-                        question.answer.includes(god)
+                        button.parentElement === circle
                     ) {
 
-                        if (
-                            !selectedCorrect.includes(god)
-                        ) {
-
-                            selectedCorrect.push(god);
-
-                        }
+                        outside.appendChild(
+                            button
+                        );
 
 
                         button.classList.add(
-                            "removed"
+                            "outside"
                         );
 
 
-                        setTimeout(
-                            function () {
-
-                                button.remove();
-
-
-                                /*
-                                 * All three Egyptian
-                                 * gods removed.
-                                 */
-
-                                if (
-                                    selectedCorrect.length ===
-                                    question.answer.length
-                                ) {
-
-                                    correctAnswer();
-
-                                }
-
-                            },
-                            350
+                        outsideGods.push(
+                            god
                         );
+
+
+                        /*
+                         * Check whether the
+                         * three Egyptian gods
+                         * are outside.
+                         */
+
+                        checkGodAnswer();
 
                     }
 
 
                     /*
-                     * Wrong mythology.
+                     * GOD IS OUTSIDE
+                     * Move it back inside.
                      */
 
                     else {
 
-                        incorrectAnswer();
+                        const index =
+                            outsideGods.indexOf(
+                                god
+                            );
 
-                        button.classList.add(
-                            "wrong"
+
+                        if (index !== -1) {
+
+                            outsideGods.splice(
+                                index,
+                                1
+                            );
+
+                        }
+
+
+                        circle.appendChild(
+                            button
                         );
 
 
-                        setTimeout(
-                            function () {
+                        button.classList.remove(
+                            "outside"
+                        );
 
-                                button.classList.remove(
-                                    "wrong"
-                                );
 
-                            },
-                            500
+                        /*
+                         * Restore its original
+                         * circular position.
+                         */
+
+                        button.style.setProperty(
+                            "--god-angle",
+                            `${angle}deg`
                         );
 
                     }
@@ -1673,15 +1765,65 @@ function createGodCircle(question) {
             );
 
 
-            circle.appendChild(button);
+            circle.appendChild(
+                button
+            );
 
         }
     );
 
 
-    wrapper.appendChild(circle);
+    /*
+     * Check solution.
+     */
 
-    answerArea.appendChild(wrapper);
+    function checkGodAnswer() {
+
+        const correct =
+            question.answer.every(
+                function (god) {
+
+                    return outsideGods.includes(
+                        god
+                    );
+
+                }
+            );
+
+
+        /*
+         * Important:
+         *
+         * There must be exactly three
+         * gods outside.
+         */
+
+        if (
+            correct &&
+            outsideGods.length ===
+            question.answer.length
+        ) {
+
+            correctAnswer();
+
+        }
+
+    }
+
+
+    wrapper.appendChild(
+        circle
+    );
+
+
+    wrapper.appendChild(
+        outside
+    );
+
+
+    answerArea.appendChild(
+        wrapper
+    );
 
 }
 /* ========================================
@@ -1706,79 +1848,284 @@ function createEvaQuestion(question) {
 
 
     /*
-     * Shuffle complete rows.
+     * Create independent shuffled lists.
      */
 
-    const shuffled =
-        shuffleEvaRows(question.values);
+    const names =
+        shuffleArray(
+            question.values.map(
+                function (item) {
+                    return item.name;
+                }
+            )
+        );
 
 
-    shuffled.forEach(
-        function (item) {
-
-            const row =
-                document.createElement("div");
-
-            row.className =
-                "eva-row";
-
-
-            row.draggable =
-                true;
+    const units =
+        shuffleArray(
+            question.values.map(
+                function (item) {
+                    return item.unit;
+                }
+            )
+        );
 
 
-            const name =
-                document.createElement("span");
-
-            name.className =
-                "eva-name";
-
-            name.textContent =
-                item.name;
+    let draggedElement = null;
 
 
-            const unit =
-                document.createElement("span");
+    /*
+     * Create rows.
+     */
 
-            unit.className =
-                "eva-unit";
+    for (
+        let i = 0;
+        i < question.values.length;
+        i++
+    ) {
 
-            unit.textContent =
-                item.unit;
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "eva-row";
 
 
-            row.appendChild(name);
+        /*
+         * NAME
+         */
 
-            row.appendChild(unit);
+        const name =
+            document.createElement("div");
+
+        name.className =
+            "eva-name";
+
+        name.textContent =
+            names[i];
+
+        name.draggable =
+            true;
 
 
-            /*
-             * Drag start.
-             */
+        /*
+         * UNIT
+         */
 
-            row.addEventListener(
-                "dragstart",
-                function () {
+        const unit =
+            document.createElement("div");
 
-                    row.classList.add(
-                        "eva-dragging"
-                    );
+        unit.className =
+            "eva-unit";
+
+        unit.textContent =
+            units[i];
+
+        unit.draggable =
+            true;
+
+
+        row.appendChild(name);
+
+        row.appendChild(unit);
+
+        list.appendChild(row);
+
+
+        /* ====================================
+           NAME DRAG
+        ==================================== */
+
+        name.addEventListener(
+            "dragstart",
+            function () {
+
+                if (answerLocked) {
+
+                    return;
 
                 }
-            );
+
+                draggedElement =
+                    name;
+
+                name.classList.add(
+                    "eva-dragging"
+                );
+
+            }
+        );
 
 
-            /*
-             * Drag end.
-             */
+        name.addEventListener(
+            "dragend",
+            function () {
 
-            row.addEventListener(
-                "dragend",
-                function () {
+                name.classList.remove(
+                    "eva-dragging"
+                );
 
-                    row.classList.remove(
-                        "eva-dragging"
-                    );
+                draggedElement = null;
+
+            }
+        );
+
+
+        /* ====================================
+           UNIT DRAG
+        ==================================== */
+
+        unit.addEventListener(
+            "dragstart",
+            function () {
+
+                if (answerLocked) {
+
+                    return;
+
+                }
+
+                draggedElement =
+                    unit;
+
+                unit.classList.add(
+                    "eva-dragging"
+                );
+
+            }
+        );
+
+
+        unit.addEventListener(
+            "dragend",
+            function () {
+
+                unit.classList.remove(
+                    "eva-dragging"
+                );
+
+                draggedElement = null;
+
+
+                checkEvaAnswer(
+                    list,
+                    question.answer
+                );
+
+            }
+        );
+
+
+        /* ====================================
+           NAME DROP
+        ==================================== */
+
+        name.addEventListener(
+            "dragover",
+            function (event) {
+
+                event.preventDefault();
+
+            }
+        );
+
+
+        name.addEventListener(
+            "drop",
+            function (event) {
+
+                event.preventDefault();
+
+
+                if (
+                    !draggedElement ||
+                    draggedElement === name
+                ) {
+
+                    return;
+
+                }
+
+
+                /*
+                 * Only swap names with names.
+                 */
+
+                if (
+                    draggedElement.classList.contains(
+                        "eva-name"
+                    )
+                ) {
+
+                    const temp =
+                        name.textContent;
+
+
+                    name.textContent =
+                        draggedElement.textContent;
+
+
+                    draggedElement.textContent =
+                        temp;
+
+                }
+
+            }
+        );
+
+
+        /* ====================================
+           UNIT DROP
+        ==================================== */
+
+        unit.addEventListener(
+            "dragover",
+            function (event) {
+
+                event.preventDefault();
+
+            }
+        );
+
+
+        unit.addEventListener(
+            "drop",
+            function (event) {
+
+                event.preventDefault();
+
+
+                if (
+                    !draggedElement ||
+                    draggedElement === unit
+                ) {
+
+                    return;
+
+                }
+
+
+                /*
+                 * Only swap units with units.
+                 */
+
+                if (
+                    draggedElement.classList.contains(
+                        "eva-unit"
+                    )
+                ) {
+
+                    const temp =
+                        unit.textContent;
+
+
+                    unit.textContent =
+                        draggedElement.textContent;
+
+
+                    draggedElement.textContent =
+                        temp;
+
 
                     checkEvaAnswer(
                         list,
@@ -1786,73 +2133,16 @@ function createEvaQuestion(question) {
                     );
 
                 }
-            );
+
+            }
+        );
+
+    }
 
 
-            /*
-             * Allow dropping.
-             */
-
-            row.addEventListener(
-                "dragover",
-                function (event) {
-
-                    event.preventDefault();
-
-
-                    const dragging =
-                        list.querySelector(
-                            ".eva-dragging"
-                        );
-
-
-                    if (
-                        !dragging ||
-                        dragging === row
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    const rect =
-                        row.getBoundingClientRect();
-
-
-                    const middle =
-                        rect.top +
-                        rect.height / 2;
-
-
-                    if (
-                        event.clientY < middle
-                    ) {
-
-                        list.insertBefore(
-                            dragging,
-                            row
-                        );
-
-                    }
-                    else {
-
-                        list.insertBefore(
-                            dragging,
-                            row.nextSibling
-                        );
-
-                    }
-
-                }
-            );
-
-
-            list.appendChild(row);
-
-        }
-    );
-
+    /*
+     * SYNC RATE
+     */
 
     const sync =
         document.createElement("div");
@@ -2325,5 +2615,604 @@ window.currentCleanup = function () {
      */
 
     document.body.focus();
+
+}
+/* ========================================
+   RECORD 012
+   JUMBO FLAN
+======================================== */
+
+function createJumboFlanQuestion() {
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "jumbo-flan-record";
+
+
+    /*
+     * Enemy
+     */
+
+    const enemy =
+        document.createElement("div");
+
+    enemy.className =
+        "jumbo-flan-enemy";
+
+    enemy.textContent =
+        "JUMBO FLAN";
+
+
+    /*
+     * Battle message
+     */
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "jumbo-flan-message";
+
+    message.textContent =
+        "";
+
+
+    /*
+     * Main menu
+     */
+
+    const menu =
+        document.createElement("div");
+
+    menu.className =
+        "battle-menu";
+
+
+    const options = [
+        "ATTACK",
+        "MAGIC",
+        "DEFEND"
+    ];
+
+
+    options.forEach(
+        function (option) {
+
+            const button =
+                document.createElement("button");
+
+            button.className =
+                "battle-option";
+
+            button.type =
+                "button";
+
+            button.textContent =
+                option;
+
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    if (answerLocked) {
+
+                        return;
+
+                    }
+
+
+                    if (
+                        option === "ATTACK"
+                    ) {
+
+                        message.textContent =
+                            "JUMBO FLAN DEFENDS HIMSELF.";
+
+                    }
+
+
+                    else if (
+                        option === "DEFEND"
+                    ) {
+
+                        message.textContent =
+                            "DEFENDING.";
+
+                    }
+
+
+                    else if (
+                        option === "MAGIC"
+                    ) {
+
+                        showMagicMenu();
+
+                    }
+
+                }
+            );
+
+
+            menu.appendChild(button);
+
+        }
+    );
+
+
+    /*
+     * Magic menu
+     */
+
+    const magicMenu =
+        document.createElement("div");
+
+    magicMenu.className =
+        "battle-magic";
+
+    magicMenu.style.display =
+        "none";
+
+
+    const magicOptions = [
+        "FIRE",
+        "BLIZZARD",
+        "THUNDER",
+        "CURE",
+        "REFLECT",
+        "MIRROR"
+    ];
+
+
+    magicOptions.forEach(
+        function (magic) {
+
+            const button =
+                document.createElement("button");
+
+            button.className =
+                "battle-option";
+
+            button.type =
+                "button";
+
+            button.textContent =
+                magic;
+
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    if (answerLocked) {
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * Reflect / Mirror
+                     */
+
+                    if (
+                        magic === "REFLECT" ||
+                        magic === "MIRROR"
+                    ) {
+
+                        message.textContent =
+                            "SELECT TARGET.";
+
+                        showTargets(
+                            magicMenu,
+                            magic
+                        );
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * Offensive magic
+                     */
+
+                    if (
+                        magic === "FIRE" ||
+                        magic === "BLIZZARD" ||
+                        magic === "THUNDER"
+                    ) {
+
+                        message.textContent =
+                            "MAGIC REFLECTED.\n\nMIRROR.";
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * Defensive magic
+                     */
+
+                    if (
+                        magic === "CURE"
+                    ) {
+
+                        message.textContent =
+                            "NO EFFECT.";
+
+                    }
+
+                }
+            );
+
+
+            magicMenu.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    /*
+     * Add everything
+     */
+
+    wrapper.appendChild(enemy);
+
+    wrapper.appendChild(message);
+
+    wrapper.appendChild(menu);
+
+    wrapper.appendChild(magicMenu);
+
+    answerArea.appendChild(wrapper);
+
+
+    /*
+     * MAGIC MENU
+     */
+
+    function showMagicMenu() {
+
+        menu.style.display =
+            "none";
+
+        magicMenu.style.display =
+            "flex";
+
+        message.textContent =
+            "MAGIC";
+
+    }
+
+
+    /*
+     * TARGET SELECTION
+     */
+
+    function showTargets(
+        currentMagicMenu,
+        magic
+    ) {
+
+        currentMagicMenu.innerHTML =
+            "";
+
+
+        const self =
+            document.createElement("button");
+
+        self.className =
+            "battle-option";
+
+        self.textContent =
+            "SELF";
+
+
+        const enemyTarget =
+            document.createElement("button");
+
+        enemyTarget.className =
+            "battle-option";
+
+        enemyTarget.textContent =
+            "JUMBO FLAN";
+
+
+        /*
+         * Correct target:
+         * SELF
+         */
+
+        self.addEventListener(
+            "click",
+            function () {
+
+                message.textContent =
+                    "REFLECT ACTIVE.";
+
+                showSelfMagic();
+
+            }
+        );
+
+
+        /*
+         * Wrong target:
+         * JUMBO FLAN
+         */
+
+        enemyTarget.addEventListener(
+            "click",
+            function () {
+
+                message.textContent =
+                    "MAGIC REFLECTED.\n\nMIRROR.";
+
+            }
+        );
+
+
+        currentMagicMenu.appendChild(
+            self
+        );
+
+        currentMagicMenu.appendChild(
+            enemyTarget
+        );
+
+    }
+
+
+    /*
+     * Magic to cast on SELF
+     */
+
+    function showSelfMagic() {
+
+        magicMenu.innerHTML =
+            "";
+
+
+        const selfDamageMagic = [
+            "FIRE",
+            "BLIZZARD",
+            "THUNDER"
+        ];
+
+
+        selfDamageMagic.forEach(
+            function (magic) {
+
+                const button =
+                    document.createElement("button");
+
+                button.className =
+                    "battle-option";
+
+                button.textContent =
+                    magic;
+
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        if (answerLocked) {
+
+                            return;
+
+                        }
+
+
+                        answerLocked = true;
+
+
+                        magicMenu.style.display =
+                            "none";
+
+
+                        message.textContent =
+`REFLECT ACTIVE.
+
+MAGIC CAST.
+
+DAMAGE:
+
+9999
+
+JUMBO FLAN DEFEATED.`;
+
+
+                        setTimeout(
+                            function () {
+
+                                feedback.textContent =
+                                    "RECORD RESTORED.";
+
+                            },
+                            800
+                        );
+
+
+                        setTimeout(
+                            function () {
+
+                                currentQuestion++;
+
+                                showQuestion();
+
+                            },
+                            2400
+                        );
+
+                    }
+                );
+
+
+                magicMenu.appendChild(
+                    button
+                );
+
+            }
+        );
+
+    }
+
+}
+/* ========================================
+   RECORD 013
+   XEHANORT
+======================================== */
+
+function createXehanortQuestion(question) {
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "xehanort-record";
+
+
+    const lettersContainer =
+        document.createElement("div");
+
+    lettersContainer.className =
+        "rearrange-letters";
+
+
+    question.letters.forEach(
+        function (letter) {
+
+            const button =
+                document.createElement("button");
+
+            button.className =
+                "rearrange-letter";
+
+            button.type =
+                "button";
+
+            button.textContent =
+                letter;
+
+            button.draggable =
+                true;
+
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    handleLetterClick(
+                        button,
+                        lettersContainer
+                    );
+
+                }
+            );
+
+
+            button.addEventListener(
+                "dragstart",
+                function () {
+
+                    button.classList.add(
+                        "dragging"
+                    );
+
+                }
+            );
+
+
+            button.addEventListener(
+                "dragend",
+                function () {
+
+                    button.classList.remove(
+                        "dragging"
+                    );
+
+                    checkRearrangeAnswer(
+                        lettersContainer,
+                        question.answer
+                    );
+
+                }
+            );
+
+
+            button.addEventListener(
+                "dragover",
+                function (event) {
+
+                    event.preventDefault();
+
+                    const dragging =
+                        lettersContainer.querySelector(
+                            ".dragging"
+                        );
+
+                    if (
+                        !dragging ||
+                        dragging === button
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const rect =
+                        button.getBoundingClientRect();
+
+                    const middle =
+                        rect.left +
+                        rect.width / 2;
+
+
+                    if (
+                        event.clientX < middle
+                    ) {
+
+                        lettersContainer.insertBefore(
+                            dragging,
+                            button
+                        );
+
+                    }
+                    else {
+
+                        lettersContainer.insertBefore(
+                            dragging,
+                            button.nextSibling
+                        );
+
+                    }
+
+                }
+            );
+
+
+            lettersContainer.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    wrapper.appendChild(
+        lettersContainer
+    );
+
+    answerArea.appendChild(
+        wrapper
+    );
 
 }
