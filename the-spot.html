@@ -7,7 +7,7 @@
 
     <title>R_syste_M — THE SPOT</title>
 
-    <link rel="stylesheet" href="css/style.css?v=30">
+    <link rel="stylesheet" href="css/style.css?v=31">
 </head>
 
 <body>
@@ -16,9 +16,9 @@
 
     <main class="first-content">
 
-       <a href="cipher.html" class="system-title system-link">
-    R_syste_M
-</a>
+        <a href="cipher.html" class="system-title system-link">
+            R_syste_M
+        </a>
 
         <div class="section-title spot-title">
             THE SPOT
@@ -38,18 +38,80 @@
 
         <div id="password-container">
 
-    <input
-        type="text"
-        id="password-input"
-        autocomplete="off"
-        spellcheck="false"
-    >
+            <input
+                type="text"
+                id="password-input"
+                autocomplete="off"
+                spellcheck="false"
+            >
 
-</div>
+            <div id="password-feedback"></div>
+
+        </div>
 
     </main>
 
     <script src="js/system.js?v=13"></script>
+
+    <script>
+
+        const passwordInput =
+            document.getElementById("password-input");
+
+        const passwordFeedback =
+            document.getElementById("password-feedback");
+
+
+        const ACCESS_PASSWORD =
+            "LALILULELO";
+
+
+        passwordInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key !== "Enter") {
+
+                    return;
+
+                }
+
+
+                const password =
+                    passwordInput.value.trim();
+
+
+                if (
+                    password === ACCESS_PASSWORD
+                ) {
+
+                    sessionStorage.setItem(
+                        "worldAccess",
+                        "granted"
+                    );
+
+
+                    passwordFeedback.textContent =
+                        "ACCESS GRANTED.";
+
+                }
+
+                else {
+
+                    sessionStorage.removeItem(
+                        "worldAccess"
+                    );
+
+
+                    passwordFeedback.textContent =
+                        "ACCESS DENIED.";
+
+                }
+
+            }
+        );
+
+    </script>
 
 </body>
 

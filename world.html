@@ -2,13 +2,19 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>R_syste_M — WORLD</title>
 
-    <<link rel="stylesheet" href="css/style.css?v=30">
-<link rel="stylesheet" href="css/world.css?v=1">
+    <link rel="stylesheet" href="css/style.css?v=31">
+    <link rel="stylesheet" href="css/world.css?v=1">
+
 </head>
 
 <body>
@@ -18,78 +24,142 @@
     <main class="first-content">
 
         <a href="cipher.html" class="system-title system-link">
-    R_syste_M
-</a>
+            R_syste_M
+        </a>
 
         <div class="section-title world-title">
-    WORLD
-</div>
+            WORLD
+        </div>
 
-<div class="first-text world-intro">
+        <div class="first-text world-intro">
 
-    <p>
-        No limits, no walls, everything happens,
-        nothing to stop, this is how it looks...
-        <span class="world-final">your <strong>world</strong>.</span>
-    </p>
+            <p>
+                No limits, no walls, everything happens,
+                nothing to stop, this is how it looks...
+                <span class="world-final">
+                    your <strong>world</strong>.
+                </span>
+            </p>
 
-</div>
+        </div>
 
-<div class="world-list">
 
-<div class="world-item">
-    <span>METAL GEAR</span>
-</div>
+        <div class="world-list">
 
-<a href="kingdom-hearts.html" class="world-item">
-    <span>KINGDOM HEARTS</span>
-</a>
+            <div class="world-item" data-link="metal-gear.html">
+                <span>METAL GEAR</span>
+            </div>
 
-<div class="world-item">
-    <span>FINAL FANTASY</span>
-</div>
+            <div class="world-item" data-link="kingdom-hearts.html">
+                <span>KINGDOM HEARTS</span>
+            </div>
 
-<div class="world-item">
-    <span>DEATH STRANDING</span>
-</div>
+            <div class="world-item" data-link="final-fantasy.html">
+                <span>FINAL FANTASY</span>
+            </div>
 
-<div class="world-item">
-    <span>GOD OF WAR</span>
-</div>
+            <div class="world-item" data-link="death-stranding.html">
+                <span>DEATH STRANDING</span>
+            </div>
 
-<div class="world-item">
-    <span>CHRONO TRIGGER</span>
-</div>
+            <div class="world-item" data-link="god-of-war.html">
+                <span>GOD OF WAR</span>
+            </div>
 
-<div class="world-item">
-    <span>RESIDENT EVIL</span>
-</div>
+            <div class="world-item" data-link="chrono-trigger.html">
+                <span>CHRONO TRIGGER</span>
+            </div>
 
-<div class="world-item">
-    <span>STAR WARS</span>
-</div>
+            <div class="world-item" data-link="resident-evil.html">
+                <span>RESIDENT EVIL</span>
+            </div>
 
-<div class="world-item">
-    <span>LORD OF THE RINGS</span>
-</div>
+            <div class="world-item" data-link="star-wars.html">
+                <span>STAR WARS</span>
+            </div>
 
-<div class="world-item">
-    <span>EVANGELION</span>
-</div>
+            <div class="world-item" data-link="lord-of-the-rings.html">
+                <span>LORD OF THE RINGS</span>
+            </div>
 
-<div class="world-item">
-    <span>THE LEGEND OF ZELDA</span>
-</div>
+            <div class="world-item" data-link="evangelion.html">
+                <span>EVANGELION</span>
+            </div>
 
-<div class="world-item">
-    <span>CASTLEVANIA</span>
-</div>
+            <div class="world-item" data-link="zelda.html">
+                <span>THE LEGEND OF ZELDA</span>
+            </div>
 
-</div>
+            <div class="world-item" data-link="castlevania.html">
+                <span>CASTLEVANIA</span>
+            </div>
+
+        </div>
 
     </main>
 
+
     <script src="js/system.js?v=13"></script>
+
+
+    <script>
+
+        /*
+         * Check access.
+         */
+
+        const accessGranted =
+            sessionStorage.getItem(
+                "worldAccess"
+            ) === "granted";
+
+
+        const worldItems =
+            document.querySelectorAll(
+                ".world-item"
+            );
+
+
+        worldItems.forEach(
+            function (item) {
+
+                item.addEventListener(
+                    "click",
+                    function () {
+
+                        /*
+                         * No access.
+                         */
+
+                        if (!accessGranted) {
+
+                            return;
+
+                        }
+
+
+                        /*
+                         * Access granted.
+                         */
+
+                        const link =
+                            item.dataset.link;
+
+
+                        if (link) {
+
+                            window.location.href =
+                                link;
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
 
 </body>
 
