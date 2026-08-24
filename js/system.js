@@ -360,7 +360,6 @@ document.addEventListener(
     "DOMContentLoaded",
     function () {
 
-
         const spotX =
             document.getElementById(
                 "spot-x"
@@ -379,12 +378,9 @@ document.addEventListener(
             );
 
 
-
         /*
-           If these elements don't
-           exist on the current page,
-           do nothing.
-        */
+         * Only run on THE SPOT.
+         */
 
         if (
             !spotX ||
@@ -397,18 +393,150 @@ document.addEventListener(
         }
 
 
+        /*
+         * PASSWORD
+         *
+         * Cambia "TU_PASSWORD"
+         * por la contraseña real.
+         */
+
+        const correctPassword =
+            "LALILULELO";
+
+
+        /*
+         * Click X
+         */
 
         spotX.addEventListener(
             "click",
             function () {
 
-
                 passwordContainer.classList.add(
                     "active"
                 );
 
-
                 passwordInput.focus();
+
+            }
+        );
+
+
+        /*
+         * Check password
+         */
+
+        passwordInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key !== "Enter"
+                ) {
+
+                    return;
+
+                }
+
+
+                const value =
+                    passwordInput.value.trim();
+
+
+                /*
+                 * ACCESS GRANTED
+                 */
+
+                if (
+                    value === correctPassword
+                ) {
+
+                    sessionStorage.setItem(
+                        "worldAccess",
+                        "granted"
+                    );
+
+
+                    passwordInput.value =
+                        "";
+
+
+                    passwordContainer.classList.remove(
+                        "active"
+                    );
+
+
+                    const message =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    message.className =
+                        "spot-access-message";
+
+
+                    message.textContent =
+                        "ACCESS GRANTED";
+
+
+                    document.body.appendChild(
+                        message
+                    );
+
+
+                    setTimeout(
+                        function () {
+
+                            message.remove();
+
+                        },
+                        1800
+                    );
+
+
+                }
+
+
+                /*
+                 * ACCESS DENIED
+                 */
+
+                else {
+
+                    passwordInput.value =
+                        "";
+
+
+                    const message =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    message.className =
+                        "spot-access-message";
+
+
+                    message.textContent =
+                        "ACCESS DENIED";
+
+
+                    document.body.appendChild(
+                        message
+                    );
+
+
+                    setTimeout(
+                        function () {
+
+                            message.remove();
+
+                        },
+                        1800
+                    );
+
+                }
 
             }
         );
@@ -879,83 +1007,121 @@ window.addEventListener(
     generateCode
 );
 
-<script>
+/* ========================================
+   WORLD ACCESS
+======================================== */
 
-    const accessGranted =
-        sessionStorage.getItem(
-            "worldAccess"
-        ) === "granted";
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const worldItems =
+            document.querySelectorAll(
+                ".world-item"
+            );
 
 
-    const worldItems =
-        document.querySelectorAll(
-            ".world-item"
+        /*
+         * Only run on WORLD.
+         */
+
+        if (!worldItems.length) {
+
+            return;
+
+        }
+
+
+        worldItems.forEach(
+            function (item) {
+
+                item.addEventListener(
+                    "click",
+                    function (event) {
+
+                        const accessGranted =
+                            sessionStorage.getItem(
+                                "worldAccess"
+                            ) === "granted";
+
+
+                        /*
+                         * ACCESS DENIED
+                         */
+
+                        if (!accessGranted) {
+
+                            event.preventDefault();
+
+
+                            showWorldAccessDenied();
+
+
+                            return;
+
+                        }
+
+                    }
+                );
+
+            }
         );
 
+    }
+);
 
-    const accessDenied =
+
+/* ========================================
+   WORLD ACCESS DENIED
+======================================== */
+
+function showWorldAccessDenied() {
+
+    let message =
         document.getElementById(
             "world-access-denied"
         );
 
 
-    worldItems.forEach(
-        function (item) {
+    /*
+     * Create message if it
+     * doesn't already exist.
+     */
 
-            item.addEventListener(
-                "click",
-                function (event) {
+    if (!message) {
 
-                    /*
-                     * ACCESS DENIED
-                     */
-
-                    if (!accessGranted) {
-
-                        event.preventDefault();
-
-
-                        accessDenied.classList.add(
-                            "visible"
-                        );
-
-
-                        setTimeout(
-                            function () {
-
-                                accessDenied.classList.remove(
-                                    "visible"
-                                );
-
-                            },
-                            1500
-                        );
-
-
-                        return;
-
-                    }
-
-
-                    /*
-                     * ACCESS GRANTED
-                     */
-
-                    const link =
-                        item.dataset.link;
-
-
-                    if (link) {
-
-                        window.location.href =
-                            link;
-
-                    }
-
-                }
+        message =
+            document.createElement(
+                "div"
             );
 
-        }
+        message.id =
+            "world-access-denied";
+
+        message.textContent =
+            "ACCESS DENIED";
+
+        document.body.appendChild(
+            message
+        );
+
+    }
+
+
+    message.classList.add(
+        "visible"
     );
 
-</script>
+
+    setTimeout(
+        function () {
+
+            message.classList.remove(
+                "visible"
+            );
+
+        },
+        1800
+    );
+
+}

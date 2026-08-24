@@ -1329,3 +1329,64 @@ body {
     text-align: center;
 
 }
+/* ========================================
+   ACCESS MESSAGE
+======================================== */
+
+.spot-access-message,
+#world-access-denied {
+
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    z-index: 9999;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 32px;
+
+    letter-spacing: 8px;
+
+    text-align: center;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.3s ease;
+
+}
+
+
+.spot-access-message {
+    opacity: 1;
+}
+
+
+#world-access-denied.visible {
+
+    opacity: 1;
+
+}
+
+
+@media (max-width: 600px) {
+
+    .spot-access-message,
+    #world-access-denied {
+
+        font-size: 20px;
+
+        letter-spacing: 5px;
+
+    }
+
+}
