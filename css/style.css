@@ -1308,3 +1308,24 @@ body {
         opacity: 1;
     }
 }
+/* ========================================
+   SPOT — PASSWORD FEEDBACK
+======================================== */
+
+#password-feedback {
+
+    margin-top: 25px;
+
+    min-height: 20px;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 13px;
+
+    letter-spacing: 4px;
+
+    text-align: center;
+
+}

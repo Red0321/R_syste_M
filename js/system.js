@@ -878,3 +878,84 @@ window.addEventListener(
     "resize",
     generateCode
 );
+
+<script>
+
+    const accessGranted =
+        sessionStorage.getItem(
+            "worldAccess"
+        ) === "granted";
+
+
+    const worldItems =
+        document.querySelectorAll(
+            ".world-item"
+        );
+
+
+    const accessDenied =
+        document.getElementById(
+            "world-access-denied"
+        );
+
+
+    worldItems.forEach(
+        function (item) {
+
+            item.addEventListener(
+                "click",
+                function (event) {
+
+                    /*
+                     * ACCESS DENIED
+                     */
+
+                    if (!accessGranted) {
+
+                        event.preventDefault();
+
+
+                        accessDenied.classList.add(
+                            "visible"
+                        );
+
+
+                        setTimeout(
+                            function () {
+
+                                accessDenied.classList.remove(
+                                    "visible"
+                                );
+
+                            },
+                            1500
+                        );
+
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * ACCESS GRANTED
+                     */
+
+                    const link =
+                        item.dataset.link;
+
+
+                    if (link) {
+
+                        window.location.href =
+                            link;
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+</script>

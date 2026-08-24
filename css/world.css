@@ -232,3 +232,57 @@
     }
 
 }
+/* ========================================
+   WORLD — ACCESS DENIED
+======================================== */
+
+#world-access-denied {
+
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    z-index: 9999;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 42px;
+
+    letter-spacing: 8px;
+
+    text-align: center;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.3s ease;
+
+}
+
+
+#world-access-denied.visible {
+
+    opacity: 1;
+
+}
+
+
+@media (max-width: 600px) {
+
+    #world-access-denied {
+
+        font-size: 25px;
+
+        letter-spacing: 5px;
+
+    }
+
+}
