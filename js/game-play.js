@@ -2705,7 +2705,7 @@ function createJumboFlanQuestion() {
                     ) {
 
                         message.textContent =
-                            "NO PUEDES ESCAPAR COBARDE.";
+                            "YOU CAN'T ESCAPE, COWARD.";
 
                     }
 

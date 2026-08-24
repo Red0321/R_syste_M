@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>R_syste_M — THE VIRTUOUS MISSION</title>
+
+    <link rel="stylesheet"
+          href="../../../css/style.css?v=35">
+
+    <link rel="stylesheet"
+          href="../../../css/database.css?v=3">
+
+</head>
+
+
+<body>
+
+
+    <div id="binary-background"></div>
+
+
+    <main class="first-content database-page">
+
+
+        <!-- SYSTEM TITLE -->
+
+        <a href="../../../cipher.html"
+           class="system-title system-link">
+
+            R_syste_M
+
+        </a>
+
+
+        <!-- PATH -->
+
+        <div class="database-path">
+
+            WORLD / METAL GEAR / EVENTS
+
+        </div>
+
+
+        <!-- TITLE -->
+
+        <div class="section-title database-title">
+
+            THE VIRTUOUS MISSION
+
+        </div>
+
+
+        <!-- RECORD -->
+
+        <div class="database-record">
+
+
+            <!-- BANNER -->
+
+            <div class="event-banner">
+
+                <img src="../../../images/events/virtuous-mission.png"
+                     alt="The Virtuous Mission">
+
+            </div>
+
+
+            <!-- RECORD TYPE -->
+
+            <div class="database-label">
+
+                EVENT RECORD
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="database-status">
+
+
+                <div>
+
+                    <span>DATE</span>
+
+                    <strong>
+                        24 AUGUST 1964
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>LOCATION</span>
+
+                    <strong>
+                        TSELINOYARSK
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>STATUS</span>
+
+                    <strong>
+                        FAILED
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- CLASSIFICATION -->
+
+            <section class="database-section">
+
+
+                <div class="database-heading">
+
+                    CLASSIFICATION
+
+                </div>
+
+
+                <p>
+
+                    COVERT MILITARY OPERATION
+
+                </p>
+
+
+                <p>
+
+                    The Virtuous Mission was a United States
+                    intelligence operation conducted during the
+                    Cold War.
+
+                </p>
+
+
+                <p>
+
+                    The mission was intended to recover Soviet
+                    scientist Nikolai Stepanovich Sokolov, who had
+                    been developing a new military weapons system.
+
+                </p>
+
+
+            </section>
+
+
+            <!-- BACKGROUND -->
+
+            <section class="database-section">
+
+
+                <div class="database-heading">
+
+                    BACKGROUND
+
+                </div>
+
+
+                <p>
+
+                    Soviet weapons scientist
+                    <a href="../people/sokolov.html"
+                       class="database-link">
+
+                        NIKOLAI SOKOLOV
+
+                    </a>
+
+                    attempted to defect from the Soviet Union
+                    after becoming concerned about the military
+                    application of his research.
+
+                </p>
+
+
+                <p>
+
+                    Sokolov was subsequently located in
+                    Tselinoyarsk and placed under the protection
+                    of the United States intelligence service.
+
+                </p>
+
+
+                <p>
+
+                    Soviet pressure eventually forced the United
+                    States to authorize a covert operation to
+                    extract him from Soviet territory.
+
+                </p>
+
+
+            </section>
+
+
+            <!-- PRIMARY PARTICIPANTS -->
+
+            <section class="database-section">
+
+
+                <div class="database-heading">
+
+                    PRIMARY PARTICIPANTS
+
+                </div>
+
+
+                <div class="database-list">
+
+
+                    <a href="../people/naked-snake.html"
+                       class="database-link">
+
+                        NAKED SNAKE
+
+                    </a>
+
+
+                    <a href="../people/the-boss.html"
+                       class="database-link">
+
+                        THE BOSS
+
+                    </a>
+
+
+                    <a href="../people/sokolov.html"
+                       class="database-link">
+
+                        NIKOLAI SOKOLOV
+
+                    </a>
+
+
+                    <a href="../people/major-zero.html"
+                       class="database-link">
+
+                        MAJOR ZERO
+
+                    </a>
+
+
+                    <a href="../people/para-medic.html"
+                       class="database-link">
+
+                        PARA-MEDIC
+
+                    </a>
+
+
+                    <a href="../people/sigint.html"
+                       class="database-link">
+
+                        SIGINT
+
+                    </a>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- DEPLOYMENT -->
+
+            <section class="database-section">
+
+
+                <div class="database-heading">
+
+                    DEPLOYMENT
+
+                </div>
+
+
+                <p>
+
+                    Naked Snake was deployed into Tselinoyarsk
+                    to locate Sokolov and escort him to the
+                    designated extraction point.
+
+                </p>
+
+
+                <p>
+
+                    Snake entered Soviet territory alone and
+                    established contact with Sokolov near the
+                    Rassvet research facility.
+
+                </p>
+
+
+                <div class="database-list">
+
+
+                    <a href="../locations/tselinoyarsk.html"
+                       class="database-link">
+
+                        TSELINOYARSK
+
+                    </a>
+
+
+                    <a href="../locations/rassvet.html"
+                       class="database-link">
+
+                        RASSVET
+
+                    </a>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- SOKOLOV -->
+
+            <section class="database-section">
+
+
+                <div class="database-heading">
+
+                    SOKOLOV EXTRACTION
+
+                </div>
+
+
+                <p>
+
+                    Snake successfully located Sokolov and
+                    learned that the scientist was being forced
+                    to continue his work on a classified weapons
+                    project.
+
+                </p>
+
+
+                <p>
+
+                    Sokolov identified the project as the
+                    Shagohod, a Soviet weapon capable of
+                    dramatically increasing the strategic range
+                    of nuclear missiles.
+
+                </p>
+
+
+                <div class="database-list">
+
+
+                    <a href="../entities/shagohod.html"
+                       class="database-link">
+
+                        SHAGOHOD
+
+                    </a>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- THE BOSS -->
+
+            <section class="database-section">
+
+
+                <div class="database-heading">
+
+                    THE BOSS'S DEFECTION
+
+                </div>
+
+
+                <p>
+
+                    During the extraction attempt,
+                    <a href="../people/the-boss.html"
+                       class="database-link">
+
+                        THE BOSS
+
+                    </a>
+
+                    appeared unexpectedly.
+
+                </p>
+
+
+                <p>
+
+                    She announced her defection to the Soviet
+                    Union and transferred Sokolov into the
+                    custody of Colonel Volgin.
+
+                </p>
+
+
+                <p>
+
+                    The event fundamentally changed the status
+                    of the mission and resulted in the United
+                    States regarding The Boss as a traitor.
+
+                </p>
+
+
+            </section>
+
+
+            <!-- VOLGIN -->
+
+            <section class="database-section">
+
+
+                <div class="database-heading">
+
+                    COLONEL VOLGIN
+
+                </div>
+
+
+                <p>
+
+                    Colonel Volgin arrived at the extraction
+                    location with Soviet forces and took
+                    possession of Sokolov.
+
+                </p>
+
+
+                <p>
+
+                    Volgin subsequently used a Davy Crockett
+                    tactical nuclear weapon against the
+                    OKB-754 research facility.
+
+                </p>
+
+
+                <div class="database-list">
+
+
+                    <a href="../people/colonel-volgin.html"
+                       class="database-link">
+
+                        COLONEL VOLGIN
+
+                    </a>
+
+
+                    <a href="../locations/okb-754.html"
+                       class="database-link">
+
+                        OKB-754
+
+                    </a>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- NUCLEAR INCIDENT -->
+
+            <section class="database-section">
+
+
+                <div class="database-heading">
+
+                    NUCLEAR INCIDENT
+
+                </div>
+
+
+                <p>
+
+                    The destruction of OKB-754 created an
+                    international crisis.
+
+                </p>
+
+
+                <p>
+
+                    The United States government publicly
+                    attributed the nuclear strike to The Boss,
+                    reinforcing the perception that she had
+                    defected and acted against American interests.
+
+                </p>
+
+
+                <p>
+
+                    The incident placed severe political pressure
+                    on the United States and the Soviet Union.
+
+                </p>
+
+
+            </section>
+
+
+            <!-- AFTERMATH -->
+
+            <section class="database-section">
+
+
+                <div class="database-heading">
+
+                    AFTERMATH
+
+                </div>
+
+
+                <p>
+
+                    The Virtuous Mission ended without the
+                    successful extraction of Sokolov.
+
+                </p>
+
+
+                <p>
+
+                    The United States subsequently authorized
+                    a second operation to recover Sokolov,
+                    destroy the Shagohod and eliminate The Boss.
+
+                </p>
+
+
+                <div class="database-list">
+
+
+                    <a href="operation-snake-eater.html"
+                       class="database-link">
+
+                        OPERATION SNAKE EATER
+
+                    </a>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- HISTORICAL CONSEQUENCES -->
+
+            <section class="database-section">
+
+
+                <div class="database-heading">
+
+                    HISTORICAL CONSEQUENCES
+
+                </div>
+
+
+                <p>
+
+                    The failure of the Virtuous Mission directly
+                    resulted in the events of Operation Snake Eater.
+
+                </p>
+
+
+                <p>
+
+                    The apparent defection of The Boss became one
+                    of the central political and military issues
+                    surrounding the subsequent operation.
+
+                </p>
+
+
+                <p>
+
+                    The destruction of OKB-754 also demonstrated
+                    the international consequences that could
+                    result from the Shagohod project and the
+                    struggle surrounding Sokolov's research.
+
+                </p>
+
+
+            </section>
+
+
+            <!-- RELATED EVENTS -->
+
+            <section class="database-section">
+
+
+                <div class="database-heading">
+
+                    RELATED EVENTS
+
+                </div>
+
+
+                <div class="database-list">
+
+
+                    <a href="destruction-of-okb-754.html"
+                       class="database-link">
+
+                        THE DESTRUCTION OF OKB-754
+
+                    </a>
+
+
+                    <a href="operation-snake-eater.html"
+                       class="database-link">
+
+                        OPERATION SNAKE EATER
+
+                    </a>
+
+
+                    <a href="philosophers-legacy.html"
+                       class="database-link">
+
+                        THE PHILOSOPHERS' LEGACY
+
+                    </a>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- RECORD STATUS -->
+
+            <section class="database-section">
+
+
+                <div class="database-heading">
+
+                    RECORD STATUS
+
+                </div>
+
+
+                <p>
+
+                    This record has been reconstructed from
+                    intelligence reports concerning the events
+                    surrounding the Virtuous Mission.
+
+                </p>
+
+
+                <p>
+
+                    The circumstances surrounding The Boss's
+                    defection were initially classified and
+                    deliberately presented according to the
+                    official government narrative.
+
+                </p>
+
+
+            </section>
+
+
+        </div>
+
+
+        <!-- RETURN -->
+
+        <a href="../../../metal-gear.html"
+           class="database-return">
+
+            RETURN TO METAL GEAR
+
+        </a>
+
+
+    </main>
+
+
+    <script src="../../../js/system.js?v=35"></script>
+
+
+</body>
+
+</html>
