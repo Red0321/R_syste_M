@@ -12,8 +12,8 @@
 
     <title>R_syste_M — WORLD</title>
 
-    <link rel="stylesheet" href="css/style.css?v=33">
-    <link rel="stylesheet" href="css/world.css?v=3">
+    <link rel="stylesheet" href="css/style.css?v=35">
+    <link rel="stylesheet" href="css/world.css?v=35">
 
 </head>
 
@@ -102,67 +102,7 @@
     ACCESS DENIED.
 </div>
 
-    <script src="js/system.js?v=15"></script>
-
-
-    <script>
-
-        /*
-         * Check access.
-         */
-
-        const accessGranted =
-            sessionStorage.getItem(
-                "worldAccess"
-            ) === "granted";
-
-
-        const worldItems =
-            document.querySelectorAll(
-                ".world-item"
-            );
-
-
-        worldItems.forEach(
-            function (item) {
-
-                item.addEventListener(
-                    "click",
-                    function () {
-
-                        /*
-                         * No access.
-                         */
-
-                        if (!accessGranted) {
-
-                            return;
-
-                        }
-
-
-                        /*
-                         * Access granted.
-                         */
-
-                        const link =
-                            item.dataset.link;
-
-
-                        if (link) {
-
-                            window.location.href =
-                                link;
-
-                        }
-
-                    }
-                );
-
-            }
-        );
-
-    </script>
+    <script src="js/system.js?v=35"></script>
 
 </body>
 
