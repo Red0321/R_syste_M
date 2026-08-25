@@ -1,0 +1,213 @@
+/* ========================================
+   THE WIND — MUSIC
+======================================== */
+
+
+/* ========================================
+   MUSIC CONTAINER
+======================================== */
+
+.wind-music {
+
+    position: relative;
+
+    width: 100%;
+
+    margin-top: 70px;
+
+    text-align: center;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 2s ease;
+
+}
+
+
+/* ========================================
+   MUSIC VISIBLE
+======================================== */
+
+.wind-music.visible {
+
+    opacity: 1;
+
+    pointer-events: auto;
+
+}
+
+
+/* ========================================
+   SONG TITLE
+======================================== */
+
+.wind-song {
+
+    margin-bottom: 35px;
+
+    color: white;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 18px;
+
+    font-weight: normal;
+
+    letter-spacing: 5px;
+
+    text-transform: uppercase;
+
+    opacity: 0;
+
+    animation:
+        windSongFade 2s ease forwards;
+
+}
+
+
+/* ========================================
+   CONTROLS
+======================================== */
+
+.wind-controls {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 45px;
+
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.wind-button {
+
+    appearance: none;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: white;
+
+    padding: 10px;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 15px;
+
+    font-weight: normal;
+
+    cursor: pointer;
+
+    opacity: 0.35;
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+
+}
+
+
+/* ========================================
+   BUTTON HOVER
+======================================== */
+
+.wind-button:hover {
+
+    opacity: 1;
+
+    transform: scale(1.15);
+
+}
+
+
+/* ========================================
+   BUTTON ACTIVE
+======================================== */
+
+.wind-button:active {
+
+    transform: scale(0.95);
+
+}
+
+
+/* ========================================
+   SONG FADE
+======================================== */
+
+@keyframes windSongFade {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(8px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+
+    .wind-music {
+
+        margin-top: 50px;
+
+    }
+
+
+    .wind-song {
+
+        font-size: 15px;
+
+        letter-spacing: 3px;
+
+    }
+
+
+    .wind-controls {
+
+        gap: 30px;
+
+    }
+
+
+    .wind-button {
+
+        font-size: 14px;
+
+    }
+
+}

@@ -8,6 +8,7 @@
     <title>R_syste_M — THE DIVE</title>
 
     <link rel="stylesheet" href="css/style.css?v=35">
+    <link rel="stylesheet" href="css/dive-music.css?v=1">
 </head>
 
 <body>
@@ -16,15 +17,28 @@
 
     <div class="dive-darkness"></div>
 
+
     <main class="first-content">
 
-        <a href="cipher.html" class="system-title system-link">
-    R_syste_M
-</a>
+
+        <!-- SYSTEM TITLE -->
+
+        <a href="cipher.html"
+           class="system-title system-link">
+
+            R_syste_M
+
+        </a>
+
+
+        <!-- TITLE -->
 
         <div class="section-title dive-title">
             THE DIVE
         </div>
+
+
+        <!-- INTRODUCTION -->
 
         <div class="first-text dive-intro">
 
@@ -35,7 +49,7 @@
             </p>
 
             <p>
-                the immersion into the <strong>darkness</strong>
+                the immersion into <strong>darkness</strong>
             </p>
 
             <p>
@@ -49,14 +63,421 @@
             <p>
                 don't worry, it was a gag,
                 this is not a real...
-                <span class="dive-final"><strong>dive</strong>.</span>
+                <span class="dive-final">
+                    <strong>dive</strong>.
+                </span>
             </p>
 
         </div>
 
+
+        <!-- MUSIC -->
+
+        <div class="dive-music">
+
+
+            <!-- CURRENT SONG -->
+
+            <div
+                id="dive-song"
+                class="dive-song">
+
+                SOMNUS
+
+            </div>
+
+
+            <!-- CONTROLS -->
+
+            <div class="dive-controls">
+
+
+                <button
+                    id="dive-prev"
+                    class="dive-button"
+                    type="button"
+                    aria-label="Previous song">
+
+                    ◀
+
+                </button>
+
+
+                <button
+                    id="dive-next"
+                    class="dive-button"
+                    type="button"
+                    aria-label="Next song">
+
+                    ▶
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
     </main>
 
+
+    <!-- AUDIO -->
+
+    <audio
+        id="dive-audio"
+        preload="auto">
+    </audio>
+
+
+    <!-- SYSTEM -->
+
     <script src="js/system.js?v=35"></script>
+
+
+    <!-- THE DIVE MUSIC -->
+
+    <script>
+
+        /*
+         * ========================================
+         * THE DIVE — MUSIC SYSTEM
+         * ========================================
+         */
+
+
+        const diveAudio =
+            document.getElementById(
+                "dive-audio"
+            );
+
+
+        const diveFinal =
+            document.querySelector(
+                ".dive-final"
+            );
+
+
+        const diveMusic =
+            document.querySelector(
+                ".dive-music"
+            );
+
+
+        const diveSong =
+            document.getElementById(
+                "dive-song"
+            );
+
+
+        const divePrevious =
+            document.getElementById(
+                "dive-prev"
+            );
+
+
+        const diveNext =
+            document.getElementById(
+                "dive-next"
+            );
+
+
+        /*
+         * ========================================
+         * PLAYLIST
+         * ========================================
+         */
+
+        const divePlaylist = [
+
+            {
+                title: "SOMNUS",
+                file: "music/somnus.mp3"
+            },
+
+            {
+                title: "LOVE THEME",
+                file: "music/love-theme.mp3"
+            },
+
+            {
+                title: "MUSIQUE POUR LA TRISTESSE DE XION",
+                file: "music/musique-pour-la-tristesse-de-xion.mp3"
+            }
+
+        ];
+
+
+        let diveIndex = 0;
+
+
+        /*
+         * ========================================
+         * LOAD SONG
+         * ========================================
+         */
+
+        function loadDiveSong(
+            index,
+            play = false
+        ) {
+
+            const song =
+                divePlaylist[index];
+
+
+            if (!song) {
+
+                return;
+
+            }
+
+
+            diveIndex = index;
+
+
+            /*
+             * Restart title animation.
+             */
+
+            diveSong.classList.remove(
+                "dive-song-change"
+            );
+
+
+            /*
+             * Force browser reflow so the
+             * animation can run again.
+             */
+
+            void diveSong.offsetWidth;
+
+
+            diveSong.textContent =
+                song.title;
+
+
+            diveSong.classList.add(
+                "dive-song-change"
+            );
+
+
+            /*
+             * Change audio.
+             */
+
+            diveAudio.src =
+                song.file;
+
+
+            diveAudio.load();
+
+
+            /*
+             * Start playback if requested.
+             */
+
+            if (play) {
+
+                diveAudio
+                    .play()
+                    .catch(
+                        function (error) {
+
+                            console.log(
+                                "THE DIVE — playback blocked.",
+                                error
+                            );
+
+                        }
+                    );
+
+            }
+
+        }
+
+
+        /*
+         * ========================================
+         * START MUSIC
+         * ========================================
+         */
+
+        function startDiveMusic() {
+
+            if (!diveMusic) {
+
+                return;
+
+            }
+
+
+            diveMusic.classList.add(
+                "visible"
+            );
+
+
+            loadDiveSong(
+                diveIndex,
+                true
+            );
+
+        }
+
+
+        /*
+         * ========================================
+         * NEXT SONG
+         * ========================================
+         */
+
+        diveNext.addEventListener(
+            "click",
+            function () {
+
+                diveIndex++;
+
+
+                if (
+                    diveIndex >=
+                    divePlaylist.length
+                ) {
+
+                    diveIndex = 0;
+
+                }
+
+
+                loadDiveSong(
+                    diveIndex,
+                    true
+                );
+
+            }
+        );
+
+
+        /*
+         * ========================================
+         * PREVIOUS SONG
+         * ========================================
+         */
+
+        divePrevious.addEventListener(
+            "click",
+            function () {
+
+                diveIndex--;
+
+
+                if (
+                    diveIndex < 0
+                ) {
+
+                    diveIndex =
+                        divePlaylist.length - 1;
+
+                }
+
+
+                loadDiveSong(
+                    diveIndex,
+                    true
+                );
+
+            }
+        );
+
+
+        /*
+         * ========================================
+         * AUTOMATIC NEXT SONG
+         * ========================================
+         */
+
+        diveAudio.addEventListener(
+            "ended",
+            function () {
+
+                diveIndex++;
+
+
+                if (
+                    diveIndex >=
+                    divePlaylist.length
+                ) {
+
+                    diveIndex = 0;
+
+                }
+
+
+                loadDiveSong(
+                    diveIndex,
+                    true
+                );
+
+            }
+        );
+
+
+        /*
+         * ========================================
+         * WAIT FOR "DIVE"
+         * ========================================
+         *
+         * Music begins only after the
+         * animation of .dive-final ends.
+         */
+
+        if (diveFinal) {
+
+            diveFinal.addEventListener(
+                "animationend",
+                function (event) {
+
+                    /*
+                     * Ignore animations coming
+                     * from nested elements.
+                     */
+
+                    if (
+                        event.target !==
+                        diveFinal
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    startDiveMusic();
+
+                },
+                {
+                    once: true
+                }
+            );
+
+        }
+
+
+        /*
+         * ========================================
+         * INITIAL STATE
+         * ========================================
+         *
+         * Load the first song without
+         * starting playback.
+         */
+
+        loadDiveSong(
+            diveIndex,
+            false
+        );
+
+    </script>
 
 </body>
 

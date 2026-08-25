@@ -1,0 +1,226 @@
+/* ========================================
+   THE DIVE — MUSIC
+======================================== */
+
+
+/* ========================================
+   MUSIC CONTAINER
+======================================== */
+
+.dive-music {
+
+    position: relative;
+
+    width: 100%;
+
+    margin-top: 70px;
+
+    text-align: center;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 2.5s ease;
+
+}
+
+
+/* ========================================
+   MUSIC VISIBLE
+======================================== */
+
+.dive-music.visible {
+
+    opacity: 1;
+
+    pointer-events: auto;
+
+}
+
+
+/* ========================================
+   SONG TITLE
+======================================== */
+
+.dive-song {
+
+    margin-bottom: 35px;
+
+    color: white;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 18px;
+
+    font-weight: normal;
+
+    letter-spacing: 5px;
+
+    text-transform: uppercase;
+
+    opacity: 0;
+
+}
+
+
+/* ========================================
+   SONG APPEARANCE
+======================================== */
+
+.dive-song-change {
+
+    animation:
+        diveSongFade 2.5s ease forwards;
+
+}
+
+
+/* ========================================
+   CONTROLS
+======================================== */
+
+.dive-controls {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 45px;
+
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.dive-button {
+
+    appearance: none;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: white;
+
+    padding: 10px;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 15px;
+
+    font-weight: normal;
+
+    cursor: pointer;
+
+    opacity: 0.3;
+
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+
+}
+
+
+/* ========================================
+   BUTTON HOVER
+======================================== */
+
+.dive-button:hover {
+
+    opacity: 1;
+
+    transform: scale(1.15);
+
+}
+
+
+/* ========================================
+   BUTTON ACTIVE
+======================================== */
+
+.dive-button:active {
+
+    transform: scale(0.95);
+
+}
+
+
+/* ========================================
+   SONG FADE
+======================================== */
+
+@keyframes diveSongFade {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(8px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+
+    .dive-music {
+
+        margin-top: 50px;
+
+    }
+
+
+    .dive-song {
+
+        font-size: 14px;
+
+        letter-spacing: 3px;
+
+        padding-left: 20px;
+
+        padding-right: 20px;
+
+    }
+
+
+    .dive-controls {
+
+        gap: 30px;
+
+    }
+
+
+    .dive-button {
+
+        font-size: 14px;
+
+    }
+
+}

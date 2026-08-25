@@ -8,6 +8,7 @@
     <title>R_syste_M — THE WIND</title>
 
     <link rel="stylesheet" href="css/style.css?v=35">
+    <link rel="stylesheet" href="css/wind-music.css?v=1">
 </head>
 
 <body>
@@ -16,13 +17,25 @@
 
     <main class="first-content">
 
-        <a href="cipher.html" class="system-title system-link">
-    R_syste_M
-</a>
+
+        <!-- SYSTEM TITLE -->
+
+        <a href="cipher.html"
+           class="system-title system-link">
+
+            R_syste_M
+
+        </a>
+
+
+        <!-- TITLE -->
 
         <div class="section-title wind-title">
             THE WIND
         </div>
+
+
+        <!-- INTRODUCTION -->
 
         <div class="first-text wind-intro">
 
@@ -31,14 +44,412 @@
                 I know is difficult but thats why exist this art,
                 music is in the air but is less than what we need
                 so I'm going to call a little of...
-                <span class="wind-final"><strong>wind</strong>.</span>
+                <span class="wind-final">
+                    <strong>wind</strong>.
+                </span>
             </p>
 
         </div>
 
+
+        <!-- MUSIC -->
+
+        <div class="wind-music">
+
+
+            <!-- CURRENT SONG -->
+
+            <div
+                id="wind-song"
+                class="wind-song">
+
+                ROXAS
+
+            </div>
+
+
+            <!-- CONTROLS -->
+
+            <div class="wind-controls">
+
+
+                <button
+                    id="wind-prev"
+                    class="wind-button"
+                    type="button"
+                    aria-label="Previous song">
+
+                    ◀
+
+                </button>
+
+
+                <button
+                    id="wind-next"
+                    class="wind-button"
+                    type="button"
+                    aria-label="Next song">
+
+                    ▶
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
     </main>
 
+
+    <!-- AUDIO -->
+
+    <audio
+        id="wind-audio"
+        preload="auto">
+    </audio>
+
+
+    <!-- SYSTEM -->
+
     <script src="js/system.js?v=35"></script>
+
+
+    <!-- THE WIND MUSIC -->
+
+    <script>
+
+        /*
+         * ========================================
+         * THE WIND — MUSIC SYSTEM
+         * ========================================
+         */
+
+
+        const windAudio =
+            document.getElementById(
+                "wind-audio"
+            );
+
+
+        const windFinal =
+            document.querySelector(
+                ".wind-final"
+            );
+
+
+        const windMusic =
+            document.querySelector(
+                ".wind-music"
+            );
+
+
+        const windSong =
+            document.getElementById(
+                "wind-song"
+            );
+
+
+        const windPrevious =
+            document.getElementById(
+                "wind-prev"
+            );
+
+
+        const windNext =
+            document.getElementById(
+                "wind-next"
+            );
+
+
+        /*
+         * ========================================
+         * PLAYLIST
+         * ========================================
+         *
+         * Place the music files inside:
+         *
+         * music/
+         *
+         */
+
+
+        const windPlaylist = [
+
+    {
+        title: "KUON: MEMORIES OF WAVES AND LIGHT",
+        file: "music/kuon-memories-of-waves-and-light.mp3"
+    },
+
+    {
+        title: "WIND SCENE",
+        file: "music/wind-scene.mp3"
+    },
+
+    {
+        title: "QUIET'S THEME",
+        file: "music/quiets-theme.mp3"
+    }
+
+];
+
+        let windIndex = 0;
+
+
+        /*
+         * ========================================
+         * LOAD SONG
+         * ========================================
+         */
+
+
+        function loadWindSong(
+            index,
+            play = false
+        ) {
+
+            const song =
+                windPlaylist[index];
+
+
+            if (!song) {
+
+                return;
+
+            }
+
+
+            windIndex = index;
+
+
+            windSong.textContent =
+                song.title;
+
+
+            windAudio.src =
+                song.file;
+
+
+            windAudio.load();
+
+
+            if (play) {
+
+                windAudio
+                    .play()
+                    .catch(
+                        function (error) {
+
+                            /*
+                             * The browser may block
+                             * autoplay depending on
+                             * its autoplay policy.
+                             */
+
+                            console.log(
+                                "THE WIND — playback blocked.",
+                                error
+                            );
+
+                        }
+                    );
+
+            }
+
+        }
+
+
+        /*
+         * ========================================
+         * START MUSIC
+         * ========================================
+         *
+         * This function is called when the
+         * animation of "wind" finishes.
+         */
+
+
+        function startWindMusic() {
+
+            if (!windMusic) {
+
+                return;
+
+            }
+
+
+            windMusic.classList.add(
+                "visible"
+            );
+
+
+            loadWindSong(
+                windIndex,
+                true
+            );
+
+        }
+
+
+        /*
+         * ========================================
+         * NEXT SONG
+         * ========================================
+         */
+
+
+        windNext.addEventListener(
+            "click",
+            function () {
+
+                windIndex++;
+
+                if (
+                    windIndex >=
+                    windPlaylist.length
+                ) {
+
+                    windIndex = 0;
+
+                }
+
+
+                loadWindSong(
+                    windIndex,
+                    true
+                );
+
+            }
+        );
+
+
+        /*
+         * ========================================
+         * PREVIOUS SONG
+         * ========================================
+         */
+
+
+        windPrevious.addEventListener(
+            "click",
+            function () {
+
+                windIndex--;
+
+                if (
+                    windIndex < 0
+                ) {
+
+                    windIndex =
+                        windPlaylist.length - 1;
+
+                }
+
+
+                loadWindSong(
+                    windIndex,
+                    true
+                );
+
+            }
+        );
+
+
+        /*
+         * ========================================
+         * AUTOMATIC NEXT SONG
+         * ========================================
+         *
+         * When a song ends, the next one
+         * starts automatically.
+         */
+
+
+        windAudio.addEventListener(
+            "ended",
+            function () {
+
+                windIndex++;
+
+                if (
+                    windIndex >=
+                    windPlaylist.length
+                ) {
+
+                    windIndex = 0;
+
+                }
+
+
+                loadWindSong(
+                    windIndex,
+                    true
+                );
+
+            }
+        );
+
+
+        /*
+         * ========================================
+         * WAIT FOR "WIND" ANIMATION
+         * ========================================
+         *
+         * Nothing starts before the animation
+         * of .wind-final has finished.
+         */
+
+
+        if (windFinal) {
+
+            windFinal.addEventListener(
+                "animationend",
+                function (event) {
+
+                    /*
+                     * Ignore unrelated animation
+                     * events from nested elements.
+                     */
+
+                    if (
+                        event.target !==
+                        windFinal
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    startWindMusic();
+
+                },
+                {
+                    once: true
+                }
+            );
+
+        }
+
+
+        /*
+         * ========================================
+         * INITIAL STATE
+         * ========================================
+         *
+         * Load the first song without
+         * starting playback.
+         */
+
+
+        loadWindSong(
+            windIndex,
+            false
+        );
+
+    </script>
 
 </body>
 

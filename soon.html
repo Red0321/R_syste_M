@@ -3,26 +3,46 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>R_syste_M — SOON</title>
 
-    <link rel="stylesheet" href="css/style.css?v=35">
+    <link rel="stylesheet"
+          href="css/style.css?v=35">
+
+    <link rel="stylesheet"
+          href="css/soon.css?v=1">
 </head>
 
 <body>
 
     <div id="binary-background"></div>
 
+
     <main class="first-content">
 
-        <a href="cipher.html" class="system-title system-link">
-    R_syste_M
-</a>
+
+        <!-- SYSTEM TITLE -->
+
+        <a href="cipher.html"
+           class="system-title system-link">
+
+            R_syste_M
+
+        </a>
+
+
+        <!-- TITLE -->
 
         <div class="section-title soon-title">
+
             SOON
+
         </div>
+
+
+        <!-- INTRODUCTION -->
 
         <div class="first-text soon-intro">
 
@@ -47,14 +67,177 @@
             </p>
 
             <p>
-                <span class="soon-final"><strong>soon</strong>.</span>
+                <span class="soon-final">
+                    <strong>soon</strong>.
+                </span>
             </p>
 
         </div>
 
+
     </main>
 
+
+    <!-- ========================================
+         IMPACT
+    ========================================= -->
+
+    <div
+        id="soon-impact"
+        class="soon-impact">
+
+        <img
+            src="images/soon/impact.png"
+            alt="">
+
+    </div>
+
+
+    <!-- ========================================
+         SOUND
+    ========================================= -->
+
+    <audio
+        id="soon-sound"
+        preload="auto">
+
+        <source
+            src="music/soon-impact.mp3"
+            type="audio/mpeg">
+
+    </audio>
+
+
+    <!-- SYSTEM -->
+
     <script src="js/system.js?v=35"></script>
+
+
+    <!-- SOON -->
+
+    <script>
+
+        /*
+         * ========================================
+         * SOON — IMPACT
+         * ========================================
+         */
+
+
+        const soonFinal =
+            document.querySelector(
+                ".soon-final"
+            );
+
+
+        const soonImpact =
+            document.getElementById(
+                "soon-impact"
+            );
+
+
+        const soonSound =
+            document.getElementById(
+                "soon-sound"
+            );
+
+
+        /*
+         * ========================================
+         * TRIGGER
+         * ========================================
+         */
+
+        function triggerSoonImpact() {
+
+            /*
+             * Show the visual.
+             */
+
+            soonImpact.classList.add(
+                "active"
+            );
+
+
+            /*
+             * Play sound.
+             */
+
+            soonSound.currentTime = 0;
+
+            soonSound.play()
+                .catch(
+                    function (error) {
+
+                        console.log(
+                            "SOON — audio blocked.",
+                            error
+                        );
+
+                    }
+                );
+
+
+            /*
+             * Remove the impact after
+             * approximately one second.
+             */
+
+            setTimeout(
+                function () {
+
+                    soonImpact.classList.remove(
+                        "active"
+                    );
+
+                },
+                1000
+            );
+
+        }
+
+
+        /*
+         * ========================================
+         * WAIT FOR "SOON"
+         * ========================================
+         *
+         * The impact happens only after
+         * the animation of .soon-final
+         * has completely finished.
+         */
+
+        if (soonFinal) {
+
+            soonFinal.addEventListener(
+                "animationend",
+                function (event) {
+
+                    /*
+                     * Ignore nested animations.
+                     */
+
+                    if (
+                        event.target !==
+                        soonFinal
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    triggerSoonImpact();
+
+                },
+                {
+                    once: true
+                }
+            );
+
+        }
+
+    </script>
 
 </body>
 
