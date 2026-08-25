@@ -1,664 +1,102 @@
-/*
- * ========================================
- * R_syste_M — SOON
- * JUMPSCARE SYSTEM
- * ========================================
- */
+<!DOCTYPE html>
+<html lang="en">
 
-(function () {
+<head>
 
-    "use strict";
+    <meta charset="UTF-8">
 
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    const IMPACT_IMAGE =
-        "images/soon/impact.png";
+    <title>R_syste_M — SOON</title>
 
-    const IMPACT_DURATION =
-        1000;
+    <link rel="stylesheet"
+          href="css/style.css?v=35">
 
+</head>
 
-    let triggered = false;
 
-    let audioContext = null;
+<body>
 
 
-    const soonFinal =
-        document.querySelector(
-            ".soon-final"
-        );
+    <div id="binary-background"></div>
 
 
-    /*
-     * ========================================
-     * PRELOAD IMAGE
-     * ========================================
-     */
+    <main class="first-content">
 
-    const impactImage =
-        new Image();
 
-    impactImage.src =
-        IMPACT_IMAGE;
+        <!-- SYSTEM TITLE -->
 
+        <a href="cipher.html"
+           class="system-title system-link">
 
-    /*
-     * ========================================
-     * INITIALIZE AUDIO
-     * ========================================
-     */
+            R_syste_M
 
-    function initializeAudio() {
+        </a>
 
-        if (audioContext) {
 
-            return;
+        <!-- TITLE -->
 
-        }
+        <div class="section-title soon-title">
 
+            SOON
 
-        const AudioContext =
-            window.AudioContext ||
-            window.webkitAudioContext;
+        </div>
 
 
-        if (!AudioContext) {
+        <!-- INTRODUCTION -->
 
-            return;
+        <div class="first-text soon-intro">
 
-        }
 
+            <p>
+                Everything changes,
+            </p>
 
-        audioContext =
-            new AudioContext();
 
+            <p>
+                also your <strong>life</strong>,
+            </p>
 
-        /*
-         * Immediately attempt to unlock
-         * the audio context while the event
-         * is still considered a user gesture.
-         */
 
-        if (
-            audioContext.state ===
-            "suspended"
-        ) {
+            <p>
+                not just for them,
+            </p>
 
-            audioContext.resume();
 
-        }
+            <p>
+                even for <strong>you</strong>,
+            </p>
 
-    }
 
+            <p>
+                everything happens...
+            </p>
 
-    /*
-     * ========================================
-     * UNLOCK AUDIO
-     * ========================================
-     *
-     * Any normal interaction with the
-     * page unlocks the audio system.
-     */
 
-    document.addEventListener(
-        "pointerdown",
-        initializeAudio,
-        {
-            once: true
-        }
-    );
+            <p>
+                <span class="soon-final">
+                    <strong>soon</strong>.
+                </span>
+            </p>
 
 
-    document.addEventListener(
-        "keydown",
-        initializeAudio,
-        {
-            once: true
-        }
-    );
+        </div>
 
 
-    document.addEventListener(
-        "touchstart",
-        initializeAudio,
-        {
-            once: true
-        }
-    );
+    </main>
 
 
-    /*
-     * ========================================
-     * CREATE IMPACT
-     * ========================================
-     */
+    <!-- SYSTEM -->
 
-    function createImpact() {
+    <script src="js/system.js?v=35"></script>
 
-        const impact =
-            document.createElement(
-                "div"
-            );
 
+    <!-- SOON -->
 
-        impact.id =
-            "soon-impact";
+    <script src="js/soon.js?v=1"></script>
 
 
-        Object.assign(
-            impact.style,
-            {
+</body>
 
-                position: "fixed",
-
-                top: "0",
-
-                left: "0",
-
-                width: "100vw",
-
-                height: "100vh",
-
-                zIndex: "999999",
-
-                display: "flex",
-
-                justifyContent: "center",
-
-                alignItems: "center",
-
-                overflow: "hidden",
-
-                background: "#000",
-
-                opacity: "1",
-
-                visibility: "visible",
-
-                pointerEvents: "none"
-
-            }
-        );
-
-
-        const image =
-            document.createElement(
-                "img"
-            );
-
-
-        image.src =
-            IMPACT_IMAGE;
-
-
-        image.alt =
-            "";
-
-
-        Object.assign(
-            image.style,
-            {
-
-                display: "block",
-
-                width: "100%",
-
-                height: "100%",
-
-                objectFit: "cover"
-
-            }
-        );
-
-
-        impact.appendChild(
-            image
-        );
-
-
-        document.body.appendChild(
-            impact
-        );
-
-
-        return impact;
-
-    }
-
-
-    /*
-     * ========================================
-     * PLAY SCREAM
-     * ========================================
-     */
-
-    function playScream() {
-
-
-        /*
-         * If the browser has not allowed
-         * audio yet, try to initialize it.
-         */
-
-        if (!audioContext) {
-
-            initializeAudio();
-
-        }
-
-
-        if (!audioContext) {
-
-            return;
-
-        }
-
-
-        /*
-         * Resume the context.
-         */
-
-        if (
-            audioContext.state ===
-            "suspended"
-        ) {
-
-            audioContext.resume();
-
-        }
-
-
-        const now =
-            audioContext.currentTime;
-
-
-        /*
-         * ========================================
-         * MASTER
-         * ========================================
-         */
-
-        const master =
-            audioContext.createGain();
-
-
-        master.gain.setValueAtTime(
-            0,
-            now
-        );
-
-
-        master.gain.linearRampToValueAtTime(
-            1.0,
-            now + 0.01
-        );
-
-
-        master.gain.exponentialRampToValueAtTime(
-            0.001,
-            now + 1.25
-        );
-
-
-        /*
-         * ========================================
-         * DISTORTION
-         * ========================================
-         */
-
-        const distortion =
-            audioContext.createWaveShaper();
-
-
-        const curve =
-            new Float32Array(
-                1024
-            );
-
-
-        for (
-            let i = 0;
-            i < curve.length;
-            i++
-        ) {
-
-            const x =
-                (i * 2) /
-                curve.length -
-                1;
-
-
-            curve[i] =
-                Math.tanh(
-                    x * 6
-                );
-
-        }
-
-
-        distortion.curve =
-            curve;
-
-        distortion.oversample =
-            "4x";
-
-
-        /*
-         * ========================================
-         * MAIN SCREAM
-         * ========================================
-         */
-
-        const scream =
-            audioContext.createOscillator();
-
-
-        scream.type =
-            "sawtooth";
-
-
-        scream.frequency.setValueAtTime(
-            480,
-            now
-        );
-
-
-        scream.frequency.exponentialRampToValueAtTime(
-            2100,
-            now + 0.14
-        );
-
-
-        scream.frequency.exponentialRampToValueAtTime(
-            1200,
-            now + 0.55
-        );
-
-
-        scream.frequency.exponentialRampToValueAtTime(
-            650,
-            now + 1.15
-        );
-
-
-        /*
-         * ========================================
-         * VIBRATO
-         * ========================================
-         */
-
-        const vibrato =
-            audioContext.createOscillator();
-
-
-        const vibratoGain =
-            audioContext.createGain();
-
-
-        vibrato.frequency.value =
-            32;
-
-
-        vibratoGain.gain.value =
-            110;
-
-
-        vibrato.connect(
-            vibratoGain
-        );
-
-
-        vibratoGain.connect(
-            scream.frequency
-        );
-
-
-        /*
-         * ========================================
-         * HIGH HARMONIC
-         * ========================================
-         */
-
-        const harmonic =
-            audioContext.createOscillator();
-
-
-        const harmonicGain =
-            audioContext.createGain();
-
-
-        harmonic.type =
-            "triangle";
-
-
-        harmonic.frequency.setValueAtTime(
-            960,
-            now
-        );
-
-
-        harmonic.frequency.exponentialRampToValueAtTime(
-            3200,
-            now + 0.15
-        );
-
-
-        harmonic.frequency.exponentialRampToValueAtTime(
-            1300,
-            now + 1.1
-        );
-
-
-        harmonicGain.gain.setValueAtTime(
-            0,
-            now
-        );
-
-
-        harmonicGain.gain.linearRampToValueAtTime(
-            0.4,
-            now + 0.015
-        );
-
-
-        harmonicGain.gain.exponentialRampToValueAtTime(
-            0.001,
-            now + 1.15
-        );
-
-
-        /*
-         * ========================================
-         * CONNECT
-         * ========================================
-         */
-
-        scream.connect(
-            distortion
-        );
-
-
-        harmonic.connect(
-            harmonicGain
-        );
-
-
-        harmonicGain.connect(
-            distortion
-        );
-
-
-        distortion.connect(
-            master
-        );
-
-
-        master.connect(
-            audioContext.destination
-        );
-
-
-        /*
-         * ========================================
-         * ECHO
-         * ========================================
-         */
-
-        const echo =
-            audioContext.createDelay(
-                1
-            );
-
-
-        const echoGain =
-            audioContext.createGain();
-
-
-        echo.delayTime.value =
-            0.18;
-
-
-        echoGain.gain.value =
-            0.35;
-
-
-        master.connect(
-            echo
-        );
-
-
-        echo.connect(
-            echoGain
-        );
-
-
-        echoGain.connect(
-            audioContext.destination
-        );
-
-
-        /*
-         * ========================================
-         * START
-         * ========================================
-         */
-
-        scream.start(now);
-
-        harmonic.start(now);
-
-        vibrato.start(now);
-
-
-        /*
-         * ========================================
-         * STOP
-         * ========================================
-         */
-
-        scream.stop(
-            now + 1.3
-        );
-
-        harmonic.stop(
-            now + 1.3
-        );
-
-        vibrato.stop(
-            now + 1.3
-        );
-
-    }
-
-
-    /*
-     * ========================================
-     * TRIGGER
-     * ========================================
-     */
-
-    function triggerImpact() {
-
-        if (triggered) {
-
-            return;
-
-        }
-
-
-        triggered =
-            true;
-
-
-        /*
-         * Create image.
-         */
-
-        const impact =
-            createImpact();
-
-
-        /*
-         * Start sound.
-         */
-
-        playScream();
-
-
-        /*
-         * Remove image.
-         */
-
-        setTimeout(
-            function () {
-
-                if (
-                    impact &&
-                    impact.parentNode
-                ) {
-
-                    impact.parentNode.removeChild(
-                        impact
-                    );
-
-                }
-
-            },
-            IMPACT_DURATION
-        );
-
-    }
-
-
-    /*
-     * ========================================
-     * WAIT FOR "SOON"
-     * ========================================
-     */
-
-    if (soonFinal) {
-
-        soonFinal.addEventListener(
-            "animationend",
-            function (event) {
-
-                if (
-                    event.target !==
-                    soonFinal
-                ) {
-
-                    return;
-
-                }
-
-
-                triggerImpact();
-
-            },
-            {
-                once: true
-            }
-        );
-
-    }
-
-})();
+</html>
