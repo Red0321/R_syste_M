@@ -10,9 +10,6 @@
 
     <link rel="stylesheet"
           href="css/style.css?v=35">
-
-    <link rel="stylesheet"
-          href="css/soon.css?v=1">
 </head>
 
 <body>
@@ -78,36 +75,6 @@
     </main>
 
 
-    <!-- ========================================
-         IMPACT
-    ========================================= -->
-
-    <div
-        id="soon-impact"
-        class="soon-impact">
-
-        <img
-            src="images/soon/impact.png"
-            alt="">
-
-    </div>
-
-
-    <!-- ========================================
-         SOUND
-    ========================================= -->
-
-    <audio
-        id="soon-sound"
-        preload="auto">
-
-        <source
-            src="music/soon-impact.mp3"
-            type="audio/mpeg">
-
-    </audio>
-
-
     <!-- SYSTEM -->
 
     <script src="js/system.js?v=35"></script>
@@ -119,8 +86,15 @@
 
         /*
          * ========================================
-         * SOON — IMPACT
+         * SOON — IMPACT SYSTEM
          * ========================================
+         *
+         * The visual and sound effect are
+         * generated directly by the browser.
+         *
+         * No MP3.
+         * No additional CSS.
+         *
          */
 
 
@@ -130,16 +104,512 @@
             );
 
 
-        const soonImpact =
-            document.getElementById(
-                "soon-impact"
+        let soonTriggered = false;
+
+
+        /*
+         * ========================================
+         * CREATE IMPACT SCREEN
+         * ========================================
+         */
+
+        function createSoonImpact() {
+
+            const impact =
+                document.createElement(
+                    "div"
+                );
+
+
+            impact.id =
+                "soon-impact";
+
+
+            /*
+             * Full-screen appearance.
+             */
+
+            impact.style.position =
+                "fixed";
+
+            impact.style.top =
+                "0";
+
+            impact.style.left =
+                "0";
+
+            impact.style.width =
+                "100vw";
+
+            impact.style.height =
+                "100vh";
+
+            impact.style.zIndex =
+                "999999";
+
+
+            impact.style.background =
+                "#000";
+
+
+            impact.style.display =
+                "flex";
+
+            impact.style.justifyContent =
+                "center";
+
+            impact.style.alignItems =
+                "center";
+
+
+            impact.style.overflow =
+                "hidden";
+
+
+            /*
+             * No transition.
+             *
+             * The image must appear
+             * immediately.
+             */
+
+            impact.style.opacity =
+                "1";
+
+
+            impact.style.pointerEvents =
+                "none";
+
+
+            /*
+             * ========================================
+             * IMAGE
+             * ========================================
+             */
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+
+            image.src =
+                "images/soon/impact.png";
+
+
+            image.alt =
+                "";
+
+
+            image.style.width =
+                "100%";
+
+            image.style.height =
+                "100%";
+
+            image.style.objectFit =
+                "cover";
+
+
+            image.style.display =
+                "block";
+
+
+            impact.appendChild(
+                image
             );
 
 
-        const soonSound =
-            document.getElementById(
-                "soon-sound"
+            document.body.appendChild(
+                impact
             );
+
+
+            return impact;
+
+        }
+
+
+        /*
+         * ========================================
+         * GENERATE HORROR SCREAM
+         * ========================================
+         *
+         * The browser generates the sound
+         * directly using Web Audio API.
+         *
+         */
+
+
+        function playSoonScream() {
+
+
+            const AudioContext =
+                window.AudioContext ||
+                window.webkitAudioContext;
+
+
+            if (!AudioContext) {
+
+                return;
+
+            }
+
+
+            const audioContext =
+                new AudioContext();
+
+
+            /*
+             * Resume the audio context if
+             * the browser has suspended it.
+             */
+
+            if (
+                audioContext.state ===
+                "suspended"
+            ) {
+
+                audioContext.resume();
+
+            }
+
+
+            const now =
+                audioContext.currentTime;
+
+
+            /*
+             * ========================================
+             * MASTER
+             * ========================================
+             */
+
+            const master =
+                audioContext.createGain();
+
+
+            master.gain.setValueAtTime(
+                0.0,
+                now
+            );
+
+
+            master.gain.linearRampToValueAtTime(
+                0.95,
+                now + 0.012
+            );
+
+
+            master.gain.exponentialRampToValueAtTime(
+                0.001,
+                now + 1.35
+            );
+
+
+            /*
+             * ========================================
+             * DISTORTION
+             * ========================================
+             */
+
+            const distortion =
+                audioContext.createWaveShaper();
+
+
+            const curve =
+                new Float32Array(
+                    1024
+                );
+
+
+            for (
+                let i = 0;
+                i < curve.length;
+                i++
+            ) {
+
+                const x =
+                    (i * 2) /
+                    curve.length -
+                    1;
+
+
+                curve[i] =
+                    Math.tanh(
+                        x * 5
+                    );
+
+            }
+
+
+            distortion.curve =
+                curve;
+
+
+            distortion.oversample =
+                "4x";
+
+
+            /*
+             * ========================================
+             * MAIN SCREAM
+             * ========================================
+             */
+
+            const scream =
+                audioContext.createOscillator();
+
+
+            scream.type =
+                "sawtooth";
+
+
+            scream.frequency.setValueAtTime(
+                520,
+                now
+            );
+
+
+            scream.frequency.exponentialRampToValueAtTime(
+                1850,
+                now + 0.16
+            );
+
+
+            scream.frequency.exponentialRampToValueAtTime(
+                1050,
+                now + 0.72
+            );
+
+
+            scream.frequency.exponentialRampToValueAtTime(
+                620,
+                now + 1.25
+            );
+
+
+            /*
+             * ========================================
+             * VIBRATO
+             * ========================================
+             */
+
+            const vibrato =
+                audioContext.createOscillator();
+
+
+            const vibratoGain =
+                audioContext.createGain();
+
+
+            vibrato.frequency.value =
+                31;
+
+
+            vibratoGain.gain.value =
+                105;
+
+
+            vibrato.connect(
+                vibratoGain
+            );
+
+
+            vibratoGain.connect(
+                scream.frequency
+            );
+
+
+            /*
+             * ========================================
+             * HARMONICS
+             * ========================================
+             */
+
+            const harmonic =
+                audioContext.createOscillator();
+
+
+            const harmonicGain =
+                audioContext.createGain();
+
+
+            harmonic.type =
+                "triangle";
+
+
+            harmonic.frequency.setValueAtTime(
+                1040,
+                now
+            );
+
+
+            harmonic.frequency.exponentialRampToValueAtTime(
+                2700,
+                now + 0.18
+            );
+
+
+            harmonic.frequency.exponentialRampToValueAtTime(
+                1150,
+                now + 1.2
+            );
+
+
+            harmonicGain.gain.setValueAtTime(
+                0.0,
+                now
+            );
+
+
+            harmonicGain.gain.linearRampToValueAtTime(
+                0.35,
+                now + 0.02
+            );
+
+
+            harmonicGain.gain.exponentialRampToValueAtTime(
+                0.001,
+                now + 1.25
+            );
+
+
+            /*
+             * ========================================
+             * CONNECTIONS
+             * ========================================
+             */
+
+            scream.connect(
+                distortion
+            );
+
+
+            harmonic.connect(
+                harmonicGain
+            );
+
+
+            harmonicGain.connect(
+                distortion
+            );
+
+
+            distortion.connect(
+                master
+            );
+
+
+            master.connect(
+                audioContext.destination
+            );
+
+
+            /*
+             * ========================================
+             * ECHO
+             * ========================================
+             */
+
+            const echo =
+                audioContext.createDelay(
+                    1.0
+                );
+
+
+            const echoGain =
+                audioContext.createGain();
+
+
+            echo.delayTime.value =
+                0.18;
+
+
+            echoGain.gain.value =
+                0.32;
+
+
+            master.disconnect();
+
+
+            master.connect(
+                audioContext.destination
+            );
+
+
+            master.connect(
+                echo
+            );
+
+
+            echo.connect(
+                echoGain
+            );
+
+
+            echoGain.connect(
+                audioContext.destination
+            );
+
+
+            /*
+             * ========================================
+             * START
+             * ========================================
+             */
+
+            scream.start(
+                now
+            );
+
+
+            harmonic.start(
+                now
+            );
+
+
+            vibrato.start(
+                now
+            );
+
+
+            /*
+             * ========================================
+             * STOP
+             * ========================================
+             */
+
+            scream.stop(
+                now + 1.4
+            );
+
+
+            harmonic.stop(
+                now + 1.4
+            );
+
+
+            vibrato.stop(
+                now + 1.4
+            );
+
+
+            /*
+             * Close the audio context after
+             * the effect has finished.
+             */
+
+            setTimeout(
+                function () {
+
+                    audioContext.close();
+
+                },
+                1800
+            );
+
+        }
 
 
         /*
@@ -150,45 +620,57 @@
 
         function triggerSoonImpact() {
 
+
             /*
-             * Show the visual.
+             * Prevent the effect from
+             * triggering twice.
              */
 
-            soonImpact.classList.add(
-                "active"
-            );
+            if (soonTriggered) {
+
+                return;
+
+            }
+
+
+            soonTriggered =
+                true;
 
 
             /*
-             * Play sound.
+             * Create the image first.
              */
 
-            soonSound.currentTime = 0;
-
-            soonSound.play()
-                .catch(
-                    function (error) {
-
-                        console.log(
-                            "SOON — audio blocked.",
-                            error
-                        );
-
-                    }
-                );
+            const impact =
+                createSoonImpact();
 
 
             /*
-             * Remove the impact after
+             * Start the sound immediately
+             * after the visual is inserted.
+             */
+
+            playSoonScream();
+
+
+            /*
+             * Remove everything after
              * approximately one second.
              */
 
             setTimeout(
                 function () {
 
-                    soonImpact.classList.remove(
-                        "active"
-                    );
+                    if (
+                        impact &&
+                        impact.parentNode
+                    ) {
+
+                        impact.parentNode.removeChild(
+                            impact
+                        );
+
+                    }
 
                 },
                 1000
@@ -202,9 +684,9 @@
          * WAIT FOR "SOON"
          * ========================================
          *
-         * The impact happens only after
-         * the animation of .soon-final
-         * has completely finished.
+         * The jumpscare occurs exactly when
+         * the animation of .soon-final ends.
+         *
          */
 
         if (soonFinal) {
@@ -213,8 +695,10 @@
                 "animationend",
                 function (event) {
 
+
                     /*
-                     * Ignore nested animations.
+                     * Ignore animations coming
+                     * from nested elements.
                      */
 
                     if (
